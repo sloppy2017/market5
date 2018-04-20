@@ -1,0 +1,67 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+server:
+  port: 8012
+    
+    
+wallet:
+  rootPath: c:\\ecowallet
+  # 测试网络
+  #privateKey: EF6C9301CC68832D492563E53EF003091E199530E635252AC2D476F6AD6344EC2C60D261603EF494E21E6B6E644B9BA6DAAD0509C1EF47A4C55F9CED4999BBD8
+  privateKey: 9271115F77A87D37B2737237E30C35BE780C41360D2E06F94A191E91F257DC23270BD11F4F0A866889AF73EAF37742BC0C1C21553DC1A9C2CBE684A51F328667
+
+BTC:
+  wallet:
+    hot:
+      AmountLimit: 500
+
+spring:
+  zipkin:
+    base-url: http://peer:8090
+  application:
+    name: eco-currency-service
+    datasource:
+      readSize: 1
+      url: jdbc:mysql://172.31.1.100:3306/coin?useUnicode=true&characterEncoding=UTF-8
+      username: kaifa
+      password: y9k(s*DlexrrYrq$m4W
+      driverClassName: com.mysql.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      initialSize: 5
+      minIdle: 5
+      max-active: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,log4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      druid:
+        initial-size: 1
+        min-idle: 1
+        max-active: 20
+        test-on-borrow: true
+        stat-view-servlet:
+          allow: true
+
+#  redis:
+#    timeout: 20000
+#    cluster:
+#      nodes: 172.31.28.196:7000,172.31.28.10:7001,172.31.1.61:7002,172.31.1.10:7003,172.31.1.172:7004,172.31.1.40:7005
+#      maxRedirects: 6
+#    pool:
+#      max-active: 8
+#      min-idle: 0
+#      max-idle: 8
+#      max-wait: -1
+
+#指定log的配置文件，以及记录Spring Boot的log级别  
+logging:
+  config: classpath:logback.xml

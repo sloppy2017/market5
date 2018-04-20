@@ -1,0 +1,83 @@
+eureka:
+    instance:
+        prefer-ip-address: true
+        leaseRenewalIntervalInSeconds: 10
+        metadataMap:
+          cluster: SANCHAIN-SERVICE
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://10.0.11.121:8084/eureka/
+server:
+  port: 8011
+  context-path: /sanchain-service
+   
+mybatis:
+  mapperLocations: classpath:/mybatis/com/c2b/coin/**/mapper/*.xml   
+#wallet:
+#  rootPath: C:\\ecowallet
+#  privateKey: cRBMGxnVXLgydAGHDFTLtFJpCdiLUt5zCTWEn2baJm4m7ubuiBa3
+spring:
+  session:
+    store-type: redis
+  messages:
+    basename: i18n/messages
+#  profiles:
+#    include:
+#      - dev
+  datasource:
+    url: jdbc:mysql://10.0.11.123:3306/coin?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    max-active: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      stat-view-servlet:
+        allow: true
+  activemq:
+    broker-url: failover:(tcp://10.0.11.120:61616,tcp://10.0.11.121:61616,tcp://10.0.11.122:61616)
+#    broker-url: tcp://10.0.11.120:61616
+    in-memory: true
+    pool:
+      enabled: false
+  redis:
+    timeout: 20000
+    cluster:
+      nodes: 10.0.11.123:9001,10.0.11.123:9002,10.0.11.123:9003,10.0.11.123:9004,10.0.11.123:9005,10.0.11.123:9006
+      maxRedirects: 6
+    pool:
+      max-active: 8
+      min-idle: 0
+      max-idle: 8
+      max-wait: -1
+
+      
+
+#指定log的配置文件，以及记录Spring Boot的log级别  
+logging:
+  config: classpath:logback.xml
+sanchain:
+  hotwallet:
+    address:  sJAAc5u9VEdhBRaMoGbLFvfuK16UEoQzN3
+    privateKey: CF1EC4E9D0C2ADE8C44590195FDBA1D84BF68C27872992E83C71E53CB42410DD
+  depositStartIndex: 2006760
+  collectLimit: 1

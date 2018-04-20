@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.user.mapper.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.user.entity.LoginLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="login_time" property="loginTime" jdbcType="BIGINT" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="brower" property="brower" jdbcType="VARCHAR" />
+    <result column="terminal" property="terminal" jdbcType="VARCHAR" />
+    <result column="rom_version" property="romVersion" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="login_address" property="loginAddress" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

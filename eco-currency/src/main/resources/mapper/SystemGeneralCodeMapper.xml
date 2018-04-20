@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.wallet.mapper.SystemGeneralCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.wallet.entity.SystemGeneralCode" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="code_value" property="codeValue" jdbcType="VARCHAR" />
+    <result column="code_name" property="codeName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="readonly" property="readonly" jdbcType="CHAR" />
+    <result column="uplimit" property="uplimit" jdbcType="BIGINT" />
+    <result column="lowlimit" property="lowlimit" jdbcType="BIGINT" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, group_id, code_value, code_name, description, readonly, uplimit, lowlimit, remark1, 
+    remark2, remark3, remark4, remark5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_general_code
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from system_general_code
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.c2b.wallet.entity.SystemGeneralCode" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select  replace(uuid(),'-','')   from dual  
+    </selectKey>
+    insert into system_general_code (id, group_id, code_value, 
+      code_name, description, readonly, 
+      uplimit, lowlimit, remark1, 
+      remark2, remark3, remark4, 
+      remark5)
+    values (#{id,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, #{codeValue,jdbcType=VARCHAR}, 
+      #{codeName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{readonly,jdbcType=CHAR}, 
+      #{uplimit,jdbcType=BIGINT}, #{lowlimit,jdbcType=BIGINT}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.c2b.wallet.entity.SystemGeneralCode" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select  replace(uuid(),'-','')   from dual  
+    </selectKey>
+    insert into system_general_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="codeValue != null" >
+        code_value,
+      </if>
+      <if test="codeName != null" >
+        code_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="readonly != null" >
+        readonly,
+      </if>
+      <if test="uplimit != null" >
+        uplimit,
+      </if>
+      <if test="lowlimit != null" >
+        lowlimit,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      <if test="groupId != null" >
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="readonly != null" >
+        #{readonly,jdbcType=CHAR},
+      </if>
+      <if test="uplimit != null" >
+        #{uplimit,jdbcType=BIGINT},
+      </if>
+      <if test="lowlimit != null" >
+        #{lowlimit,jdbcType=BIGINT},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.c2b.wallet.entity.SystemGeneralCode" >
+    update system_general_code
+    <set >
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        code_value = #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="readonly != null" >
+        readonly = #{readonly,jdbcType=CHAR},
+      </if>
+      <if test="uplimit != null" >
+        uplimit = #{uplimit,jdbcType=BIGINT},
+      </if>
+      <if test="lowlimit != null" >
+        lowlimit = #{lowlimit,jdbcType=BIGINT},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.c2b.wallet.entity.SystemGeneralCode" >
+    update system_general_code
+    set group_id = #{groupId,jdbcType=VARCHAR},
+      code_value = #{codeValue,jdbcType=VARCHAR},
+      code_name = #{codeName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      readonly = #{readonly,jdbcType=CHAR},
+      uplimit = #{uplimit,jdbcType=BIGINT},
+      lowlimit = #{lowlimit,jdbcType=BIGINT},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findCode" parameterType="java.lang.String" resultType="map">    
+        SELECT   
+        a.group_code ,
+        a.group_name ,
+        b.*
+        from system_code_group a ,system_general_code b 
+        where a.id = b.group_id 
+        and a.group_code =#{groupcode}  
+     </select>
+   <select id="findCodeValue" parameterType="java.lang.String" resultMap="BaseResultMap">    
+        SELECT   
+       
+        b.code_name,b.code_value
+        from system_code_group a ,system_general_code b 
+        where a.id = b.group_id 
+        and a.group_code = #{groupcode}  
+     </select>
+</mapper>

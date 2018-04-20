@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: meaasge-server
+
+#logging 配置
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.web: debug
+    com.dynamo.mail: debug
+
+

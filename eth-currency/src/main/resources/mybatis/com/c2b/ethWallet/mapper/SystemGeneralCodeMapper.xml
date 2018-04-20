@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.ethWallet.mapper.SystemGeneralCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.ethWallet.entity.SystemGeneralCode" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="code_value" property="codeValue" jdbcType="VARCHAR" />
+    <result column="code_name" property="codeName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="readonly" property="readonly" jdbcType="CHAR" />
+    <result column="uplimit" property="uplimit" jdbcType="VARCHAR" />
+    <result column="lowlimit" property="lowlimit" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findCode" parameterType="java.lang.String" resultType="map">    
+        SELECT   
+        a.group_code ,
+        a.group_name ,
+        b.*
+        from system_code_group a ,system_general_code b 
+        where a.id = b.group_id 
+        and a.group_code =#{groupcode}  
+     </select>
+</mapper>

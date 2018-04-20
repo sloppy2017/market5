@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.user.mapper.UserRegInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.user.entity.UserRegInfo" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="terminal" property="terminal" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="rom" property="rom" jdbcType="VARCHAR" />
+    <result column="rom_version" property="romVersion" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="activiy_code" property="activiyCode" jdbcType="BIGINT" />
+    <result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

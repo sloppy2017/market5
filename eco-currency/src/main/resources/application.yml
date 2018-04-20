@@ -1,0 +1,115 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://10.0.11.122:8084/eureka/,http://10.0.11.121:8084/eureka/
+server:
+    port: 8010
+    
+    
+wallet:
+    rootPath: c:\\ecowallet    
+    # 测试网络
+    #privateKey: EF6C9301CC68832D492563E53EF003091E199530E635252AC2D476F6AD6344EC2C60D261603EF494E21E6B6E644B9BA6DAAD0509C1EF47A4C55F9CED4999BBD8
+    privateKey: 9271115F77A87D37B2737237E30C35BE780C41360D2E06F94A191E91F257DC23270BD11F4F0A866889AF73EAF37742BC0C1C21553DC1A9C2CBE684A51F328667
+    
+#SAN:
+#    wallet:
+#      address: "srTX2Vvdb2WmBVhRcLnE8BVcyB7pMd393n"
+#      password: "FE155D51D5E7D4F77B0743AEAA442C5FE40B45B11C49D1417EC5F8927D47435C"
+
+BTC:
+    wallet:
+        hot:
+            AmountLimit: 500
+
+#ETH:
+#    wallet:
+#        hot:
+#            address: "0x81f63b559e463e29a68b04c92ae43980a3877c57"
+#            AmountLimit: 500
+#            password: 12345678
+#        cold:
+#            address: "0xa5eab17379cfba2b33e2f94dce98c29027d9464a"
+#
+#
+#    withdrawFee: 0.01   #单位:ETH
+#    IP: "10.0.11.212:8545"
+#
+#OMG:
+#    tokenAddress: "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07"
+#    withdrawFee : 0.0015  #提现的交易费0.0015
+
+
+spring:
+    application:
+      name: eco-currency-service
+        # 使用druid数据源
+    datasource:
+      readSize: 1
+      url: jdbc:mysql://10.0.11.123:3306/coin
+      username: root
+      password: 123456
+      driverClassName: com.mysql.jdbc.Driver
+      validationQuery: select 'x'
+
+#      type: com.alibaba.druid.pool.DruidDataSource
+#      initialSize: 5
+#      minIdle: 5
+#      max-active: 20
+#      maxWait: 60000
+#      timeBetweenEvictionRunsMillis: 60000
+#      minEvictableIdleTimeMillis: 300000
+#      validationQuery: SELECT 1 FROM DUAL
+#      testWhileIdle: true
+#      testOnBorrow: false
+#      testOnReturn: false
+#      poolPreparedStatements: true
+#      maxPoolPreparedStatementPerConnectionSize: 20
+#      filters: stat,wall,log4j
+#      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#      druid:
+#        initial-size: 1
+#        min-idle: 1
+#        max-active: 20
+#        test-on-borrow: true
+#        stat-view-servlet:
+#          allow: true
+
+#    redis:
+#        database: 1
+#        host: 10.0.11.125
+#        password: isanjie123
+#        port: 6379
+#        pool:
+#            max-idle: 200
+#            min-idle: -1
+#            max-active: 1024
+#            max-wait: -1
+            
+#    mail:
+#        host: smtp.gmail.com
+#        username: SourceService001@gmail.com
+#        password: G@#Rfwa51
+#        properties:
+#            mail:
+#                smtp:
+#                    auth: true
+#                    starttls:
+#                        enable: true
+#                    EnableSSL:
+#                        enable: true
+#                    timeout: 250000
+#                    socketFactory:
+#                        port: 465
+#                        class: javax.net.ssl.SSLSocketFactory
+
+#    rabbitmq:
+#        host: 192.168.2.71
+#        port: 5672
+#        username: hxb
+#        password: hxb
+
+
+#指定log的配置文件，以及记录Spring Boot的log级别  
+logging:
+    config: classpath:logback.xml

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" name="RoutingTest">
+    <Properties>
+        <Property name="filename">/tmp/examples-all.log</Property>
+    </Properties>
+    <ThresholdFilter level="debug"/>
+    <Appenders>
+        <Console name="CONSOLE">
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss} %5p %c{1} [%L]-%m%n"/>
+        </Console>
+        <Routing name="FILE-ALL">
+            <Routes pattern="async">
+                <Route>
+                    <RollingFile name="Rolling-async" fileName="${filename}"
+                                 filePattern="/tmp/examples-all.%d{yyyy-MM-dd}.%i.log.gz">
+                        <PatternLayout>
+                            <pattern>%-d{yyyy-MM-dd HH:mm:ss} %5p %c{1} [%L]-%m%n</pattern>
+                        </PatternLayout>
+                        <SizeBasedTriggeringPolicy size="${log4j.rolling.maxSize}" />
+                    </RollingFile>
+                </Route>
+                <Route ref="Console" key="Audit"/>
+            </Routes>
+        </Routing>
+    </Appenders>
+
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="FILE-ALL"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,63 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://gitlab.czb365.com/jianghongyan/config-repo.git
+          searchPaths: /config-repo/**
+          username: jianghongyan
+          password: a3135798
+          default-label: master
+      uri: http://${spring.application.name}
+      discovery:
+        service-id: ${spring.application.name}
+  profiles:
+    active: @profileActive@
+
+#logging 配置
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.web: debug
+    com.unis: debug
+
+---
+spring:
+  profiles: dev,default
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+---
+spring:
+  profiles: release
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer1:8081/eureka/
+---
+spring:
+  profiles: prod
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/

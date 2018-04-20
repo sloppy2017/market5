@@ -1,0 +1,127 @@
+
+spring:
+  messages:
+    basename: i18n/messages
+  cache:
+    type: redis
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    max-active: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      stat-view-servlet:
+        allow: true
+  redis:
+    timeout: 20000
+    cluster:
+      maxRedirects: 6
+    pool:
+      max-active: 8
+      min-idle: 0
+      max-idle: 8
+      max-wait: -1
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://172.31.1.100:3306/coin?useUnicode=true&characterEncoding=UTF-8
+    username: kaifa
+    password: y9k(s*DlexrrYrq$m4W
+  redis:
+    cluster:
+      nodes: 172.31.28.196:9001,172.31.28.10:9002,172.31.1.61:9003
+ETH:
+  hot:
+    address: "0x8ba9ce692a4142c2e21d56100c9fa45eec4946a6"
+    privateKey: 3DB53E91349D2BED218B94DED3A686FF9311D168A7B89CD91EFD73E280714B3594E9B636EF3E6663D09335ED71CA14F318F2612E3E59B609AD1375A8CEFF00B3913C4C7B0D39FC13878F439C9F259818
+zg:
+  contractAddress: "0x118121E24289E644E410b4c6e451b962097bC103"
+  hotAddress: "0x4330b5b4eb40c86222ce1c6f264381f9188516db"
+  hotWalletPrivateKey: 00EEC0D3C34F4484131AA26F95F98F9F592A7D79CC5F8C4DC753F237AE2357DF90AB9B07192BD644718D7A8083F92AD67240BC1D62935B756E2C7047286F69BC735B28698B87427FB766A6110AB05343
+  minGatherVal: 0
+OMG:
+  contractAddress: "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07"
+  hotAddress: "0x8ba9ce692a4142c2e21d56100c9fa45eec4946a6"
+  hotWalletPrivateKey: 3DB53E91349D2BED218B94DED3A686FF9311D168A7B89CD91EFD73E280714B3594E9B636EF3E6663D09335ED71CA14F318F2612E3E59B609AD1375A8CEFF00B3913C4C7B0D39FC13878F439C9F259818
+  minGatherVal: 1
+SNT:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+GNT:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+POWR:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+PKT:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+---
+spring:
+  profiles: default, dev
+  datasource:
+    url: jdbc:mysql://10.0.11.123:3306/coin?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+  redis:
+    cluster:
+      nodes: 10.0.11.123:9001,10.0.11.123:9002,10.0.11.123:9003,10.0.11.123:9004,10.0.11.123:9005,10.0.11.123:9006
+ETH:
+  hot:
+    address: "0x8ba9ce692a4142c2e21d56100c9fa45eec4946a6"
+    privateKey: 3DB53E91349D2BED218B94DED3A686FF9311D168A7B89CD91EFD73E280714B3594E9B636EF3E6663D09335ED71CA14F318F2612E3E59B609AD1375A8CEFF00B3913C4C7B0D39FC13878F439C9F259818
+zg:
+  contractAddress: "0x118121E24289E644E410b4c6e451b962097bC103"
+  hotAddress: "0x4330b5b4eb40c86222ce1c6f264381f9188516db"
+  hotWalletPrivateKey: 00EEC0D3C34F4484131AA26F95F98F9F592A7D79CC5F8C4DC753F237AE2357DF90AB9B07192BD644718D7A8083F92AD67240BC1D62935B756E2C7047286F69BC735B28698B87427FB766A6110AB05343
+  minGatherVal: 0
+OMG:
+  contractAddress: "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07"
+  hotAddress: "0x8ba9ce692a4142c2e21d56100c9fa45eec4946a6"
+  hotWalletPrivateKey: 3DB53E91349D2BED218B94DED3A686FF9311D168A7B89CD91EFD73E280714B3594E9B636EF3E6663D09335ED71CA14F318F2612E3E59B609AD1375A8CEFF00B3913C4C7B0D39FC13878F439C9F259818
+  minGatherVal: 1
+SNT:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+GNT:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+POWR:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0
+PKT:
+  contractAddress: ""
+  hotAddress: ""
+  hotWalletPrivateKey: ""
+  minGatherVal: 0

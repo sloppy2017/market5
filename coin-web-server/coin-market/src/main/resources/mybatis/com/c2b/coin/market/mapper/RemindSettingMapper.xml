@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c2b.coin.market.mapper.RemindSettingMapper">
+  <resultMap id="BaseResultMap" type="com.c2b.coin.market.entity.RemindSetting">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="upper_limit" jdbcType="DECIMAL" property="upperLimit" />
+    <result column="lower_limit" jdbcType="DECIMAL" property="lowerLimit" />
+    <result column="system" jdbcType="INTEGER" property="system" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+</mapper>

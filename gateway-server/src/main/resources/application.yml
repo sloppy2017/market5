@@ -1,0 +1,146 @@
+server:
+  port: 8088
+  session:
+    timeout: 600
+    cookie:
+      http-only: true
+  tomcat:
+    max-connections: 2000
+    max-threads: 5000
+
+#logging 配置
+logging:
+  config: classpath:logback.xml
+
+spring:
+  profiles:
+    active: @profileActive@
+  zipkin:
+    base-url: http://peer:8090
+  session:
+    store-type: redis
+  application:
+    name: gateway-service
+  redis:
+    timeout: 20000
+    cluster:
+      maxRedirects: 6
+    pool:
+      max-active: 8
+      min-idle: 0
+      max-idle: 8
+      max-wait: -1
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 60000
+zuul:
+  max:
+    host:
+      connections: 5000
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  routes:
+#    intelligentsia-authority:
+#      sensitiveHeaders: Authorization
+#    api-a:
+#      path: /api-a/**
+#      serviceId: TRADE-SERVICE
+    api-user:
+      path: /api/user/**
+      sensitiveHeaders:
+      serviceId: coin-user
+    api-account:
+      path: /api/account/**
+      sensitiveHeaders:
+      serviceId: coin-account
+    api-trade:
+      path: /api/trade/**
+      sensitiveHeaders:
+      serviceId: coin-trade
+    api-market:
+      path: /api/market/**
+      sensitiveHeaders:
+      serviceId: coin-market
+    api-file:
+        path: /api/file/**
+        sensitiveHeaders:
+        serviceId: coin-file
+#    attention:
+#      path: /**
+#      serviceId: coin-account
+## 负载均衡配置
+coin-user:
+  ribbon:
+    DeploymentContextBasedVipAddresses: coin-user
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule # Ribbon的负载均衡策略
+    ReadTimeout: 50000
+    MaxAutoRetries: 1
+coin-account:
+  ribbon:
+    DeploymentContextBasedVipAddresses: coin-account
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule # Ribbon的负载均衡策略
+    ReadTimeout: 50000
+    MaxAutoRetries: 1
+coin-market:
+  ribbon:
+    DeploymentContextBasedVipAddresses: coin-market
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+    ReadTimeout: 50000
+    MaxAutoRetries: 1
+coin-trade:
+  ribbon:
+    DeploymentContextBasedVipAddresses: coin-trade
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+    ReadTimeout: 50000
+    MaxAutoRetries: 1
+coin-file:
+  ribbon:
+    DeploymentContextBasedVipAddresses: coin-file
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule # Ribbon的负载均衡策略
+    ReadTimeout: 600000
+    MaxAutoRetries: 1
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+
+---
+spring:
+  profiles: default,dev
+  redis:
+    cluster:
+      nodes: redis1:9001,redis2:9002,redis3:9003
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://peer:8084/eureka/
+---
+spring:
+  profiles: release
+  redis:
+    cluster:
+      nodes: redis1:9001,redis2:9002,redis3:9003
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://peer:8084/eureka/
+---
+spring:
+  profiles: prod
+  redis:
+    cluster:
+      nodes: redis1:9001,redis2:9002,redis3:9003
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+

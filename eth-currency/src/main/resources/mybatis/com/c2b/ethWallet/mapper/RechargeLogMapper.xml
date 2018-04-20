@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.ethWallet.mapper.RechargeLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.ethWallet.entity.RechargeLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="from_address" property="fromAddress" jdbcType="VARCHAR" />
+    <result column="syscode" property="syscode" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="by_account" property="byAccount" jdbcType="VARCHAR" />
+    <result column="free" property="free" jdbcType="DECIMAL" />
+    <result column="tx_hash" property="txHash" jdbcType="VARCHAR" />
+    <result column="to_address" property="toAddress" jdbcType="VARCHAR" />
+    <result column="to_account" property="toAccount" jdbcType="VARCHAR" />
+    <result column="is_concentrate" property="isConcentrate" jdbcType="VARCHAR" />
+    <result column="concentrate_type" property="concentrateType" jdbcType="VARCHAR" />
+    <result column="concentrate_msg" property="concentrateMsg" jdbcType="VARCHAR" />
+    <result column="is_send" property="isSend" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, from_address, syscode, money, status, currency, order_no, create_time, update_time, 
+    by_account, free, tx_hash, to_address, to_account, is_concentrate, concentrate_type, 
+    concentrate_msg
+  </sql>
+  <select id="listRechargeRecordByGather" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      ico_recharge_log
+    where
+      currency ='ETH'
+    and
+      status = 3
+    and
+      money > 0
+    and
+      is_concentrate = 0
+  </select>
+  <update id="updateRechargeRecordByTxHash" parameterType="com.c2b.ethWallet.entity.RechargeLog">
+    update ico_recharge_log
+      set 
+        status = #{status,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+      where  tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <select id="getIcoRechargeRecordByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      ico_recharge_log
+    where
+      currency ='ETH'
+    and
+      order_no = #{orderNo}  
+  </select>
+  <update id="updateIsSend" parameterType="map">
+    update ico_recharge_log
+    set 
+        is_send = #{isSend}
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <select id="listETHSend" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      ico_recharge_log
+    where
+      currency ='ETH'
+    and
+      status = 2
+    order by id desc
+  </select>
+  <select id="getRechargeLogByTxHash" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      ico_recharge_log
+    where
+      currency ='ETH'
+    and
+      tx_hash=#{txHash}
+  </select>
+  <select id="listTOKENSend" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      ico_recharge_log
+    where
+      currency =#{currency}
+    and
+      status = 2
+    order by id desc
+  </select>
+  <select id="listTOKENRechargeByGather" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from
+      ico_recharge_log
+    where
+      currency =#{currency}
+    and
+      status = 3
+    and
+      money > 0
+    and
+      is_concentrate = 0
+  </select>
+</mapper>

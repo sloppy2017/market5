@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c2b.coin.trade.mapper.OrderLogMapper">
+  <resultMap id="BaseResultMap" type="com.c2b.coin.trade.entity.OrderLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="consignation_no" jdbcType="VARCHAR" property="consignationNo" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="made_price" jdbcType="DECIMAL" property="madePrice" />
+    <result column="made_count" jdbcType="DECIMAL" property="madeCount" />
+    <result column="made_time" jdbcType="BIGINT" property="madeTime" />
+    <result column="biz_type" jdbcType="VARCHAR" property="bizType" />
+    <result column="trade_type" jdbcType="VARCHAR" property="tradeType" />
+    <result column="pre_consignation_count" jdbcType="DECIMAL" property="preConsignationCount" />
+    <result column="after_consignation_count" jdbcType="DECIMAL" property="afterConsignationCount" />
+    <result column="consignation_count" jdbcType="DECIMAL" property="consignationCount" />
+    <result column="consignation_price" jdbcType="DECIMAL" property="consignationPrice" />
+    <result column="made_average_price" jdbcType="DECIMAL" property="madeAveragePrice" />
+    <result column="consignation_time" jdbcType="BIGINT" property="consignationTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="poundage" jdbcType="DECIMAL" property="poundage" />
+    <result column="order_type" jdbcType="INTEGER" property="orderType" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, consignation_no, order_no, made_price, made_count, made_time, biz_type, trade_type,
+    pre_consignation_count, after_consignation_count, consignation_count, consignation_price,
+    made_average_price, consignation_time, remark, order_type, user_id
+  </sql>
+
+  <select id="listOrderLog" parameterType="java.lang.String" resultType="map">
+  	select
+    made_price, made_count, made_time, biz_type, trade_type,
+    pre_consignation_count, after_consignation_count, consignation_count, consignation_price,
+    made_average_price, consignation_time, remark, order_type, 
+    case trade_type when 3 then consignation_count when 4 then consignation_count else consignation_count * consignation_price end as consignationTotalMoney,
+    after_consignation_count as unTradeCount
+	from
+		order_log
+	where
+		biz_type = #{bizType}
+	order by made_time desc
+  </select>
+  <update id="updateOrderLog" parameterType="com.c2b.coin.trade.entity.OrderLog">
+    update
+      order_log
+    set
+      made_average_price = #{madeAveragePrice}
+    where
+      consignation_no = #{consignationNo}
+  </update>
+</mapper>

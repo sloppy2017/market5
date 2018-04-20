@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.wallet.mapper.DigitalCoinMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.wallet.entity.DigitalCoin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
+    <result column="coin_full_name" property="coinFullName" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, coin_name, coin_full_name, is_enabled, create_time, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from digital_coin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from digital_coin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.c2b.wallet.entity.DigitalCoin" >
+    insert into digital_coin (id, coin_name, coin_full_name, 
+      is_enabled, create_time, update_time, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{coinName,jdbcType=VARCHAR}, #{coinFullName,jdbcType=VARCHAR}, 
+      #{isEnabled,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.c2b.wallet.entity.DigitalCoin" >
+    insert into digital_coin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="coinName != null" >
+        coin_name,
+      </if>
+      <if test="coinFullName != null" >
+        coin_full_name,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coinName != null" >
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinFullName != null" >
+        #{coinFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.c2b.wallet.entity.DigitalCoin" >
+    update digital_coin
+    <set >
+      <if test="coinName != null" >
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinFullName != null" >
+        coin_full_name = #{coinFullName,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.c2b.wallet.entity.DigitalCoin" >
+    update digital_coin
+    set coin_name = #{coinName,jdbcType=VARCHAR},
+      coin_full_name = #{coinFullName,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectDigitalCoinByCoinName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from digital_coin
+    where coin_name = #{coin_name}
+  </select>
+</mapper>

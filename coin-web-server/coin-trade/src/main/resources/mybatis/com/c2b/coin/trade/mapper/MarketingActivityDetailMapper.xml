@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.trade.mapper.MarketingActivityDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.trade.entity.MarketingActivityDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="activity_target" property="activityTarget" jdbcType="VARCHAR" />
+    <result column="plan_id" property="planId" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

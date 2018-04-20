@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.ethWallet.mapper.WithdrawLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.ethWallet.entity.WithdrawLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="syscode" property="syscode" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="to_address" property="toAddress" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="free" property="free" jdbcType="DECIMAL" />
+    <result column="tx_hash" property="txHash" jdbcType="VARCHAR" />
+    <result column="withdraw_msg" property="withdrawMsg" jdbcType="VARCHAR" />
+    <result column="is_send" property="isSend" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="listETHApprove" resultMap="BaseResultMap">
+    select * from ico_withdraw_log where status='1' and currency='ETH' order by id desc
+  </select>
+  <select id="listETHSend"  resultMap="BaseResultMap">
+    select * from ico_withdraw_log where status='2' and currency='ETH' order by id desc
+  </select>
+  <update id="updateWithdrawRecordByTxHash" parameterType="com.c2b.ethWallet.entity.WithdrawLog">
+    update ico_withdraw_log
+    set 
+        status = #{status,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <update id="updateIsSend" parameterType="map">
+    update ico_withdraw_log
+    set 
+        is_send = #{isSend}
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <select id="getWithdrawLogByHash" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from ico_withdraw_log where currency='ETH' and tx_hash = #{txHash}
+  </select>
+  <select id="listTOKENSend"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from ico_withdraw_log where status='2' and currency=#{currency} order by id desc
+  </select>
+</mapper>

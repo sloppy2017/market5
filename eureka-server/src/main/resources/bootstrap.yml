@@ -1,0 +1,17 @@
+
+spring:
+  application:
+    name: eureke-server
+#  profiles:
+#    active: @profileActive@
+#eureka:
+#  server:
+#    wait-time-in-ms-when-sync-empty: 30
+management:
+  context-path: /admin
+#logging 配置
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.web: debug
+    com.unis: debug

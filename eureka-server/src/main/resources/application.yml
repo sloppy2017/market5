@@ -1,0 +1,25 @@
+
+server:
+  port: 8084
+eureka:
+  instance:
+    hostname: peer
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}:8084
+    preferIpAddress: true
+  client:
+    registerWithEureka: false #此客户端是否从eureka注册表里读取注册表信息，默认为false
+    fetchRegistry: false #此实例在eureka上的注册信息是否被其他服务发现，默认为true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+#    preferSameZoneEureka: true #eureka客户端与服务器在同一zone下，默认为true
+#    useDnsForFetchingServiceUrls: true
+#    eurekaServerDNSName: www.realhostip.com
+#    eurekaServerPort: 8084
+#    eurekaServerURLContext: euraka
+#    region: eureka-service-region
+#    availability-zones:
+#      eureka-service-region: www1,www2
+#  server:
+#    enableSelfPreservation: false # 关闭自我保护模式
+#    renewalPercentThreshold: 0.1

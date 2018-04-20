@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.wallet.mapper.UserCoinMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.wallet.entity.UserCoin" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="private_key" property="privateKey" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, password, currency, address, private_key, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_coin
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_coin
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.c2b.wallet.entity.UserCoin" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select  replace(uuid(),'-','')   from dual  
+    </selectKey>
+    insert into user_coin (id, account, password, 
+      currency, address, private_key, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{privateKey,jdbcType=VARCHAR}, 
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.c2b.wallet.entity.UserCoin" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select  replace(uuid(),'-','')   from dual  
+    </selectKey>
+    insert into user_coin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="privateKey != null" >
+        private_key,
+      </if>
+        create_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null" >
+        #{privateKey,jdbcType=VARCHAR},
+      </if>
+        now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.c2b.wallet.entity.UserCoin" >
+    update user_coin
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null" >
+        private_key = #{privateKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.c2b.wallet.entity.UserCoin" >
+    update user_coin
+    set account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      private_key = #{privateKey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getUserCoinByAddress" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from user_coin where address = #{address}
+  </select>
+  <select id="getUserCoinByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from user_coin where account = #{account}
+  </select>
+  <select id="getAllUserCoin" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from user_coin where currency = #{currency}
+  </select>
+  <select id="getUserCoinByAccountAndCurrency" parameterType="map" resultMap="BaseResultMap">
+  	select * from user_coin where currency = #{currency} and account = #{account}
+  </select>
+</mapper>

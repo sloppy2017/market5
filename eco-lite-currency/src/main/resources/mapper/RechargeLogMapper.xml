@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.wallet.mapper.RechargeLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.wallet.entity.RechargeLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="from_address" property="fromAddress" jdbcType="VARCHAR" />
+    <result column="syscode" property="syscode" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="by_account" property="byAccount" jdbcType="VARCHAR" />
+    <result column="free" property="free" jdbcType="DECIMAL" />
+    <result column="tx_hash" property="txHash" jdbcType="VARCHAR" />
+    <result column="to_address" property="toAddress" jdbcType="VARCHAR" />
+    <result column="to_account" property="toAccount" jdbcType="VARCHAR" />
+    <result column="is_concentrate" property="isConcentrate" jdbcType="VARCHAR" />
+    <result column="concentrate_type" property="concentrateType" jdbcType="VARCHAR" />
+    <result column="concentrate_msg" property="concentrateMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, from_address, syscode, money, status, currency, order_no, create_time, update_time, 
+    by_account, free, tx_hash, to_address, to_account, is_concentrate, concentrate_type, 
+    concentrate_msg
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ico_recharge_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ico_recharge_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.c2b.wallet.entity.RechargeLog" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select  replace(uuid(),'-','')   from dual  
+    </selectKey>
+    insert into ico_recharge_log (id, from_address, syscode, 
+      money, status, currency, 
+      order_no, create_time, update_time, 
+      by_account, free, tx_hash, 
+      to_address, to_account, is_concentrate, 
+      concentrate_type, concentrate_msg)
+    values (#{id,jdbcType=VARCHAR}, #{fromAddress,jdbcType=VARCHAR}, #{syscode,jdbcType=VARCHAR}, 
+      #{money,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{byAccount,jdbcType=VARCHAR}, #{free,jdbcType=DECIMAL}, #{txHash,jdbcType=VARCHAR}, 
+      #{toAddress,jdbcType=VARCHAR}, #{toAccount,jdbcType=VARCHAR}, #{isConcentrate,jdbcType=VARCHAR}, 
+      #{concentrateType,jdbcType=VARCHAR}, #{concentrateMsg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.c2b.wallet.entity.RechargeLog" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="BEFORE" >
+      select  replace(uuid(),'-','')   from dual  
+    </selectKey>
+    insert into ico_recharge_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="fromAddress != null" >
+        from_address,
+      </if>
+      <if test="syscode != null" >
+        syscode,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="byAccount != null" >
+        by_account,
+      </if>
+      <if test="free != null" >
+        free,
+      </if>
+      <if test="txHash != null" >
+        tx_hash,
+      </if>
+      <if test="toAddress != null" >
+        to_address,
+      </if>
+      <if test="toAccount != null" >
+        to_account,
+      </if>
+      <if test="isConcentrate != null" >
+        is_concentrate,
+      </if>
+      <if test="concentrateType != null" >
+        concentrate_type,
+      </if>
+      <if test="concentrateMsg != null" >
+        concentrate_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=VARCHAR},
+      <if test="fromAddress != null" >
+        #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="syscode != null" >
+        #{syscode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="byAccount != null" >
+        #{byAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="free != null" >
+        #{free,jdbcType=DECIMAL},
+      </if>
+      <if test="txHash != null" >
+        #{txHash,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null" >
+        #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccount != null" >
+        #{toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="isConcentrate != null" >
+        #{isConcentrate,jdbcType=VARCHAR},
+      </if>
+      <if test="concentrateType != null" >
+        #{concentrateType,jdbcType=VARCHAR},
+      </if>
+      <if test="concentrateMsg != null" >
+        #{concentrateMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.c2b.wallet.entity.RechargeLog" >
+    update ico_recharge_log
+    <set >
+      <if test="fromAddress != null" >
+        from_address = #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="syscode != null" >
+        syscode = #{syscode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="byAccount != null" >
+        by_account = #{byAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="free != null" >
+        free = #{free,jdbcType=DECIMAL},
+      </if>
+      <if test="txHash != null" >
+        tx_hash = #{txHash,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null" >
+        to_address = #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="toAccount != null" >
+        to_account = #{toAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="isConcentrate != null" >
+        is_concentrate = #{isConcentrate,jdbcType=VARCHAR},
+      </if>
+      <if test="concentrateType != null" >
+        concentrate_type = #{concentrateType,jdbcType=VARCHAR},
+      </if>
+      <if test="concentrateMsg != null" >
+        concentrate_msg = #{concentrateMsg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.c2b.wallet.entity.RechargeLog" >
+    update ico_recharge_log
+    set from_address = #{fromAddress,jdbcType=VARCHAR},
+      syscode = #{syscode,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DECIMAL},
+      status = #{status,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      by_account = #{byAccount,jdbcType=VARCHAR},
+      free = #{free,jdbcType=DECIMAL},
+      tx_hash = #{txHash,jdbcType=VARCHAR},
+      to_address = #{toAddress,jdbcType=VARCHAR},
+      to_account = #{toAccount,jdbcType=VARCHAR},
+      is_concentrate = #{isConcentrate,jdbcType=VARCHAR},
+      concentrate_type = #{concentrateType,jdbcType=VARCHAR},
+      concentrate_msg = #{concentrateMsg,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateRechargeLogByTxHash" parameterType="com.c2b.wallet.entity.RechargeLog">
+	  update ico_recharge_log
+	    set 
+	      status = #{status,jdbcType=VARCHAR},
+	      update_time = #{updateTime,jdbcType=TIMESTAMP}
+	    where  tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <update id="updateIsSend" parameterType="map">
+    update ico_recharge_log
+    set 
+        is_send = #{isSend}
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <select id="findRechargeLogByTxHash" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ico_recharge_log
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </select>
+</mapper>

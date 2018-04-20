@@ -1,0 +1,14 @@
+
+server:
+  port: 8084
+eureka:
+  instance:
+    hostname: peer1
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+    preferIpAddress: true
+  client:
+    registerWithEureka: false #此客户端是否从eureka注册表里读取注册表信息，默认为false
+    fetchRegistry: false #此实例在eureka上的注册信息是否被其他服务发现，默认为true
+    serviceUrl:
+      defaultZone: http://peer2:8084/eureka/,http://peer3:8086/eureka/

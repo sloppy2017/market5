@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.trade.mapper.ConsignationLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.trade.entity.ConsignationLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="consignation_no" property="consignationNo" jdbcType="VARCHAR" />
+    <result column="biz_type" property="bizType" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+    <result column="consignation_price" property="consignationPrice" jdbcType="DECIMAL" />
+    <result column="consignation_count" property="consignationCount" jdbcType="DECIMAL" />
+    <result column="made_count" property="madeCount" jdbcType="DECIMAL" />
+    <result column="made_price" property="madePrice" jdbcType="DECIMAL" />
+    <result column="consignation_status" property="consignationStatus" jdbcType="INTEGER" />
+    <result column="data_status" property="dataStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="made_time" property="madeTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="made_average_price" property="madeAveragePrice" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <update id="updateConsignation" 
+    parameterType="com.c2b.coin.trade.entity.ConsignationLog" >
+    update 
+      consignation_log 
+    set 
+      consignation_status=5,
+      made_count = #{madeCount},
+      made_price = #{madePrice},
+      made_average_price = #{madeAveragePrice},
+      update_time = #{updateTime}
+    where 
+      consignation_no=#{consignationNo} 
+    and 
+      consignation_status!=5
+  </update>
+  <update id="matchAfterUpdateConsignation" parameterType="com.c2b.coin.trade.entity.ConsignationLog" >
+    update 
+      consignation_log 
+    set
+      made_count = made_count + #{madeCount},
+      made_price = made_price + #{madePrice},
+      made_time = #{madeTime},
+      update_time = #{updateTime}
+    where 
+      consignation_no=#{consignationNo}
+  </update>
+  <update id="updateConsignationWithEnd" 
+    parameterType="com.c2b.coin.trade.entity.ConsignationLog" >
+    update 
+      consignation_log 
+    set 
+      consignation_status = #{consignationStatus},
+      made_average_price = #{madeAveragePrice},
+      update_time = #{updateTime}
+    where 
+      consignation_no=#{consignationNo} 
+    and 
+      consignation_status NOT IN (2, 3, 4, 5)
+  </update>
+  <update id="updateMarketConsignationWithEnd" 
+    parameterType="com.c2b.coin.trade.entity.ConsignationLog" >
+    update 
+      consignation_log 
+    set 
+      consignation_status = #{consignationStatus},
+      made_average_price = #{madeAveragePrice},
+      update_time = #{updateTime},
+      data_status = #{dataStatus}
+    where 
+      consignation_no=#{consignationNo} 
+    and 
+      consignation_status NOT IN (2, 3, 4, 5)
+  </update>
+</mapper>

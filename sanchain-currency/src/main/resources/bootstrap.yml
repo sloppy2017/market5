@@ -1,0 +1,6 @@
+
+spring:
+  application:
+    name: sanchain-service
+  profiles:
+    active: dev

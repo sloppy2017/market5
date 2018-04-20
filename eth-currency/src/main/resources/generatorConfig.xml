@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2014-2016 abel533@gmail.com
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
+  ~ of this software and associated documentation files (the "Software"), to deal
+  ~ in the Software without restriction, including without limitation the rights
+  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  ~ copies of the Software, and to permit persons to whom the Software is
+  ~ furnished to do so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in
+  ~ all copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  ~ THE SOFTWARE.
+  -->
+
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="config.properties"/>
+    <!-- mysql驱动目录,自行修改 -->
+    <!--<classPathEntry location="D:/maven_local_repository/mysql/mysql-connector-java/5.1.37/mysql-connector-java-5.1.37.jar"/>-->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="${mapper.plugin}">
+            <property name="mappers" value="${mapper.Mapper}"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="beginningDelimiter" value=""/>
+            <property name="endingDelimiter" value=""/>
+        </plugin>
+        <!--<commentGenerator>-->
+        <!--<property name="suppressAllComments" value="true"/>-->
+        <!--<property name="suppressDate" value="true"/>-->
+        <!--</commentGenerator>-->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.user}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="${entity.targetPacketage}" targetProject="./src/main/java"/>
+
+        <!-- xml文件生成位置,以及包名-->
+        <sqlMapGenerator targetPackage="${xml.targetPacketage}"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="${mapper.targetPackage}" targetProject="./src/main/java" type="XMLMAPPER"/>
+        <table tableName="digital_coin" domainObjectName="DigitalCoin">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="ico_recharge_log" domainObjectName="RechargeLog">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="system_code_group" domainObjectName="SystemCodeGroup">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="system_general_code" domainObjectName="SystemGeneralCode">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="user_coin" domainObjectName="UserCoin">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="ico_withdraw_log" domainObjectName="WithdrawLog">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="ico_gather_record" domainObjectName="IcoGatherRecord">
+          <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>

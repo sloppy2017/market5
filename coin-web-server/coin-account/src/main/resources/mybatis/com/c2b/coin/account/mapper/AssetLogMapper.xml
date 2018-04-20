@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.account.mapper.AssetLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.account.entity.AssetLog" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="external_order_no" property="externalOrderNo" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+    <result column="operation_type" property="operationType" jdbcType="INTEGER" />
+    <result column="currency_type" property="currencyType" jdbcType="INTEGER" />
+    <result column="currency_name" property="currencyName" jdbcType="INTEGER" />
+    <result column="asset" property="asset" jdbcType="DECIMAL" />
+    <result column="poundage" property="poundage" jdbcType="DECIMAL" />
+    <result column="actual_asset" property="actualAsset" jdbcType="DECIMAL" />
+    <result column="after_asset" property="afterAsset" jdbcType="DECIMAL" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="result_result" property="resultResult" jdbcType="VARCHAR" />
+    <result column="audit_result" property="auditResult" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectAssetLogOrderByCreateTime" resultMap="BaseResultMap">
+  	select * from asset_log
+	<where>
+            <if test="userId != null">
+            	user_id=#{userId}
+            </if>
+			<if test="type != null">
+            	and operation_type=#{type}
+            </if>
+     </where>
+	  order by createtime desc
+  </select>
+  <select id="findByCurrency" resultMap="BaseResultMap">
+    select * from asset_log
+    <where>
+      <if test="userId != null">
+        user_id=#{userId}
+      </if>
+      <if test="type != null">
+        and operation_type=#{type}
+      </if>
+      <if test="currencyType != null">
+        and currency_type=#{currencyType}
+      </if>
+      <if test="startDate != null">
+        and createtime &gt;= #{startDate}
+      </if>
+      <if test="endDate != null">
+        and createtime &lt;=#{endDate}
+      </if>
+    </where>
+    order by createtime desc
+  </select>
+</mapper>

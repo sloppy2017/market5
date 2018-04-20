@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.c2b.coin.trade.mapper.TradePairInfoMapper">
+  <resultMap id="BaseResultMap" type="com.c2b.coin.trade.entity.TradePairInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="commodity_coin" jdbcType="BIGINT" property="commodityCoin" />
+    <result column="commodity_coin_name" jdbcType="VARCHAR" property="commodityCoinName" />
+    <result column="money_coin" jdbcType="BIGINT" property="moneyCoin" />
+    <result column="money_coin_name" jdbcType="VARCHAR" property="moneyCoinName" />
+    <result column="data_status" jdbcType="INTEGER" property="dataStatus" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, commodity_coin,commodity_coin_name, money_coin, money_coin_name, data_status, create_time,
+    update_time, remark
+  </sql>
+
+  <select id="listTradePairInfo" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List"/>
+    from
+      trade_pair_info
+    where
+      data_status=0
+    order by id desc
+    <!-- select t.id,
+    t.commodityCoinValue, t1.moneyCoinValue
+    from
+    ( select b.*,a.coin_name AS 'commodityCoinValue' from trade_pair_info b ,
+    digital_coin a where b.commodity_coin=a.id AND b.data_status=0) t,
+    ( select b.*,a.coin_name AS 'moneyCoinValue' from trade_pair_info b ,
+    digital_coin a where b.money_coin=a.id AND b.data_status=0) t1
+    where t.id=t1.id
+    order by t.id desc -->
+  </select>
+  
+  <select id="getTradePairInfoValueByPK" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+      <include refid="Base_Column_List"/>
+    from
+      trade_pair_info
+    where
+      data_status=0
+     and
+      id = #{id}
+  </select>
+
+  <select id="selectByTradePairInfo" parameterType="com.c2b.coin.trade.entity.TradePairInfo"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from trade_pair_info
+    where 1=1
+    <if test="commodityCoin != null">
+      and commodity_coin = #{commodityCoin,jdbcType=BIGINT}
+    </if>
+    <if test="moneyCoin != null">
+      and money_coin = #{moneyCoin,jdbcType=BIGINT}
+    </if>
+    <if test="dataStatus != null">
+      and data_status = #{dataStatus,jdbcType=INTEGER}
+    </if>
+    <if test="createTime != null">
+      and create_time = #{createTime,jdbcType=BIGINT}
+    </if>
+    <if test="updateTime != null">
+      and update_time = #{updateTime,jdbcType=BIGINT}
+    </if>
+    <if test="remark != null">
+      and remark = #{remark,jdbcType=VARCHAR}
+    </if>
+    order by id desc
+  </select>
+</mapper>

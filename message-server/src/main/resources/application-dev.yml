@@ -1,0 +1,60 @@
+info.description: message-server
+
+server:
+  port: 8130
+  tomcat:
+    max-threads: 800
+    min-spare-threads: 200
+  connection-timeout: 10000
+spring:
+  messages:
+   basename: i18n/messages
+  activemq:
+    broker-url: failover:(tcp://10.0.11.120:61616,tcp://10.0.11.121:61616,tcp://10.0.11.120:61616)
+    userName: admin
+    password: admin
+    in-memory: true
+    pool:
+      enabled: false
+  mail:
+    host: email-smtp.us-west-2.amazonaws.com
+    username: AKIAIOG3VUGR5C5V2KKA
+    from: system@cointobe.com
+    password: AkU556I6ngk7L/t7iLkvaBFRcdxq5xx/HuTBhZnxaDFk
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    port: 587
+  ########################################################
+  ###FREEMARKER (FreeMarkerAutoConfiguration)
+  ########################################################
+  freemarker:
+    allow-request-override: false
+    cache: true
+    check-template-location: true
+    charset: UTF-8
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: false
+  #spring.freemarker.prefix=
+  #spring.freemarker.request-context-attribute=
+  #spring.freemarker.settings.*=
+  #spring.freemarker.suffix=.ftl
+  #spring.freemarker.template-loader-path=classpath:/templates/ #comma-separated list
+coin:
+  sms:
+    emay:
+      singleSmsUrl: http://shmtn.b2m.cn/inter/sendSingleSMS
+      appId: EUCP-EMY-SMS1-3NEIZ
+      secretKey: 4481E07D4890A7DB
+      tf: 021751
+    nexmo:
+      smsUrl: https://rest.nexmo.com/sms/json
+      key: 785c202c
+      secret: 83f36b79bcbb5a32
+      from: nexmo

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.ethWallet.mapper.UserCoinMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.ethWallet.entity.UserCoin" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="private_key" property="privateKey" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="getUserCoinByAccountAndCurrency" parameterType="map" resultMap="BaseResultMap">
+    select * from user_coin where currency = #{currency} and account = #{account}
+  </select>
+  <select id="getUserCoinByAddress" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user_coin where address = #{address}
+  </select>
+  <select id="getUserCoinByAddressAndCurrency" parameterType="map" resultMap="BaseResultMap">
+    select * from user_coin where currency = #{currency} and address = #{address}
+  </select>
+</mapper>

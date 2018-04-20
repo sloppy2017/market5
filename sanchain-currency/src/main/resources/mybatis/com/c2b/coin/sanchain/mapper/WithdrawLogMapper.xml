@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.sanchain.mapper.WithdrawLogMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.sanchain.entity.WithdrawLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="syscode" property="syscode" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="to_address" property="toAddress" jdbcType="VARCHAR" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="free" property="free" jdbcType="DECIMAL" />
+    <result column="tx_hash" property="txHash" jdbcType="VARCHAR" />
+    <result column="withdraw_msg" property="withdrawMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account, syscode, money, status, currency, to_address, order_no, create_time, 
+    update_time, free, tx_hash, withdraw_msg
+  </sql>
+  <update id="updateWithdrawLogByTxHash" parameterType="com.c2b.coin.sanchain.entity.WithdrawLog">
+    update ico_withdraw_log
+    set 
+        status = #{status,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <update id="updateIsSend" parameterType="map">
+    update ico_withdraw_log
+    set 
+        is_send = #{isSend}
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </update>
+  <select id="findWithdrawLogByTxHash" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from ico_withdraw_log
+    where tx_hash = #{txHash,jdbcType=VARCHAR}
+  </select>
+  <select id="listSANCSend"  resultMap="BaseResultMap">
+    select * from ico_withdraw_log where status='2' and currency='SANC' order by id desc
+  </select>
+  
+  
+</mapper>

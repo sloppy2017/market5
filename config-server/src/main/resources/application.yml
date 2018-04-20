@@ -1,0 +1,9 @@
+management:
+  context-path: /admin
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+    org.springframework.cloud: 'DEBUG'
+    com.c2b.coin.config.server: 'DEBUG'
+
+

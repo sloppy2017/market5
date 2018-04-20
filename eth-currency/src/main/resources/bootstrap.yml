@@ -1,0 +1,79 @@
+
+spring:
+  application:
+    name: eth-currency
+  cloud:
+    config:
+      label: master
+      discovery:
+        service-id: config-server
+        enabled: true
+  profiles:
+    active: @profileActive@
+#logging 配置
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework.web: debug
+    com.unis: debug
+server:
+  port: 8060
+mybatis:
+  mapperLocations: classpath:/mybatis/com/c2b/ethWallet/mapper/*.xml
+
+---
+spring:
+  cloud:
+    config:
+      profile: prod
+  profiles: prod
+eureka:
+  instance:
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      cluster: ETH-CURRENCY
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+---
+spring:
+  cloud:
+    config:
+      profile: default
+    inetutils:
+      ignoredInterfaces[0]: eth0
+  profiles: default,dev
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+---
+spring:
+  cloud:
+    config:
+      profile: release
+  profiles: release
+eureka:
+  instance:
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      cluster: ETH-CURRENCY
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+
+
+
+
+

@@ -1,0 +1,38 @@
+eureka:
+    instance:
+        prefer-ip-address: true
+        leaseRenewalIntervalInSeconds: 10
+        metadataMap:
+          cluster: ECO-LITE-SERVICE
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://peer:8084/eureka/
+server:
+  port: 8011
+  context-path: /eco-lite-service
+   
+   
+#wallet:
+#  rootPath: C:\\ecowallet
+#  privateKey: cRBMGxnVXLgydAGHDFTLtFJpCdiLUt5zCTWEn2baJm4m7ubuiBa3
+spring:
+    application:
+        name: eco-lite-service
+    datasource:
+      readSize: 1
+        # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://10.0.11.123:3306/coin?useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: 123456
+      validationQuery: SELECT 1 FROM DUAL
+
+      
+
+#指定log的配置文件，以及记录Spring Boot的log级别  
+logging:
+  config: classpath:logback.xml
+  

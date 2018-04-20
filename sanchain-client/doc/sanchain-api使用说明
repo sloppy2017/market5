@@ -1,0 +1,107 @@
+sanChain-client里的类库和示例代码均为java语言开发，其他语言开发大体流程一样，
+但需要自行编写client库与服务器进行交互，本代码仅提供基础信息同步、简单的交易逻辑监控。
+开发者还需要根据自己的业务实际需求，参照示例自行开发。
+
+一  代码示例
+1.1  创建一个账户
+代码示例
+        Wallet wallet = new Wallet();
+示例返回
+         地址：wallet.account().address
+         私钥：wallet.account().seed
+
+1.2 获取指定的address下的余额
+代码示例
+Utils.getAccountInfo(address)；
+
+示例返回
+{
+    "result":
+    {
+        "validated": true,
+        "ledger_index": 1664573,
+        "ledger_hash": "8251CD8B1589CB926487939C8682EB7B11087AC73C9B79ECA27F8F54CA314B03",
+        "account_data":
+        {
+            "Account": "sKWMVTAtba2L1utpG83depUNWc2kdX7iic",
+            "OwnerCount": 0,
+            "PreviousTxnLgrSeq": 1664252,
+            "LedgerEntryType": "AccountRoot",
+            "index": "A4350A147856CE30C60B06C45F1C5EAC71AAB18D7DF71EC2C9BE509753BA721D",
+            "PreviousTxnID": "F8369B9D3770D77C55BD3F0317846A3A19C086501341AFC95A391C08BBBAD084",
+            "Flags": 0,
+            "Sequence": 1,
+            "Balance": "3"  //余额数据，单位:u(unit)，1SAN = 1000000u
+        }
+    },
+    "id": 0,
+    "type": "response",
+    "status": "success"
+}
+
+1.3 查询当前最新区块高度
+代码示例
+Utils.ledgerClosed();
+
+示例返回
+1664630
+
+1.4 查询已完成的区块高度
+代码示例
+Utils.completeLedgers();
+
+示例返回
+366787-1664630
+
+1.5 发送交易到某个地址
+代码示例
+            sign = Utils.payment(
+                    seed,
+                    destination,
+                    Amount.fromString("1"),
+                    Utils.getSequence(address),
+                    true,
+                    null, null, null, lastLedgerIndex
+            );  //just sign local
+
+            String res = Utils.sendTx(sign.tx_blob);  //broadcast
+
+
+示例返回
+{
+    "result":
+    {
+        "tx_json":
+        {
+            "Account": "sMi4zUJZ1zWbVhp7VAK1zo7QPANSnx4t8z",
+            "Destination": "sKWMVTAtba2L1utpG83depUNWc2kdX7iic",
+            "TransactionType": "Payment",
+            "TxnSignature": "3045022100DB56E2FB185916BE457FEC8DBADCC3087736B158B2F40B10BA998198894BAEF1022056ED17FFA1373EF365B788C9FAE1FB3C0C34158DD72D71F05D0D3C1D0E853FCB",
+            "SigningPubKey": "031F42889B2E0F0C67085D3AD4D4ABCFB569774624C7297867E7C50146FB5B7420",
+            "Amount": "1",
+            "Fee": "1000",
+            "Flags": 2147483648,
+            "Sequence": 5,
+            "LastLedgerSequence": 3,
+            "hash": "5CFF417A7802C5086FC507906EEF78750F47A4438D254CA03F453DCCFB0EFB19"
+        },
+        "engine_result_code": -187,
+        "tx_blob": "12000022800000002400000005201B000000036140000000000000016840000000000003E87321031F42889B2E0F0C67085D3AD4D4ABCFB569774624C7297867E7C50146FB5B742074473045022100DB56E2FB185916BE457FEC8DBADCC3087736B158B2F40B10BA998198894BAEF1022056ED17FFA1373EF365B788C9FAE1FB3C0C34158DD72D71F05D0D3C1D0E853FCB8114E4B9403A6066C7218E37212463C13EA7C79DD9E98314CAFF6E8C90145C5619663F666209BC6008FF8287",
+        "engine_result": "tefMAX_LEDGER",
+        "engine_result_message": "Ledger sequence too high."
+    },
+    "id": 0,
+    "type": "response",
+    "status": "success"
+}
+
+1.6 查询某个txnHash是否成功
+代码示例
+   Utils.checkTxnSuccess(txnHash);
+示例返回
+   true
+
+1.7 同步交易记录
+代码示例
+见examples模块： SyncLedgerTest
+

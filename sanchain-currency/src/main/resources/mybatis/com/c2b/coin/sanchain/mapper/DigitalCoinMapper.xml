@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.sanchain.mapper.DigitalCoinMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.sanchain.entity.DigitalCoin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
+    <result column="coin_full_name" property="coinFullName" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, coin_name, coin_full_name, is_enabled, create_time, update_time, remark
+  </sql>
+  <select id="selectDigitalCoinByCoinName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from digital_coin
+    where coin_name = #{coin_name}
+  </select>
+</mapper>

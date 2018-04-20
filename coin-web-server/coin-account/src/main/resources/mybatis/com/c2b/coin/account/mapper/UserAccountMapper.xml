@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.account.mapper.UserAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.account.entity.UserAccount" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="currency_type" property="currencyType" jdbcType="INTEGER" />
+    <result column="currency_name" property="currencyName" jdbcType="VARCHAR" />
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="available_amount" property="availableAmount" jdbcType="DECIMAL" />
+    <result column="freezing_amount" property="freezingAmount" jdbcType="DECIMAL" />
+    <result column="account_type" property="accountType" jdbcType="INTEGER" />
+    <result column="account_address" property="accountAddress" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="createtime" property="createtime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <select id="selectAccountAssetVO" resultType="com.c2b.coin.account.entity.vo.AccountAssetVO" >
+         select dc.id as currencyType,dc.coin_name as currencyName,dc.coin_full_name as currencyFullName,
+		IFNULL(ua.total_amount,0) as totalAmount,IFNULL(ua.available_amount,0) as availableAmount,
+		IFNULL(ua.freezing_amount,0) as freezingAmount
+        from digital_coin as dc LEFT JOIN (select * from user_account where user_id=#{userId} )as ua 
+        on dc.id=ua.currency_type
+        where  dc.is_enabled=1
+    </select>
+  
+  <select id="selectByUserIdAndCurrencyTypeForUpdate" resultMap="BaseResultMap">
+  	select * from user_account where user_id=#{userId} and currency_type=#{currencyType} for update
+  </select>
+  
+  <select id="selectByAddressAndCurrencyTypeForUpdate" resultMap="BaseResultMap">
+  	select * from user_account where account_address=#{address} and currency_type=#{currencyType} for update
+  </select>
+</mapper>
