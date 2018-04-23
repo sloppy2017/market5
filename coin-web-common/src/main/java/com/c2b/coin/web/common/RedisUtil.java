@@ -40,6 +40,10 @@ public class RedisUtil {
     return TypeUtils.castToJavaBean(valOps.get("key"), clazz);
   }
 
+  public void set(final String key,final Object value) {
+	  valOps.set(key, value);
+  }
+  
   public void set(final String key, final String value, final int expiresTimes) {
     valOpsStr.set(key, value, expiresTimes, TimeUnit.SECONDS);
   }

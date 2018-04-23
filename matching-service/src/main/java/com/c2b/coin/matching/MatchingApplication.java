@@ -4,6 +4,9 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 
+import javax.jms.Queue;
+
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,6 +22,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
+import com.c2b.coin.common.Constants;
 import com.c2b.coin.matching.util.HttpClientUtils;
 
 
@@ -35,25 +39,32 @@ import com.c2b.coin.matching.util.HttpClientUtils;
 @EnableFeignClients
 @EnableScheduling
 public class MatchingApplication {
-  public static void main(String[] args) {
-    SpringApplication.run(MatchingApplication.class, args);
-  }
+	public final static String MATCHING_QUEUE="com.coin.match"; 
 
-  @Bean
-  public RestTemplate restTemplate() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
-    CloseableHttpClient httpClient = HttpClientUtils.acceptsUntrustedCertsHttpClient();
-    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-    RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-    return restTemplate;
-  }
+	public static void main(String[] args) {
+		SpringApplication.run(MatchingApplication.class, args);
+	}
 
-  @Bean
-  public ThreadPoolTaskExecutor taskExecutor() {
-    ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
-    threadPoolTaskExecutor.setKeepAliveSeconds(60);
-    threadPoolTaskExecutor.setMaxPoolSize(50);
-    threadPoolTaskExecutor.setCorePoolSize(20);
-    threadPoolTaskExecutor.setQueueCapacity(100);
-    return threadPoolTaskExecutor;
-  }
+	@Bean
+	public RestTemplate restTemplate() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+		CloseableHttpClient httpClient = HttpClientUtils.acceptsUntrustedCertsHttpClient();
+		HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+		RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+		return restTemplate;
+	}
+
+	@Bean
+	public ThreadPoolTaskExecutor taskExecutor() {
+		ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+		threadPoolTaskExecutor.setKeepAliveSeconds(60);
+		threadPoolTaskExecutor.setMaxPoolSize(50);
+		threadPoolTaskExecutor.setCorePoolSize(20);
+		threadPoolTaskExecutor.setQueueCapacity(100);
+		return threadPoolTaskExecutor;
+	}
+
+	@Bean
+	public Queue matchingQueue() {
+		return new ActiveMQQueue(MATCHING_QUEUE);
+	}
 }
