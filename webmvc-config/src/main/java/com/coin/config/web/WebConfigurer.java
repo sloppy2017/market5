@@ -77,7 +77,7 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
 
   @Bean
   public LocaleChangeInterceptor localeChangeInterceptor() {
-    log.info("========================使用参数修改用户的区域===========================");
+    log.info("========================使用参数修改用户的区域===================");
     LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
     // 参数名
     lci.setParamName("lang");
