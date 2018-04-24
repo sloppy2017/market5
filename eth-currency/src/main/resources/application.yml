@@ -29,9 +29,8 @@ spring:
       stat-view-servlet:
         allow: true
   redis:
-    timeout: 20000
-    cluster:
-      maxRedirects: 6
+    host: redis
+    port: 6479
     pool:
       max-active: 8
       min-idle: 0
