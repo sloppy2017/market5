@@ -22,6 +22,7 @@
     <module>mybatis-config</module>
     <module>redis-cache-config</module>
     <module>swagger-config</module>
+    <module>message-server</module>
   </modules>
   <packaging>pom</packaging>
 
