@@ -55,12 +55,12 @@ ETH:
 spring:
   profiles: default, dev
   datasource:
-    url: jdbc:mysql://10.0.11.123:3306/coin?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/coin?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: 123456
+    password: asdzxczxc
   redis:
-    cluster:
-      nodes: 10.0.11.123:9001,10.0.11.123:9002,10.0.11.123:9003,10.0.11.123:9004,10.0.11.123:9005,10.0.11.123:9006
+    host: redis
+    port: 6479
 ETH:
   hot:
     address: "0x8ba9ce692a4142c2e21d56100c9fa45eec4946a6"
