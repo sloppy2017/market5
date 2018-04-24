@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
@@ -26,12 +28,15 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @SpringCloudApplication
-@EnableAutoConfiguration
-@EnableFeignClients
 @EnableHystrix
-@RefreshScope
+@EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.c2b.coin"})
+@RefreshScope
+@EnableEurekaClient
+@EnableFeignClients
+@EnableScheduling
 public class UserApplication {
   public static void main(String[] args) {
     SpringApplication.run(UserApplication.class, args);
