@@ -18,6 +18,10 @@
     <module>eth-currency</module>
     <module>zipkin-server</module>
     <module>matching-service</module>
+    <module>webmvc-config</module>
+    <module>mybatis-config</module>
+    <module>redis-cache-config</module>
+    <module>swagger-config</module>
   </modules>
   <packaging>pom</packaging>
 
