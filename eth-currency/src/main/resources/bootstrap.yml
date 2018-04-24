@@ -9,7 +9,7 @@ spring:
         service-id: config-server
         enabled: true
   profiles:
-    active: @profileActive@
+    active: dev
 #logging 配置
 logging:
   config: classpath:logback.xml
