@@ -1,4 +1,4 @@
-package com.coin.config.redis;
+package com.coin.config.cache.redis;
 
 import org.springframework.data.redis.cache.RedisCachePrefix;
 import org.springframework.data.redis.serializer.RedisSerializer;

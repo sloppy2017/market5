@@ -1,4 +1,4 @@
-package com.coin.config.mybatis;//package com.c2b.config.mybatis;
+//package com.c2b.config.mybatis;
 //
 //import org.springframework.beans.BeansException;
 //import org.springframework.beans.factory.config.BeanFactoryPostProcessor;

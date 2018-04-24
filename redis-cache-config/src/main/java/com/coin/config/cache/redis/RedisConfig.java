@@ -1,4 +1,4 @@
-package com.coin.config.redis;
+package com.coin.config.cache.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
