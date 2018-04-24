@@ -107,6 +107,7 @@ coin-file:
 eureka:
   instance:
     preferIpAddress: true
+    ip-address: 192.168.0.101
     leaseRenewalIntervalInSeconds: 10
   client:
     registerWithEureka: true
@@ -122,6 +123,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone:  http://peer:8084/eureka/
+  instance:
+    ip-address: 192.168.0.101
+    prefer-ip-address: true
 ---
 spring:
   profiles: release
@@ -132,6 +136,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone:  http://peer:8084/eureka/
+  instance:
+    ip-address: 192.168.0.101
+    prefer-ip-address: true
 ---
 spring:
   profiles: prod
@@ -142,4 +149,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone:  http://peer:8084/eureka/
-
+  instance:
+    ip-address: 192.168.0.101
+    prefer-ip-address: true
