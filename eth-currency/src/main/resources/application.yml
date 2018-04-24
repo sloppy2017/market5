@@ -54,7 +54,7 @@ ETH:
 spring:
   profiles: default, dev
   datasource:
-    url: jdbc:mysql://mysql:3306/coin?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://mysql:3306/market?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: asdzxczxc
   redis:
