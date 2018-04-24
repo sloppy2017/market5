@@ -14,7 +14,7 @@ logging:
 
 spring:
   profiles:
-    active: @profileActive@
+    active: dev
   zipkin:
     base-url: http://peer:8090
   session:
@@ -116,8 +116,8 @@ eureka:
 spring:
   profiles: default,dev
   redis:
-    cluster:
-      nodes: redis1:9001,redis2:9002,redis3:9003
+    host: redis
+    port: 6479
 eureka:
   client:
     serviceUrl:
@@ -126,8 +126,8 @@ eureka:
 spring:
   profiles: release
   redis:
-    cluster:
-      nodes: redis1:9001,redis2:9002,redis3:9003
+    host: redis
+    port: 6479
 eureka:
   client:
     serviceUrl:
@@ -136,10 +136,10 @@ eureka:
 spring:
   profiles: prod
   redis:
-    cluster:
-      nodes: redis1:9001,redis2:9002,redis3:9003
+    host: redis
+    port: 6479
 eureka:
   client:
     serviceUrl:
-      defaultZone:  http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+      defaultZone:  http://peer:8084/eureka/
 
