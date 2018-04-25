@@ -7,7 +7,7 @@
     -->
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
-    <result column="coin_short_name" property="coinShortName" jdbcType="VARCHAR" />
+    <result column="coin_full_name" property="coinfullName" jdbcType="VARCHAR" />
     <result column="coin_rate" property="coinRate" jdbcType="VARCHAR" />
     <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
