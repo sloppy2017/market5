@@ -1,7 +1,7 @@
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://10.0.11.122:8084/eureka/,http://10.0.11.121:8084/eureka/
+            defaultZone: http://peer:8084/eureka/
 server:
     port: 8010
     
@@ -46,9 +46,9 @@ spring:
         # 使用druid数据源
     datasource:
       readSize: 1
-      url: jdbc:mysql://10.0.11.123:3306/coin
+      url: jdbc:mysql://mysql:3306/market
       username: root
-      password: 123456
+      password: asdzxczxc
       driverClassName: com.mysql.jdbc.Driver
       validationQuery: select 'x'
 
