@@ -56,12 +56,12 @@ public class WalletAsync implements Runnable{
     @Autowired
     private EcoWalletService ecoWalletService;
     
-    @Resource
+    @Resource(name="userCoinMapper")
     private UserCoinMapper userCoinMapper;
-    @Resource
+    @Resource(name="rechargeLogMapper")
     private RechargeLogMapper rechargeLogMapper;
     
-    @Resource
+    @Resource(name="withdrawLogMapper")
     private WithdrawLogMapper withdrawLogMapper;
     
     @Autowired

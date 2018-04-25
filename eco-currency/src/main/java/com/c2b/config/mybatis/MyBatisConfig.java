@@ -75,7 +75,7 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactorys() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSourceProxy());
-        bean.setTypeAliasesPackage("com.c2b");
+        bean.setTypeAliasesPackage("com.c2b.wallet.mapper");
 
         //分页插件
         PageHelper pageHelper = new PageHelper();
