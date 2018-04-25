@@ -10,7 +10,7 @@ spring:
   messages:
    basename: i18n/messages
   activemq:
-    broker-url: failover:(tcp://10.0.11.120:61616,tcp://10.0.11.121:61616,tcp://10.0.11.120:61616)
+    broker-url: failover:(tcp://activemq:8161)
     userName: admin
     password: admin
     in-memory: true
