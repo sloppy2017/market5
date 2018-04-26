@@ -21,8 +21,8 @@ public class DigitalCoin {
     /**
      * 币种简称
      */
-    @Column(name = "coin_short_name")
-    private String coinShortName;
+    @Column(name = "coin_full_name")
+    private String coinFullName;
 
     /**
      * 兑换汇率 （人民币：币种）
@@ -77,23 +77,18 @@ public class DigitalCoin {
     }
 
     /**
-     * 获取币种简称
+     * 获取币种全称
      *
-     * @return coin_short_name - 币种简称
+     * @return coin_full_name - 币种全称
      */
-    public String getCoinShortName() {
-        return coinShortName;
-    }
+    public String getCoinFullName() {
+		return coinFullName;
+	}
 
-    /**
-     * 设置币种简称
-     *
-     * @param coinShortName 币种简称
-     */
-    public void setCoinShortName(String coinShortName) {
-        this.coinShortName = coinShortName;
-    }
-
+	public void setCoinFullName(String coinFullName) {
+		this.coinFullName = coinFullName;
+	}
+    
     /**
      * 获取兑换汇率 （人民币：币种）
      *
@@ -103,7 +98,8 @@ public class DigitalCoin {
         return coinRate;
     }
 
-    /**
+   
+	/**
      * 设置兑换汇率 （人民币：币种）
      *
      * @param coinRate 兑换汇率 （人民币：币种）

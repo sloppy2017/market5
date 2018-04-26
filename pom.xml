@@ -16,12 +16,15 @@
     <module>coin-web-server</module>
     <module>gateway-server</module>
     <module>eth-currency</module>
+    <module>eco-currency</module>
+    <module>eco-lite-currency</module>
     <module>zipkin-server</module>
     <module>matching-service</module>
     <module>webmvc-config</module>
     <module>mybatis-config</module>
     <module>redis-cache-config</module>
     <module>swagger-config</module>
+    <module>message-server</module>
   </modules>
   <packaging>pom</packaging>
 

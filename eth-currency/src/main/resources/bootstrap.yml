@@ -9,7 +9,7 @@ spring:
         service-id: config-server
         enabled: true
   profiles:
-    active: @profileActive@
+    active: dev
 #logging 配置
 logging:
   config: classpath:logback.xml
@@ -37,7 +37,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+      defaultZone: http://peer:8084/eureka/
 ---
 spring:
   cloud:
