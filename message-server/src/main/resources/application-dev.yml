@@ -10,10 +10,10 @@ spring:
   messages:
    basename: i18n/messages
   activemq:
-    broker-url: failover:(tcp://10.0.11.120:61616,tcp://10.0.11.121:61616,tcp://10.0.11.120:61616)
-    userName: admin
-    password: admin
+    broker-url: tcp://activemq:8161
     in-memory: true
+    password: 123
+    userName: admin
     pool:
       enabled: false
   mail:
