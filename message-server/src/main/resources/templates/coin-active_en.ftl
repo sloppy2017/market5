@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>COINTOBE</title>
+    <title>Park.One</title>
     <meta http-equiv="Expires" CONTENT="-1">
     <meta http-equiv="Cache-Control" CONTENT="no-cache">
     <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,12 +17,12 @@
         <div  class="mailbox-activation send-email ">
             <div class="content-box">
                 <div class="bg-content">
-                    <p class="font1 text-center">COINTOBE</p>
+                    <p class="font1 text-center">Park.One</p>
                     <p class="font5 text-center ">Please follow the link in your email to confirm your email address and then you'll be able to sign in to your new account.For your account safety, this link is valid within 24 hours.</p>
                     <a href="${url}"   target="_blank" class="btn-confirm text-center">VERIFY MY EAMIL ADDRESS</a>
                     <#--<p  class=" text-center copy-wrap">Click invalid?<i class="btn-copy"  >Copy to clipboard  and open it in browser.</i></p>-->
                     <#--<p  class=" text-center font-url">链接地址</p>-->
-                    <p class="font6 text-center">If you haven’t sign up cointobe, please ignore this email,</p>
+                    <p class="font6 text-center">If you haven’t sign up Park.One, please ignore this email,</p>
                     <p class="font6 text-center">and this account will be deleted. System mail, please do not reply.</p>
                 </div>
             </div>

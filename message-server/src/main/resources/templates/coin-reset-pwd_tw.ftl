@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>COINTOBE</title>
+          <title>Park.One</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -18,8 +18,8 @@
 <div class="mailbox-activation send-email " style="height: 350px">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">歡迎使用COINTOBE</p>
-                              <p class="font5 text-center ">您剛剛在COINTOBE的賬戶${username}發起了重置密碼的申請。如果您要設置一個新密碼，請點 擊重置密碼按鈕</p>
+                              <p class="font1 text-center">歡迎使用Park.One</p>
+                              <p class="font5 text-center ">您剛剛在Park.One的賬戶${username}發起了重置密碼的申請。如果您要設置一個新密碼，請點 擊重置密碼按鈕</p>
                               <a href="${url}"  target="_blank" class="btn-confirm text-center">重置密碼</a>
                               <p class="font6 text-center">為保障賬號安全性，該鏈接僅在10分鐘內有效</p>
                               <p class="font6 text-center">如果您並申請過重置密碼，請忽略此郵件。</p>

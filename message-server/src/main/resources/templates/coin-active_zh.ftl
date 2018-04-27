@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>COINTOBE</title>
+          <title>Park.One</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,12 +17,12 @@
 <div  class="mailbox-activation send-email " style="height: 350px">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">欢迎使用COINTOBE</p>
-                              <p class="font5 text-center ">在开始使用COINTOBE账户前，您需要先确认电子邮件地址，为保障账号安全性，该链接仅在24小时内有效</p>
+                              <p class="font1 text-center">欢迎使用Park.One</p>
+                              <p class="font5 text-center ">在开始使用Park.One账户前，您需要先确认电子邮件地址，为保障账号安全性，该链接仅在24小时内有效</p>
                               <a href="${url}"   target="_blank" class="btn-confirm text-center">确认电子邮件</a>
                               <#--<p  class=" text-center copy-wrap">点击无效？<i class="btn-copy"  >请复制以下链接粘贴至浏览器地址栏并打开。</i></p>-->
                               <#--<p  class=" text-center font-url">链接地址</p>-->
-                              <p class="font6 text-center">如果您并未注册过COINTOBE，请忽略此邮件，此账户将会被删除。</p>
+                              <p class="font6 text-center">如果您并未注册过Park.One，请忽略此邮件，此账户将会被删除。</p>
                               <p class="font6 text-center">系统邮件，请勿回复</p>
                     </div>
           </div>

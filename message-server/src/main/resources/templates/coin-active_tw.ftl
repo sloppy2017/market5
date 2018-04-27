@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>COINTOBE</title>
+          <title>Park.One</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,12 +17,12 @@
 <div  class="mailbox-activation send-email " style="height: 350px">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">歡迎使用COINTOBE</p>
-                              <p class="font5 text-center ">在開始使用COINTOBE賬戶前，您需要先確認電子郵件地址，為保障賬號安全性，該鏈接僅在24小時內有效</p>
+                              <p class="font1 text-center">歡迎使用Park.One</p>
+                              <p class="font5 text-center ">在開始使用Park.One賬戶前，您需要先確認電子郵件地址，為保障賬號安全性，該鏈接僅在24小時內有效</p>
                               <a href="${url}"   target="_blank" class="btn-confirm text-center">確認電子郵件</a>
                     <#--<p  class=" text-center copy-wrap">點擊無效？<i class="btn-copy"  >請複製以下鏈接粘貼至瀏覽器地址欄並打開。</i></p>-->
                     <#--<p  class=" text-center font-url">鏈接地址</p>-->
-                              <p class="font6 text-center">如果您並未註冊過COINTOBE，請忽略此郵件，此賬戶將會被刪除。</p>
+                              <p class="font6 text-center">如果您並未註冊過Park.One，請忽略此郵件，此賬戶將會被刪除。</p>
                               <p class="font6 text-center">系統郵件，請勿回復</p>
                     </div>
           </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>COINTOBE</title>
+          <title>Park.One</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,9 +17,9 @@ html{font-family:sans-serif;line-height:1.42857143;-ms-text-size-adjust:100%;-we
 <div class="mailbox-activation send-email ">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">Welcome CoinToBe</p>
-                              <p class="font5 text-center ">Dear user, your CoinToBe account ${username} disable the Google authentication at ${date}.</p>
-                              <p class="font6 text-center">If you haven’t sign up cointobe, please ignore this email,</p>
+                              <p class="font1 text-center">Welcome Park.One</p>
+                              <p class="font5 text-center ">Dear user, your Park.One account ${username} disable the Google authentication at ${date}.</p>
+                              <p class="font6 text-center">If you haven’t sign up Park.One, please ignore this email,</p>
                               <p class="font6 text-center">and this account will be deleted. System mail, please do not reply.</p>
                     </div>
           </div>

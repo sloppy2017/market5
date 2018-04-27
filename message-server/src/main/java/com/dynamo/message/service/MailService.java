@@ -53,7 +53,7 @@ public class MailService {
     try {
       message = mailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(Sender,"CoinToBe");
+      helper.setFrom(Sender,"Park.One");
       helper.setTo(toUser);
       helper.setSubject(subject);
       helper.setText(html, true);
@@ -96,7 +96,7 @@ public class MailService {
     try {
       message = mailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(Sender,"CoinToBe");
+      helper.setFrom(Sender,"Park.One");
       helper.setTo(vo.getToUser());
       helper.setSubject(subject);
       //读取 html 模板

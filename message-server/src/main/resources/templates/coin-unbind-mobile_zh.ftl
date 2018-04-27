@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>COINTOBE</title>
+          <title>Park.One</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,9 +17,9 @@ html{font-family:sans-serif;line-height:1.42857143;-ms-text-size-adjust:100%;-we
 <div class="mailbox-activation send-email ">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">欢迎使用COINTOBE</p>
+                              <p class="font1 text-center">欢迎使用Park.One</p>
                               <p class="font5 text-center ">尊敬的CoinTobBe用户您好，您的账号${username}于${date}解绑了手机二次验证。</p>
-                              <p class="font6 text-center">如果您并未注册过COINTOBE，请忽略此邮件，此账户将会被删除。</p>
+                              <p class="font6 text-center">如果您并未注册过Park.One，请忽略此邮件，此账户将会被删除。</p>
                               <p class="font6 text-center">系统邮件，请勿回复</p>
                     </div>
           </div>
