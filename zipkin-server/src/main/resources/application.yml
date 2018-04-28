@@ -2,9 +2,9 @@ spring:
   application:
     name: zipkin-server
   datasource:
-    url: jdbc:mysql://172.31.1.100:3306/coin?useUnicode=true&characterEncoding=UTF-8
-    username: kaifa
-    password: y9k(s*DlexrrYrq$m4W
+    url: jdbc:mysql://192.168.0.101:3306/market?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: asdzxczxc
     driverClassName: com.mysql.jdbc.Driver
 server:
   port: 8090

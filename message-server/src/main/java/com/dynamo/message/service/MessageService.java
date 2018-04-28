@@ -26,6 +26,10 @@ public class MessageService {
       case "SMS_WITHDRAW":
         smsService.sendSms(vo, getMessage(vo.getMessageType(), vo.getLanguage()));
         break;
+      case "SMS_QUICK_REGISTER":
+        System.out.println(vo.getMessageType());
+        smsService.sendSms(vo, getMessage(vo.getMessageType(), vo.getLanguage()));
+        break;
       case "EMAIL_ACTIVE":
       case "EMAIL_RESET_PASSWORD":
       case "EMAIL_CHANGE_LOGIN_PWD":
