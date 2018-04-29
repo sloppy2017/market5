@@ -58,6 +58,6 @@ public class SwaggerDocket implements EnvironmentAware {
 
   private ApiInfo apiInfo() {
     logger.info("##################################初始化API信息################################################");
-    return new ApiInfoBuilder().title("COINTOBE APIs").description("…………").termsOfServiceUrl("http://www.****.cn").contact("研发中心").version("1.0").build();
+    return new ApiInfoBuilder().title("Park.One APIs").description("…………").termsOfServiceUrl("http://www.****.cn").contact("研发中心").version("1.0").build();
   }
 }

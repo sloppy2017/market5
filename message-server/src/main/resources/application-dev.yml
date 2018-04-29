@@ -10,7 +10,7 @@ spring:
   messages:
    basename: i18n/messages
   activemq:
-    broker-url: failover:(tcp://activemq:8161)
+    broker-url: failover:(tcp://10.0.11.120:61616,tcp://10.0.11.121:61616,tcp://10.0.11.120:61616)
     userName: admin
     password: admin
     in-memory: true
@@ -19,7 +19,7 @@ spring:
   mail:
     host: email-smtp.us-west-2.amazonaws.com
     username: AKIAIOG3VUGR5C5V2KKA
-    from: system@cointobe.com
+    from: system@Park.One.com
     password: AkU556I6ngk7L/t7iLkvaBFRcdxq5xx/HuTBhZnxaDFk
     properties:
       mail:

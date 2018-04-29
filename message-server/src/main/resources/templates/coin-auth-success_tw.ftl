@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>COINTOBE</title>
+          <title>Park.One</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,9 +17,9 @@
 <div class="mailbox-activation send-email ">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">歡迎使用COINTOBE</p>
+                              <p class="font1 text-center">歡迎使用Park.One</p>
                               <p class="font5 text-center ">尊敬的CoinTobBe用戶您好，您於${date}提交的身份認證審核通過。</p>
-                              <p class="font6 text-center">如果您並未註冊過COINTOBE，請忽略此郵件，此賬戶將會被刪除。</p>
+                              <p class="font6 text-center">如果您並未註冊過Park.One，請忽略此郵件，此賬戶將會被刪除。</p>
                               <p class="font6 text-center">系統郵件，請勿回復</p>
                     </div>
           </div>
