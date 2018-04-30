@@ -1,0 +1,98 @@
+
+spring:
+  application:
+    name: matching-service
+  cloud:
+    config:
+      label: master
+      discovery:
+        service-id: config-server
+        enabled: true
+  profiles:
+    active: dev
+#      search-paths: /  # 指定git仓库的分支，对应microservice-config-server所获取的配置文件的{label}
+
+#logging 配置
+logging:
+  config: classpath:logback.xml
+  level:
+    org.springframework: warn
+    com.c2b: debug
+server:
+  port: 8021
+mybatis:
+  mapperLocations: classpath:/mybatis/com/c2b/coin/**/mapper/*.xml
+
+---
+spring:
+  cloud:
+    config:
+      profile: prod
+  profiles: prod
+  zipkin:
+    base-url: http://peer:8090
+eureka:
+  instance:
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      cluster: COIN-TRADE
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+logging:
+  level:
+    org.springframework.web: info
+    com.c2b.coin: info
+---
+spring:
+  cloud:
+    config:
+      profile: default
+    inetutils:
+      ignoredInterfaces[0]: eth0
+  profiles: default,dev
+  zipkin:
+    base-url: http://peer:8090
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+logging:
+  level:
+    org.springframework.web: debug
+    com.c2b.coin: debug
+---
+spring:
+  cloud:
+    config:
+      profile: release
+  profiles: release
+  zipkin:
+    base-url: http://peer:8090
+eureka:
+  instance:
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      cluster: COIN-TRADE
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+logging:
+  level:
+    org.springframework.web: debug
+    com.c2b.coin: debug
+
+
+
+
