@@ -1,5 +1,7 @@
 package com.c2b.coin.matching.constant;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 交易方式枚举类
  * @author DingYi
@@ -27,5 +29,15 @@ public enum EnumConsignedType {
 		this.name = name;
 	}
 	
+	
+	public static EnumConsignedType getEnumConsignedType(String code) {
+		for(EnumConsignedType enumConsignedType:EnumConsignedType.values()) {
+			if(StringUtils.equals(code, enumConsignedType.getCode())) {
+				return enumConsignedType;
+			}
+		}
+		return null;
+		
+	}
 	
 }

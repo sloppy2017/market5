@@ -1,9 +1,14 @@
 package com.c2b.coin.matching.consumer;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSONObject;
 import com.c2b.coin.common.Constants;
+import com.c2b.coin.matching.constant.EnumConsignedType;
+import com.c2b.coin.matching.constant.EnumTradeType;
+import com.c2b.coin.matching.match.Matcher;
 import com.c2b.coin.matching.vo.queue.ExchangeVO;
 
 /**
@@ -15,14 +20,18 @@ import com.c2b.coin.matching.vo.queue.ExchangeVO;
 @Component
 public class MatchingConsumer {
 
+	@Autowired
+	private Matcher matcher;
+	
 	/**
-	 *收集消息，排序后放入队列。
+	 *收集消息，进行撮合
 	 */
 	@JmsListener(destination = Constants.CONSIGNATION_SUCCESS_QUEUE_DESTINATION)
-	public void collectConsignation(ExchangeVO exchangeVo) {
+	public void collectConsignation(String exchangeVoMsg) {
 		//收集消息
-		//插入数据库
-		//整理信息后  放入买卖队列
+		ExchangeVO exchangeVo = (ExchangeVO) JSONObject.parse(exchangeVoMsg);
+		//撮合交易
+		matcher.match(exchangeVo.getCurrency(), exchangeVo.getMoney(), exchangeVo.getCount(), exchangeVo.getSeq(), EnumTradeType.getEnumTradeType(exchangeVo.getType()), EnumConsignedType.getEnumConsignedType(exchangeVo.getGenre()));
 	}
 	
 	/**

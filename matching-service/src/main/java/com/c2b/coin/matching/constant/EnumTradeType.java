@@ -1,5 +1,7 @@
 package com.c2b.coin.matching.constant;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 交易类型枚举类
  * @author DingYi
@@ -26,6 +28,17 @@ public enum EnumTradeType {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+	public static EnumTradeType getEnumTradeType(String code) {
+		for(EnumTradeType enumTradeType:EnumTradeType.values()) {
+			if(StringUtils.equals(code, enumTradeType.getCode())) {
+				return enumTradeType;
+			}
+		}
+		return null;
+		
 	}
 	
 	
