@@ -20,6 +20,7 @@ import com.c2b.coin.matching.constant.EnumTradeType;
 import com.c2b.coin.matching.match.biz.BizAdaptor;
 import com.c2b.coin.matching.model.Order;
 import com.c2b.coin.matching.model.OrderMap;
+import com.c2b.coin.matching.vo.queue.ResultCallbackVO;
 import com.c2b.coin.web.common.RedisUtil;
 
 
@@ -86,22 +87,39 @@ public final class Matcher implements BizAdaptor{
 	 * @param orderNo
 	 * @param enumConsignedType
 	 */
-	private void matchCallback(String tradePair, BigDecimal price, BigDecimal amount, String orderNo,
+	public ResultCallbackVO matchCallback(String tradePair, BigDecimal price, BigDecimal amount, String orderNo,
 			EnumConsignedType enumConsignedType) {
 		//根据订单号获取队列中的值
 		//遍历两层队列
+		ResultCallbackVO rcvo=new ResultCallbackVO();
 		LinkedList<Order> buyList = getBuyList(tradePair);
+		int count = 0;
 		for (Order order : buyList) {
 			if(order.getOrderNo().equals(orderNo)) {
 				buyList.remove(order);
+				count++;
+				rcvo.setCallBack(true);
+				rcvo.setCode(101);
+				rcvo.setSumMoney(order.getPrice());
+				rcvo.setResidueCount(order.getAmount());
 			}
 		}
 		LinkedList<Order> sellList = getSellList(tradePair);
 		for (Order order : sellList) {
 			if(order.getOrderNo().equals(orderNo)) {
 				sellList.remove(order);
+				count++;
+				rcvo.setCallBack(true);
+				rcvo.setCode(101);
+				rcvo.setSumMoney(order.getPrice());
+				rcvo.setResidueCount(order.getAmount());
 			}
 		}
+		if(count==0) {//撤单失败 
+			rcvo.setCallBack(false);
+			rcvo.setCode(103);
+		}
+		return rcvo;
 	}
 
 
