@@ -11,7 +11,7 @@ import com.c2b.coin.matching.vo.queue.ResultCallbackVO;
 
 @RestController
 @RequestMapping("/match")
-public class TradeController {
+public class MatchController {
 
 	@Autowired
 	private Matcher matcher;

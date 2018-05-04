@@ -27,6 +27,7 @@ import com.c2b.coin.common.DateUtil;
 import com.c2b.coin.common.enumeration.ConsignationStatusEnum;
 import com.c2b.coin.common.enumeration.ConsignationTradeTypeEnum;
 import com.c2b.coin.common.enumeration.ErrorMsgEnum;
+import com.c2b.coin.trade.client.MatchClient;
 import com.c2b.coin.trade.client.RestClient;
 import com.c2b.coin.trade.entity.ConsignationLog;
 import com.c2b.coin.trade.entity.TradePairInfo;
@@ -76,6 +77,9 @@ public class ConsignationService {
 
   @Autowired
   OrderLogService orderLogService;
+  
+  @Autowired
+  private MatchClient matchClient;
 
   /**
    * 正则表达式：验证金额,最多保留4位小数
@@ -393,20 +397,22 @@ public class ConsignationService {
   public ResultCallbackVO invokeRevokeOrder(String consignationNo) {
     ExchangeVO exchangeVO = new ExchangeVO();
     exchangeVO.setSeq(consignationNo);
-    String execute = null;
+//    String execute = null;
+    ResultCallbackVO resultCallbackVO = null;
     try {
-      logger.info("revokeIP:" + revokeIP + ",revokePort=" + revokePort);
+//      logger.info("revokeIP:" + revokeIP + ",revokePort=" + revokePort);
 //      @SuppressWarnings("resource")
 //      DRPCClient client = new DRPCClient(Utils.readDefaultConfig(), revokeIP,
 //          revokePort);
 //      // 服务的地址和端口
 //      execute = client.execute("exchangeCallBackSpout",
 //          JSONObject.toJSONString(exchangeVO));
-      logger.info("调用撮合交易撤单接口返回结果execute：" + execute);
+      resultCallbackVO = matchClient.callBack(exchangeVO);
+//      logger.info("调用撮合交易撤单接口返回结果execute：" + execute);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return JSONObject.parseObject(execute, ResultCallbackVO.class);
+    return resultCallbackVO;
   }
 
   public BigDecimal getUfzAmount(ResultCallbackVO resultCallbackVO,
