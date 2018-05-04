@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import javax.jms.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.jms.core.JmsTemplate;
@@ -42,8 +43,11 @@ public final class Matcher implements BizAdaptor{
 	private RedisUtil redisUtil;
 	@Autowired
 	private OrderMap orderMap;
-	private final static String BUY_PREFIX="BUY:";
-	private final static String SELL_PREFIX="SELL:";
+	
+	@Value("${key.redis.data.realtime.buylist}")
+	private String BUY_PREFIX ;
+	@Value("${key.redis.data.realtime.selllist}")
+	private String SELL_PREFIX ;
 
 	@Autowired
 	private JmsTemplate jmsTemplate;
@@ -346,6 +350,8 @@ public final class Matcher implements BizAdaptor{
 		//二分法寻找插入位置
 		int index = searchIndex(price,sellList);
 		sellList.add(index, order);
+		
+		
 	}
 
 	/**
