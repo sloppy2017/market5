@@ -1,5 +1,8 @@
 package com.c2b.coin.matching.consumer;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -29,16 +32,19 @@ public class MatchingConsumer {
 	@JmsListener(destination = Constants.CONSIGNATION_SUCCESS_QUEUE_DESTINATION)
 	public void collectConsignation(String exchangeVoMsg) {
 		//收集消息
-		ExchangeVO exchangeVo = (ExchangeVO) JSONObject.parse(exchangeVoMsg);
+//		ExchangeVO exchangeVo = (ExchangeVO) JSONObject.parse(exchangeVoMsg);
+		
+		Map<String,Object> map = (Map)JSONObject.parse(exchangeVoMsg);
+		
 		//撮合交易
-		matcher.match(exchangeVo.getCurrency(), exchangeVo.getMoney(), exchangeVo.getCount(), exchangeVo.getSeq(), EnumTradeType.getEnumTradeType(exchangeVo.getType()), EnumConsignedType.getEnumConsignedType(exchangeVo.getGenre()));
+		matcher.match(map.get("currency").toString(), new BigDecimal(map.get("money").toString()), new BigDecimal(map.get("count").toString()) , map.get("seq").toString(), EnumTradeType.getEnumTradeType(map.get("type").toString()), EnumConsignedType.getEnumConsignedType(map.get("genre").toString()));
 	}
 	
-	/**
-	 * 消费撮合成功失败的信息，并对处理相关逻辑业务。
-	 */
-	@JmsListener(destination = "")
-	public void consumerMatch() {
-		
-	}
+//	/**
+//	 * 消费撮合成功失败的信息，并对处理相关逻辑业务。
+//	 */
+//	@JmsListener(destination = "")
+//	public void consumerMatch() {
+//		
+//	}
 }

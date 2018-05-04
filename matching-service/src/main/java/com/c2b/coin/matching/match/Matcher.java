@@ -302,8 +302,13 @@ public final class Matcher implements BizAdaptor{
 	 */
 	private boolean hitBuyLimitMatchList(String tradePair,LinkedList<Order> sellList, BigDecimal price, BigDecimal amount, String orderNo) {
 
+		Order order = null;
 		//最低卖盘与价格比较
-		Order order = sellList.get(0);
+		if(sellList.size()==0) {
+			return false;
+		}else {
+			order = sellList.get(0);
+		}
 		if(order.getPrice().compareTo(price)<=0) {//命中卖盘
 			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
