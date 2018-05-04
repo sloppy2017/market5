@@ -17,6 +17,8 @@ public class AccountAssetVO implements Serializable{
 	private BigDecimal totalAmount;
 	private BigDecimal availableAmount;
 	private BigDecimal freezingAmount;
+	private int chargeStatus;
+	private int withdrawStatus;
 	public String getCurrencyName() {
 		return currencyName;
 	}
@@ -56,8 +58,9 @@ public class AccountAssetVO implements Serializable{
 	public void setCurrencyType(int currencyType) {
 		this.currencyType = currencyType;
 	}
+	
 	public AccountAssetVO(int currencyType, String currencyName, String currencyFullName, BigDecimal totalAmount,
-			BigDecimal availableAmount, BigDecimal freezingAmount) {
+			BigDecimal availableAmount, BigDecimal freezingAmount, int chargeStatus, int withdrawStatus) {
 		super();
 		this.currencyType = currencyType;
 		this.currencyName = currencyName;
@@ -65,9 +68,23 @@ public class AccountAssetVO implements Serializable{
 		this.totalAmount = totalAmount;
 		this.availableAmount = availableAmount;
 		this.freezingAmount = freezingAmount;
+		this.chargeStatus = chargeStatus;
+		this.withdrawStatus = withdrawStatus;
 	}
 	public AccountAssetVO() {
 		super();
+	}
+	public int getChargeStatus() {
+		return chargeStatus;
+	}
+	public void setChargeStatus(int chargeStatus) {
+		this.chargeStatus = chargeStatus;
+	}
+	public int getWithdrawStatus() {
+		return withdrawStatus;
+	}
+	public void setWithdrawStatus(int withdrawStatus) {
+		this.withdrawStatus = withdrawStatus;
 	}
 	
 	

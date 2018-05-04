@@ -21,7 +21,7 @@
   <select id="selectAccountAssetVO" resultType="com.c2b.coin.account.entity.vo.AccountAssetVO" >
          select dc.id as currencyType,dc.coin_name as currencyName,dc.coin_full_name as currencyFullName,
 		IFNULL(ua.total_amount,0) as totalAmount,IFNULL(ua.available_amount,0) as availableAmount,
-		IFNULL(ua.freezing_amount,0) as freezingAmount
+		IFNULL(ua.freezing_amount,0) as freezingAmount,dc.charge_status as chargeStatus,dc.withdraw_status as withdrawStatus  
         from digital_coin as dc LEFT JOIN (select * from user_account where user_id=#{userId} )as ua 
         on dc.id=ua.currency_type
         where  dc.is_enabled=1
