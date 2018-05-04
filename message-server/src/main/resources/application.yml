@@ -49,9 +49,9 @@ spring:
 coin:
   sms:
     emay:
-      singleSmsUrl: http://shmtn.b2m.cn/inter/sendSingleSMS
-      appId: EUCP-EMY-SMS1-3NEIZ
-      secretKey: 4481E07D4890A7DB
+      singleSmsUrl: http://bjmtn.b2m.cn:80/inter/sendSingleSMS
+      appId: EUCP-EMY-SMS0-1ANDV
+      secretKey: 16ADC623D5992CB0
       tf: 021751
     nexmo:
       smsUrl: https://rest.nexmo.com/sms/json
