@@ -19,7 +19,7 @@ spring:
   mail:
     host: email-smtp.us-west-2.amazonaws.com
     username: AKIAIOG3VUGR5C5V2KKA
-    from: system@Park.One.com
+    from: system@PARK.ONE.com
     password: AkU556I6ngk7L/t7iLkvaBFRcdxq5xx/HuTBhZnxaDFk
     properties:
       mail:

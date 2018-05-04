@@ -55,6 +55,6 @@ public class EmailTest {
   @Test
   public void testSms() {
 //      ymSmsService.sendSms("test", "18511696693");
-//    ymSmsService.setSingleSms("【Park.One】你好今天天气不错，挺风和日丽的", "18511696693", "UTF-8");
+//    ymSmsService.setSingleSms("【PARK.ONE】你好今天天气不错，挺风和日丽的", "18511696693", "UTF-8");
   }
 }

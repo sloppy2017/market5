@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Park.One</title>
+    <title>PARK.ONE</title>
     <meta http-equiv="Expires" CONTENT="-1">
     <meta http-equiv="Cache-Control" CONTENT="no-cache">
     <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,9 +17,9 @@
         <div  class="mailbox-activation send-email ">
             <div class="content-box">
                 <div class="bg-content">
-                    <p class="font1 text-center">Park.One</p>
-                    <p class="font5 text-center ">Dear user, Your Park.One account ${username} password has been changed.</p>
-                    <p class="font6 text-center">If you haven’t sign up Park.One, please ignore this email,</p>
+                    <p class="font1 text-center">PARK.ONE</p>
+                    <p class="font5 text-center ">Dear user, Your PARK.ONE account ${username} password has been changed.</p>
+                    <p class="font6 text-center">If you haven’t sign up PARK.ONE, please ignore this email,</p>
                     <p class="font6 text-center">and this account will be deleted. System mail, please do not reply.</p>
                 </div>
             </div>
