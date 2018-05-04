@@ -344,7 +344,7 @@ public class ConsignationService {
         consignationPrice = ((String) map.get("consignation_price") == null) ? "0"
             : (String) map.get("consignation_price");
         consignationCount = (String) map.get("consignation_count");
-        tradeType = (Integer) map.get("trade_type");
+        tradeType = (Integer.parseInt((String) map.get("trade_type")));
         madeCount = (String) map.get("made_count");
         map.put(
             "unTradeCount",
@@ -544,9 +544,9 @@ public class ConsignationService {
     return res.get("result");
   }
 
-  
-  
-  
+
+
+
   protected AjaxResponse writeObj(Object object) {
     if (null != object && object instanceof ErrorMsgEnum) {
       ErrorMsgEnum errorMsgEnum = (ErrorMsgEnum) object;
@@ -590,7 +590,7 @@ public class ConsignationService {
     }
     return true;
   }
-  
+
   /**
    * //市价买入，验证金额小数点后六位数字
    * //市价卖出，验证数量小数点后四位数字
@@ -619,10 +619,10 @@ public class ConsignationService {
       }
     case LIMIT_PRICE_BUY:
     case LIMIT_PRICE_SELL:
-      if (new BigDecimal(consignationPrice).compareTo(BigDecimal.ZERO) <= 0 
+      if (new BigDecimal(consignationPrice).compareTo(BigDecimal.ZERO) <= 0
         || !preTen(consignationPrice)
         || !preTen(consignationCount)
-        || !isMoney6(consignationPrice) 
+        || !isMoney6(consignationPrice)
         || !isMoney4(consignationCount)) {
         return false;
       }
