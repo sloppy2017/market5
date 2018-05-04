@@ -19,7 +19,7 @@ spring:
   mail:
     host: email-smtp.us-west-2.amazonaws.com
     username: AKIAJYL74VYL5KFCPDGA
-    from: system@Park.One.com
+    from: system@PARK.ONE.com
     password: AuhKnaJwSC7gY5u71/FzzpXw8EzbV/8fnJqNfJfSSNqk
     properties:
       mail:
@@ -57,4 +57,4 @@ coin:
       smsUrl: https://rest.nexmo.com/sms/json
       key: 785c202c
       secret: 83f36b79bcbb5a32
-      from: Park.One
+      from: PARK.ONE

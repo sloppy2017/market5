@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Park.One</title>
+    <title>PARK.ONE</title>
     <meta http-equiv="Expires" CONTENT="-1">
     <meta http-equiv="Cache-Control" CONTENT="no-cache">
     <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -17,7 +17,7 @@
         <div class="mailbox-activation send-email ">
             <div class="content-box">
                 <div class="bg-content">
-                    <p class="font1 text-center">Welcome Park.One</p>
+                    <p class="font1 text-center">Welcome PARK.ONE</p>
                     <p class="font5 text-center ">Your account ${username} has submitted a request to reset your password. If you want to reset a new password, please click the button below.</p>
                     <a href="${url}"  target="_blank" class="btn-confirm text-center">Reset Password</a>
                     <p class="font6 text-center">For your account safety, this link is valid within 10 minutes.</p>

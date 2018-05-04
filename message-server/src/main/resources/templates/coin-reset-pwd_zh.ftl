@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-          <title>Park.One</title>
+          <title>PARK.ONE</title>
           <meta http-equiv="Expires" CONTENT="-1">
           <meta http-equiv="Cache-Control" CONTENT="no-cache">
           <meta http-equiv="Pragma" CONTENT="no-cache">
@@ -18,8 +18,8 @@
 <div class="mailbox-activation send-email " style="height: 350px">
           <div class="content-box">
                     <div class="bg-content">
-                              <p class="font1 text-center">欢迎使用Park.One</p>
-                              <p class="font5 text-center ">您刚刚在Park.One的账户${username}发起了重置密码的申请。如果您要设置一个新密码，请点 击重置密码按钮</p>
+                              <p class="font1 text-center">欢迎使用PARK.ONE</p>
+                              <p class="font5 text-center ">您刚刚在PARK.ONE的账户${username}发起了重置密码的申请。如果您要设置一个新密码，请点 击重置密码按钮</p>
                               <a href="${url}"  target="_blank" class="btn-confirm text-center">重置密码</a>
                               <p class="font6 text-center">为保障账号安全性，该链接仅在10分钟内有效</p>
                               <p class="font6 text-center">如果您并申请过重置密码，请忽略此邮件。</p>

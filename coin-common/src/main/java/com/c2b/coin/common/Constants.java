@@ -1,7 +1,7 @@
 package com.c2b.coin.common;
 
 public class Constants {
-  public static final String PROJECT_NAME = "Park.One";
+  public static final String PROJECT_NAME = "PARK.ONE";
 
   public static final String ENCODING_UTF8 = "UTF-8";
 

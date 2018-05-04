@@ -112,7 +112,7 @@ public class UserInfoFilter extends ZuulFilter {
     logger.info("=====================ddd========" + userinfo);
     if (!environment.acceptsProfiles("dev")) {
       String referer = request.getHeader("Referer");
-      if ((referer == null) || !(referer.trim().startsWith("https://www.Park.One.com"))) {
+      if ((referer == null) || !(referer.trim().startsWith("https://www.PARK.ONE.com"))) {
         return failure(ctx, 401);
       }
     }
