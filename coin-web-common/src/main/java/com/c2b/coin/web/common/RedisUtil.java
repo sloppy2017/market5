@@ -211,4 +211,8 @@ public class RedisUtil {
     return flag;
   }
 
+  
+  public Object getObject(String key) {
+	 return valOps.get(key);
+  }
 }
