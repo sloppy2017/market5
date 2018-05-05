@@ -20,7 +20,6 @@ import com.c2b.coin.matching.constant.EnumConsignedType;
 import com.c2b.coin.matching.constant.EnumTradeType;
 import com.c2b.coin.matching.match.biz.BizAdaptor;
 import com.c2b.coin.matching.model.Order;
-import com.c2b.coin.matching.model.OrderMap;
 import com.c2b.coin.matching.vo.queue.ResultCallbackVO;
 import com.c2b.coin.web.common.RedisUtil;
 
@@ -41,8 +40,8 @@ public final class Matcher implements BizAdaptor{
 
 	@Autowired
 	private RedisUtil redisUtil;
-	@Autowired
-	private OrderMap orderMap;
+//	@Autowired
+//	private OrderMap orderMap;
 	
 	@Value("${key.redis.data.realtime.buylist}")
 	private String BUY_PREFIX ;
