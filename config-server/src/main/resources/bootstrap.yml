@@ -32,7 +32,7 @@ eureka:
   instance:
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 10
-    ip-address: 192.168.0.106
+    ip-address: 192.168.0.136
   client:
     registerWithEureka: true
     fetchRegistry: true
@@ -45,7 +45,7 @@ eureka:
   instance:
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 10
-    ip-address: 192.168.0.106
+    ip-address: 192.168.0.136
   client:
     registerWithEureka: true
     fetchRegistry: true
@@ -58,7 +58,7 @@ eureka:
   instance:
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 10
-    ip-address: 192.168.0.106
+    ip-address: 192.168.0.136
   client:
     registerWithEureka: true
     fetchRegistry: true
