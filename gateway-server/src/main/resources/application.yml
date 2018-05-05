@@ -124,7 +124,7 @@ eureka:
     serviceUrl:
       defaultZone:  http://peer:8084/eureka/
   instance:
-    ip-address: 192.168.0.106
+    ip-address: 192.168.1.136
     prefer-ip-address: true
 ---
 spring:
@@ -137,7 +137,7 @@ eureka:
     serviceUrl:
       defaultZone:  http://peer:8084/eureka/
   instance:
-    ip-address: 192.168.0.106
+    ip-address: 192.168.1.136
     prefer-ip-address: true
 ---
 spring:
@@ -150,5 +150,5 @@ eureka:
     serviceUrl:
       defaultZone:  http://peer:8084/eureka/
   instance:
-    ip-address: 192.168.0.106
+    ip-address: 192.168.1.136
     prefer-ip-address: true

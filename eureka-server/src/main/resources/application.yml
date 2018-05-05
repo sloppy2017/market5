@@ -7,7 +7,7 @@ eureka:
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}:8084
     preferIpAddress: true
-    ip-address: 192.168.0.101
+    ip-address: 192.168.1.136
   client:
     registerWithEureka: false #此客户端是否从eureka注册表里读取注册表信息，默认为false
     fetchRegistry: false #此实例在eureka上的注册信息是否被其他服务发现，默认为true
