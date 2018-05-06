@@ -314,10 +314,10 @@ public final class Matcher implements BizAdaptor{
 				//撮合订单
 				matchOrder(tradePair,sellList,order,orderNo,order.getPrice(),amount,EnumTradeType.buy);
 			}else {//对手盘数量小于此次需要撮合的数量,直接撮合，移除元素，并递归调用下一次撮合
-				//撮合订单
-				matchOrder(tradePair,sellList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.buy);
 				//移除元素
 				sellList.removeFirst();
+				//撮合订单
+				matchOrder(tradePair,sellList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.buy);
 				//递归调用
 				hitBuyLimitMatchList(tradePair,sellList, order.getPrice(), order.getAmount(), orderNo);
 			}
@@ -374,10 +374,10 @@ public final class Matcher implements BizAdaptor{
 				//撮合订单
 				matchOrder(tradePair,buyList,order,orderNo,order.getPrice(),amount,EnumTradeType.sell);
 			}else {//对手盘数量小于此次需要撮合的数量,直接撮合，移除元素，并递归调用下一次撮合
-				//撮合订单
-				matchOrder(tradePair,buyList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.sell);
 				//移除元素
 				buyList.removeLast();
+				//撮合订单
+				matchOrder(tradePair,buyList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.sell);
 				//递归调用
 				hitSellLimitMatchList(tradePair,buyList, order.getPrice(), order.getAmount(), orderNo);
 			}
