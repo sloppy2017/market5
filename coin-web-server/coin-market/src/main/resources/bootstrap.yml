@@ -9,7 +9,7 @@ spring:
         service-id: config-server
         enabled: true
   profiles:
-    active: @profileActive@
+    active: default
 #      search-paths: /  # 指定git仓库的分支，对应microservice-config-server所获取的配置文件的{label}
 #  redis:
 #    host: 10.0.11.123
@@ -76,8 +76,8 @@ eureka:
       defaultZone:  http://peer:8084/eureka/
 logging:
   level:
-    org.springframework.web: debug
-    com.c2b.coin: debug
+    org.springframework.web: info
+    com.c2b.coin: info
 ---
 spring:
   cloud:
@@ -99,8 +99,8 @@ eureka:
       defaultZone: http://peer1:8081/eureka
 logging:
   level:
-    org.springframework.web: debug
-    com.c2b.coin: debug
+    org.springframework.web: info
+    com.c2b.coin: info
 
 
 

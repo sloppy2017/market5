@@ -1,5 +1,6 @@
 package com.c2b.coin.matching.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.c2b.coin.matching.constant.EnumConsignedType;
@@ -11,7 +12,12 @@ import com.c2b.coin.matching.constant.EnumTradeType;
  * @version 1.0.0
  * @since 2018年4月19日 下午9:50:19
  */
-public class Order {
+public class Order implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1658521996348367066L;
 
 	private BigDecimal price;
 	private BigDecimal amount;

@@ -2,9 +2,10 @@ package com.c2b.coin.market.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.c2b.coin.market.bean.Order;
 import com.c2b.coin.market.mapper.MatchMoneyMapper;
 import com.c2b.coin.market.thread.KLineDataThread;
+import com.c2b.coin.matching.model.Order;
+import com.c2b.coin.web.common.RedisUtil;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,9 @@ public class MarketService extends TaskServiceBase {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
+	@Autowired
+	private RedisUtil redisUtil;
+	
 	@Autowired
 	RestTemplate restTemplate;
 
@@ -144,7 +148,8 @@ public class MarketService extends TaskServiceBase {
 		if(StringUtils.isEmpty(type)){
 			return null;
 		}
-		String message = null;
+//		Object message = null;
+		LinkedList<Order> list =null;
 		HashMap<String ,Object> map = new HashMap<>();
 		map.put("count",0);
 		map.put("money",0);
@@ -153,16 +158,14 @@ public class MarketService extends TaskServiceBase {
 
 		String nullJson = JSONObject.toJSONString(map);
 		if("BUY".equals(type)){
-			message = stringRedisTemplate.opsForValue().get(REDIS_REALTIME_BUY_KEY+currencyType.toUpperCase());
+			Object object = redisUtil.getObject(REDIS_REALTIME_BUY_KEY+currencyType.toUpperCase());
+			list = (LinkedList<Order>) object;
 		}else if ("SELL".equals(type)){
-			message = stringRedisTemplate.opsForValue().get(REDIS_REALTIME_SELL_KEY+currencyType.toUpperCase());
-		}else{
-			message = "";
+			Object object = redisUtil.getObject(REDIS_REALTIME_SELL_KEY+currencyType.toUpperCase());
+			list = (LinkedList<Order>)object;
 		}
-		logger.debug("message:"+message);
 		JSONArray jsonArray = new JSONArray();
-		LinkedList<Order> list = (LinkedList<Order>) JSONObject.parse(message);
-		if(!StringUtils.isEmpty(message)) {
+		if(list!=null && list.size()!=0) {
 			Map<String,Object> messageMap = new HashMap<String,Object>();
 			BigDecimal sumCount = BigDecimal.ZERO;
 			if("BUY".equals(type)) {//买盘由大到小取十个档位
@@ -171,7 +174,8 @@ public class MarketService extends TaskServiceBase {
 					String price =order.getPrice().toString();
 					if(messageMap.size()<10) {
 						Map<String,Object> orderMap = (Map<String, Object>) messageMap.get(price);
-						if(orderMap ==null ) {//盘口数据为空，放入盘口
+						if(orderMap ==null ){//盘口数据为空，放入盘口
+							orderMap = new HashMap<String,Object>();
 							sumCount = sumCount.add(order.getAmount());
 							orderMap.put("count", order.getAmount());
 							orderMap.put("money", order.getPrice());
@@ -191,6 +195,7 @@ public class MarketService extends TaskServiceBase {
 					if(messageMap.size()<10) {
 						Map<String,Object> orderMap = (Map<String, Object>) messageMap.get(price);
 						if(orderMap ==null ) {//盘口数据为空，放入盘口
+							orderMap = new HashMap<String,Object>();
 							sumCount = sumCount.add(order.getAmount());
 							orderMap.put("count", order.getAmount());
 							orderMap.put("money", order.getPrice());

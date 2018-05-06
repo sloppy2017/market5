@@ -37,7 +37,7 @@
         <charset>UTF-8</charset> <!-- 此处设置字符集 -->
       </encoder>
     </appender>
-  <logger name="com.c2b.coin" level="DEBUG" additivity="false">
+  <logger name="com.c2b.coin" level="INFO" additivity="false">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE"/>
   </logger>

@@ -1,4 +1,4 @@
-package com.c2b.coin.market.bean;
+package com.c2b.coin.matching.constant;
 
 import org.apache.commons.lang3.StringUtils;
 

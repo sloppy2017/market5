@@ -210,6 +210,7 @@ public final class Matcher implements BizAdaptor{
 		//二分法寻找插入位置
 		int index = searchIndex(price,buyList);
 		buyList.add(index, order);
+		redisUtil.set(BUY_PREFIX+tradePair.toUpperCase(), buyList);
 	}
 
 	private int searchIndex(BigDecimal price, LinkedList<Order> buyList) {
@@ -354,7 +355,7 @@ public final class Matcher implements BizAdaptor{
 		//二分法寻找插入位置
 		int index = searchIndex(price,sellList);
 		sellList.add(index, order);
-		
+		redisUtil.set(SELL_PREFIX+tradePair.toUpperCase(), sellList);
 		
 	}
 
