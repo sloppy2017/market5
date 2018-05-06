@@ -231,7 +231,7 @@ public final class Matcher implements BizAdaptor{
 		Order lastOrder = buyList.getLast();
 		if(lastOrder.getPrice().compareTo(price)<=0) {
 			//如果大于第一个元素，放入末位
-			return buyList.size()-1;
+			return buyList.size();
 		}
 		int start = 0;
 		int end = buyList.size()-1;
