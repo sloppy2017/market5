@@ -73,9 +73,6 @@ public final class Matcher implements BizAdaptor{
 		case sell:
 			matchSell(tradePair,price,amount,orderNo,enumConsignedType);
 			break;
-		case callback:
-			matchCallback(tradePair,price,amount,orderNo,enumConsignedType);
-			break;
 		default:
 			break;
 		}
@@ -90,8 +87,7 @@ public final class Matcher implements BizAdaptor{
 	 * @param orderNo
 	 * @param enumConsignedType
 	 */
-	public ResultCallbackVO matchCallback(String tradePair, BigDecimal price, BigDecimal amount, String orderNo,
-			EnumConsignedType enumConsignedType) {
+	public ResultCallbackVO matchCallback(String tradePair,String orderNo) {
 		//根据订单号获取队列中的值
 		//遍历两层队列
 		ResultCallbackVO rcvo=new ResultCallbackVO();
@@ -105,6 +101,7 @@ public final class Matcher implements BizAdaptor{
 				rcvo.setCode(101);
 				rcvo.setSumMoney(order.getPrice());
 				rcvo.setResidueCount(order.getAmount());
+				redisUtil.set(BUY_PREFIX+tradePair.toUpperCase(), buyList);
 			}
 		}
 		LinkedList<Order> sellList = getSellList(tradePair);
@@ -116,6 +113,7 @@ public final class Matcher implements BizAdaptor{
 				rcvo.setCode(101);
 				rcvo.setSumMoney(order.getPrice());
 				rcvo.setResidueCount(order.getAmount());
+				redisUtil.set(SELL_PREFIX+tradePair.toUpperCase(), buyList);
 			}
 		}
 		if(count==0) {//撤单失败 

@@ -17,9 +17,9 @@ public class MatchController {
 	private Matcher matcher;
 	
 	@PostMapping("/callback")
-	public ResultCallbackVO callBack(ExchangeVO exchangeVo) {
+	public ResultCallbackVO callBack(String tradePair,String seq) {
 		
-		ResultCallbackVO resultCallbackVO=matcher.matchCallback(exchangeVo.getCurrency(), exchangeVo.getMoney(), exchangeVo.getCount(), exchangeVo.getSeq(), null);
+		ResultCallbackVO resultCallbackVO=matcher.matchCallback(tradePair,seq);
 		return resultCallbackVO;
 	}
 	

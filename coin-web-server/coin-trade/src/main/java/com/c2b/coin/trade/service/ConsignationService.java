@@ -389,14 +389,13 @@ public class ConsignationService {
 
   /**
    * 调用撮合交易的撤单验证接口
+ * @param consignationNo 
    *
    * @param exchangeVO
    *          参数VO
    * @return ResultCallbackVo 撤单结果VO
    */
-  public ResultCallbackVO invokeRevokeOrder(String consignationNo) {
-    ExchangeVO exchangeVO = new ExchangeVO();
-    exchangeVO.setSeq(consignationNo);
+  public ResultCallbackVO invokeRevokeOrder(String tradePairInfo, String consignationNo) {
 //    String execute = null;
     ResultCallbackVO resultCallbackVO = null;
     try {
@@ -407,7 +406,7 @@ public class ConsignationService {
 //      // 服务的地址和端口
 //      execute = client.execute("exchangeCallBackSpout",
 //          JSONObject.toJSONString(exchangeVO));
-      resultCallbackVO = matchClient.callBack(exchangeVO);
+      resultCallbackVO = matchClient.callBack(tradePairInfo,consignationNo);
 //      logger.info("调用撮合交易撤单接口返回结果execute：" + execute);
     } catch (Exception e) {
       e.printStackTrace();
@@ -461,7 +460,8 @@ public class ConsignationService {
     }
     int commodityCoin = getCurrencyTypeValue(tradePairInfo,
         consignationLog.getTradeType());
-    ResultCallbackVO resultCallbackVO = invokeRevokeOrder(consignationNo);
+    String tradePairStr = tradePairInfo.getCommodityCoinName()+"/"+tradePairInfo.getMoneyCoinName();
+    ResultCallbackVO resultCallbackVO = invokeRevokeOrder(tradePairStr,consignationNo);
     if (resultCallbackVO == null) {
       logger.info("revoke orderNo:" + consignationNo + "调用撮合引擎接口失败，撤单失败！");
       return ErrorMsgEnum.REVOKE_FAIL;
