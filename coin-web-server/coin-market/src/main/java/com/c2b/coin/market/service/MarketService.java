@@ -165,10 +165,16 @@ public class MarketService extends TaskServiceBase {
 			list = (LinkedList<Order>)object;
 		}
 		JSONArray jsonArray = new JSONArray();
+		Map<String,Object> messageMap = null;
 		if(list!=null && list.size()!=0) {
-			Map<String,Object> messageMap = new HashMap<String,Object>();
+			
 			BigDecimal sumCount = BigDecimal.ZERO;
 			if("BUY".equals(type)) {//买盘由大到小取十个档位
+				messageMap = new TreeMap<>(new Comparator<String>(){
+		            public int compare(String o1,String o2){
+		                return  o2.compareTo(o1); //用正负表示大小值
+		            }
+		        });
 				for(int i = list.size()-1;i>=0;i--) {
 					Order order = list.get(i);
 					String price =order.getPrice().toString();
@@ -190,6 +196,11 @@ public class MarketService extends TaskServiceBase {
 					}
 				}
 			}else if ("SELL".equals(type)){//卖盘由小到大取十个档位
+				messageMap = new TreeMap<>(new Comparator<String>(){
+		            public int compare(String o1,String o2){
+		                return  o1.compareTo(o2); //用正负表示大小值
+		            }
+		        });
 				for (Order order : list) {
 					String price =order.getPrice().toString();
 					if(messageMap.size()<10) {
