@@ -455,7 +455,7 @@ public final class Matcher implements BizAdaptor{
 	}
 
 	private LinkedList<Order> getSellList(String tradePair) {
-		LinkedList<Order> sellList = redisUtil.get(SELL_PREFIX+tradePair, LinkedList.class);
+		LinkedList<Order> sellList = (LinkedList<Order>) redisUtil.getObject(SELL_PREFIX+tradePair);
 		if(null == sellList||sellList.size()==0) {
 			return new LinkedList<Order>();
 		}
@@ -464,7 +464,7 @@ public final class Matcher implements BizAdaptor{
 
 
 	private LinkedList<Order> getBuyList(String tradePair) {
-		LinkedList<Order>  buyList = redisUtil.get(BUY_PREFIX+tradePair, LinkedList.class);
+		LinkedList<Order>  buyList = (LinkedList<Order>) redisUtil.getObject(BUY_PREFIX+tradePair);
 		if(null == buyList||buyList.size()==0) {
 			return new LinkedList<Order>();
 		}
