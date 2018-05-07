@@ -235,7 +235,7 @@ public class OrderLogService {
     }
     BigDecimal unFreezeAsset = getUnFreezeAsset(consignationLog, vo);
     if (unFreezeAsset.compareTo(BigDecimal.ZERO) != 0) {
-      accountClient.assetChange(Long.parseLong(vo.getUserId()), consignationLog.getUsername(), seq, AssetChangeConstant.UNFREEZE, currencyType, unFreezeAsset);
+      accountClient.assetChange(consignationLog.getUserId(), consignationLog.getUsername(), seq, AssetChangeConstant.UNFREEZE, currencyType, unFreezeAsset);
     }
     updateConsignationStatus(consignationLog, vo);
   }
