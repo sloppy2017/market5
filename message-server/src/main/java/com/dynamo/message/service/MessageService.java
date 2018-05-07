@@ -27,7 +27,12 @@ public class MessageService {
         smsService.sendSms(vo, getMessage(vo.getMessageType(), vo.getLanguage()));
         break;
       case "SMS_QUICK_REGISTER":
-        System.out.println(vo.getMessageType());
+        smsService.sendSms(vo, getMessage(vo.getMessageType(), vo.getLanguage()));
+        break;
+      case "SMS_RESET_PASSWORD":
+        smsService.sendSms(vo, getMessage(vo.getMessageType(), vo.getLanguage()));
+        break;
+      case "SMS_RESET_PASSWORD_SUCCESS":
         smsService.sendSms(vo, getMessage(vo.getMessageType(), vo.getLanguage()));
         break;
       case "EMAIL_ACTIVE":
