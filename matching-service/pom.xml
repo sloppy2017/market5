@@ -7,14 +7,16 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>coin-account</artifactId>
+	<artifactId>matching-service</artifactId>
 	<packaging>jar</packaging>
 
-	<name>coin-account</name>
+	<name>matching-service</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mapper.version>3.3.9</mapper.version>
+        <mysql.version>5.1.21</mysql.version>
 	</properties>
 
 	<dependencies>
@@ -75,7 +77,7 @@
 					<archive>
 						<!-- 清单文件 -->
 						<manifest>
-							<mainClass>com.c2b.coin.account.AccountApplication</mainClass>
+							<mainClass>com.c2b.coin.matching.MatchingApplication</mainClass>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
 						</manifest>

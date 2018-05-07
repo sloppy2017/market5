@@ -85,4 +85,6 @@ public class Constants {
   public static final String NOTICE_NEWS_AUTH_SUCCESS = "NEWS_AUTH_SUCCESS";
   public static final String NOTICE_NEWS_ACOUNT_CHARGE = "NEWS_ACOUNT_CHARGE";
   public static final String NOTICE_NEWS_ACCOUNT_WITHDRAW = "NEWS_ACOUNT_WITHDRAW";
+
+  public static final String COLLECT_CONSIGNATION = "COLLECT_CONSIGNATION";//撮合幂等性
 }

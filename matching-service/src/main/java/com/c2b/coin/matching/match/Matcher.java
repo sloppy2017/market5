@@ -42,7 +42,7 @@ public final class Matcher implements BizAdaptor{
 	private RedisUtil redisUtil;
 //	@Autowired
 //	private OrderMap orderMap;
-	
+
 	@Value("${key.redis.data.realtime.buylist}")
 	private String BUY_PREFIX ;
 	@Value("${key.redis.data.realtime.selllist}")
@@ -56,7 +56,7 @@ public final class Matcher implements BizAdaptor{
 	Queue matchingQueue;
 
 	/**
-	 * 
+	 *
 	 * @param tradePair 交易对
 	 * @param price 价格
 	 * @param amount 数量
@@ -65,7 +65,7 @@ public final class Matcher implements BizAdaptor{
 	 * @param enumConsignedType 交易方式
 	 */
 	public void match(String  tradePair,BigDecimal price,BigDecimal amount,String orderNo,EnumTradeType enumTradeType,EnumConsignedType enumConsignedType) {
-		//根据交易类型 
+		//根据交易类型
 		switch (enumTradeType) {
 		case buy:
 			matchBuy(tradePair,price,amount,orderNo,enumConsignedType);
@@ -116,7 +116,7 @@ public final class Matcher implements BizAdaptor{
 				redisUtil.set(SELL_PREFIX+tradePair.toUpperCase(), buyList);
 			}
 		}
-		if(count==0) {//撤单失败 
+		if(count==0) {//撤单失败
 			rcvo.setCallBack(false);
 			rcvo.setCode(103);
 		}
@@ -258,7 +258,7 @@ public final class Matcher implements BizAdaptor{
 	 * @param orderNo
 	 */
 	private void matchBuyMarket(String tradePair, BigDecimal price, BigDecimal amount, String orderNo) {
-		//撮合买方市价交易 
+		//撮合买方市价交易
 		//根据交易对拿取对手方(卖方)队列
 		LinkedList<Order> sellList = getSellList(tradePair);
 		//撮合市价交易
@@ -354,7 +354,7 @@ public final class Matcher implements BizAdaptor{
 		int index = searchIndex(price,sellList);
 		sellList.add(index, order);
 		redisUtil.set(SELL_PREFIX+tradePair.toUpperCase(), sellList);
-		
+
 	}
 
 	/**
@@ -366,7 +366,8 @@ public final class Matcher implements BizAdaptor{
 	 * @return
 	 */
 	private boolean hitSellLimitMatchList(String tradePair,LinkedList<Order> buyList, BigDecimal price, BigDecimal amount, String orderNo) {
-		Order order = buyList.getLast();
+		if(buyList.size()==0){return false;}
+    Order order = buyList.getLast();
 		if(order.getPrice().compareTo(price)>=0) {//命中买盘
 			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
@@ -394,7 +395,7 @@ public final class Matcher implements BizAdaptor{
 	 * @param orderNo
 	 */
 	private void matchSellMarket(String tradePair, BigDecimal price, BigDecimal amount, String orderNo) {
-		//撮合买方市价交易 
+		//撮合买方市价交易
 		//根据交易对拿取对手方(卖方)队列
 		LinkedList<Order> buyList = getBuyList(tradePair);
 		//撮合市价交易
