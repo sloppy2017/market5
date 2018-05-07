@@ -67,4 +67,15 @@ public class MatchingApplication {
 	public Queue matchingQueue() {
 		return new ActiveMQQueue(MATCHING_QUEUE);
 	}
+	
+	
+	@Bean
+	public Queue tradeOnceQueue() {
+		return new ActiveMQQueue(Constants.TRADE_SUCCESS_DEAL_QUEUE_DESTINATION);
+	}
+	
+	@Bean
+	public Queue endMatchQueue() {
+		return new ActiveMQQueue( Constants.TRADE_END_QUEUE_DESTINATION);
+	}
 }
