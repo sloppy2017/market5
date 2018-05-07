@@ -30,7 +30,7 @@ public interface ConsignationLogMapper extends BaseMapper<ConsignationLog> {
 
   @Select(" <script> SELECT username,consignation_no,biz_type,trade_type,concat('',consignation_price) as consignation_price,concat('',consignation_count) as consignation_count,"
       + "concat('',made_count) as made_count,concat('',made_price) as made_price,consignation_status,data_status,create_time,made_time,update_time,remark,concat('',made_average_price) as  made_average_price"
-      + " FROM consignation_log WHERE data_status=0 <when test='userId!=null'> AND user_id=#{userId} </when> <when test='bizType!=0'>and biz_type=#{bizType} </when> "
+      + " FROM consignation_log WHERE consignation_status !=1 and data_status=0 <when test='userId!=null'> AND user_id=#{userId} </when> <when test='bizType!=0'>and biz_type=#{bizType} </when> "
       + " order by create_time desc </script>")
   List<Map<String, Object>> listConsignationOrderByUserId(
     @Param(value = "userId") String userId,
