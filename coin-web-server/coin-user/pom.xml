@@ -78,41 +78,6 @@
         <!--</executions>-->
       <!--</plugin>-->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <!-- 清单文件 -->
-            <manifest>
-              <mainClass>com.c2b.coin.user.UserApplication</mainClass>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-            </manifest>
-          </archive>
-          <classesDirectory>
-          </classesDirectory>
-        </configuration>
-      </plugin>
-      <!-- 拷贝依赖的jar包到lib目录 -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>
-                ${project.build.directory}/lib
-              </outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.mybatis.generator</groupId>
         <artifactId>mybatis-generator-maven-plugin</artifactId>
         <version>1.3.2</version>
