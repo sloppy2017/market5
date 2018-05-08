@@ -8,7 +8,10 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
 server:
   port: 8090
-
+eureka:
+  instance:
+    ip-address: 192.168.1.136
+    prefer-ip-address: true
 zipkin:
   storage:
     type: mysql
