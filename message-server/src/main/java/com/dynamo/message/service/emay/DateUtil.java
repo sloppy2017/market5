@@ -119,11 +119,5 @@ public class DateUtil {
 		return cale.getTime();
 	}
 
-	public static void main(String[] args) {
-//		System.out.println(toString(getTheMonthLastDay(new Date()), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(toString(getLastMonthLastDay(), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(toString(getNowMonthFirstDay(), "yyyy-MM-dd HH:mm:ss"));
-//		System.out.println(toString(getNowMonthLastDay(), "yyyy-MM-dd HH:mm:ss"));
-	}
 
 }

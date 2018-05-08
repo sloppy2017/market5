@@ -14,23 +14,23 @@ import java.util.zip.GZIPOutputStream;
  */
 public class GZIPUtils {
 
-	public static void main(String[] args) throws IOException {
-		String sst = "hahahah";
-		System.out.println(sst);
-		System.out.println(System.currentTimeMillis());
-		System.out.println("size:" + sst.length());
-		byte[] bytes = sst.getBytes();
-		System.out.println("length:" + bytes.length);
-		System.out.println(System.currentTimeMillis());
-		byte[] end = compress(bytes);
-		System.out.println(System.currentTimeMillis());
-		System.out.println("length:" + end.length);
-		System.out.println(System.currentTimeMillis());
-		byte[] start = decompress(end);
-		System.out.println(System.currentTimeMillis());
-		System.out.println("length:" + start.length);
-		System.out.println(new String(start));
-	}
+//	public static void main(String[] args) throws IOException {
+//		String sst = "hahahah";
+//		System.out.println(sst);
+//		System.out.println(System.currentTimeMillis());
+//		System.out.println("size:" + sst.length());
+//		byte[] bytes = sst.getBytes();
+//		System.out.println("length:" + bytes.length);
+//		System.out.println(System.currentTimeMillis());
+//		byte[] end = compress(bytes);
+//		System.out.println(System.currentTimeMillis());
+//		System.out.println("length:" + end.length);
+//		System.out.println(System.currentTimeMillis());
+//		byte[] start = decompress(end);
+//		System.out.println(System.currentTimeMillis());
+//		System.out.println("length:" + start.length);
+//		System.out.println(new String(start));
+//	}
 
 	/**
 	 * 数据压缩传输
