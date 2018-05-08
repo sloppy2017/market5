@@ -241,14 +241,14 @@ public class HttpsUtils {
 		this.pragma = pragma;
 	}
 
-	public static void main(String[] args) {
-		try {
-			HttpsUtils HttpsUtils = new HttpsUtils(1000, 1000, 1000);
-			String send = HttpsUtils.send("https://www.sobot.com/ws-open/ticket/ticket_api", "");
-			System.out.println(send);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			HttpsUtils HttpsUtils = new HttpsUtils(1000, 1000, 1000);
+//			String send = HttpsUtils.send("https://www.sobot.com/ws-open/ticket/ticket_api", "");
+//			System.out.println(send);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }
