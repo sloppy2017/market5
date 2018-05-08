@@ -163,6 +163,7 @@ public class OrderLogService {
     OrderLog buyOrderLog = initOrderLog(matchInfoVO, buyConsignationLog);
     buyOrderLog.setPoundage(matchInfoVO.getBuyMoney());
     buyOrderLog.setUserId(buyConsignationLog.getUserId().intValue());
+    buyOrderLog.setMadeAveragePrice(buyConsignationLog.getMadeAveragePrice());
     buyOrderLog.setOrderType(Integer.valueOf(ConsignationTradeTypeEnum.getConsignationTradeTypeEnum("BUY_" + matchInfoVO.getBuyGenre().toUpperCase()).getStatusCode()));
     orderLogMapper.insert(buyOrderLog);
     updateConsignation(buyConsignationLog, matchInfoVO);
@@ -182,6 +183,7 @@ public class OrderLogService {
     sellOrderLog.setPoundage(matchInfoVO.getSellMoney());
     sellOrderLog.setOrderType(Integer.valueOf(ConsignationTradeTypeEnum.getConsignationTradeTypeEnum("SELL_" + matchInfoVO.getSellGenre().toUpperCase()).getStatusCode()));
     sellOrderLog.setUserId(sellConsignationLog.getUserId().intValue());
+    sellOrderLog.setMadeAveragePrice(sellConsignationLog.getMadeAveragePrice());
     orderLogMapper.insert(sellOrderLog);
     updateConsignation(sellConsignationLog, matchInfoVO);
   }

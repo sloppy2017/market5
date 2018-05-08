@@ -65,7 +65,7 @@ public class TradeMqProduce {
     });
   }
 
-  public void sendMessage(String userId, BigDecimal consignationCount, BigDecimal consignationPrice, String genre, String currency, String type, String orderNo) {
+  public void sendMessage(String userId, BigDecimal consignationCount, BigDecimal consignationPrice, String genre, String currency, String type, String orderNo,BigDecimal madeAveragePrice) {
     taskExecutor.execute(new Runnable() {
       @Override
       public void run() {
@@ -77,6 +77,7 @@ public class TradeMqProduce {
         exchangeVo.setCurrency(currency);
         exchangeVo.setType(type);
         exchangeVo.setSeq(orderNo);
+        exchangeVo.setAverageMoney(madeAveragePrice);
         sendMessage(consignationQueue, JSONObject.toJSONString(exchangeVo));
       }
     });

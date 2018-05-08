@@ -77,7 +77,7 @@ public class ConsignationService {
 
   @Autowired
   OrderLogService orderLogService;
-  
+
   @Autowired
   private MatchClient matchClient;
 
@@ -129,13 +129,13 @@ public class ConsignationService {
     // 更新用户资产以及插入资产变更记录接口
     invokeUserAssetChange(userId, userName, orderNo, currencyType, amount);
     // 下单
-    doPlaceConsignationOrder(userId, userName, bizType, tradeType,
+    ConsignationLog consignationLog =doPlaceConsignationOrder(userId, userName, bizType, tradeType,
         consignationPrice, consignationCount, orderNo);
     // 发送mq
     String genre = getTradeType(tradeType);// 默认是限价交易
     String currency = getCurrency(bizType);
     tradeMqProduce.sendMessage(userId.toString(), consignationCount,
-        consignationPrice, genre, currency, type, orderNo);
+        consignationPrice, genre, currency, type, orderNo,consignationLog.getMadeAveragePrice());
     return writeObj(null);
 
   }
@@ -389,7 +389,7 @@ public class ConsignationService {
 
   /**
    * 调用撮合交易的撤单验证接口
- * @param consignationNo 
+ * @param consignationNo
    *
    * @param exchangeVO
    *          参数VO
