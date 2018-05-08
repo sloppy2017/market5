@@ -200,6 +200,7 @@ public class OrderLogService {
     consignationNos.add(sellConsignationLog.getConsignationNo());
     checkOrderLog(consignationNos, matchInfoVO.getSeq());
     buyOrderLogDeal(matchInfoVO, buyConsignationLog);
+    matchInfoVO.setSellGenre(matchInfoVO.getBuyGenre());
     sellOrderLogDeal(matchInfoVO, sellConsignationLog);
     DigitalCoin commodityDigitalCoin = digitalCoinService.findByName(matchInfoVO.getCurrency().split("/")[0]);
     DigitalCoin moneyDigitalCoin = digitalCoinService.findByName(matchInfoVO.getCurrency().split("/")[1]);

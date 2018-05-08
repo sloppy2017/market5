@@ -78,19 +78,26 @@ public class KLineDataThread implements Runnable{
       map.put("time",endTime+60000L);
       if(BigDecimal.ZERO.compareTo((BigDecimal)map.get("volum")) == 0) {
         BigDecimal price = getRealTimePrice(currencyType);
-        map.put("open", price);
-        map.put("close", price);
-        map.put("lowest", price);
-        map.put("highest", price);
+        if(null ==price){
+          map.put("open", "0");
+          map.put("close", "0");
+          map.put("lowest", "0");
+          map.put("highest", "0");
+        }else{
+          map.put("open", price);
+          map.put("close", price);
+          map.put("lowest", price);
+          map.put("highest", price);
+        }
       }
     }else{
       map = new HashMap<>();
       map.put("currency","");
       map.put("time",endTime+60000L);
-      map.put("open", "");
-      map.put("close", "");
-      map.put("lowest", "");
-      map.put("highest", "");
+      map.put("open", "0");
+      map.put("close", "0");
+      map.put("lowest", "0");
+      map.put("highest", "0");
     }
     return map;
   }
