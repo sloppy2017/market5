@@ -3,7 +3,7 @@ eureka:
         serviceUrl:
             defaultZone: http://peer:8084/eureka/
 server:
-    port: 8010
+    port: 8011
     
     
 wallet:

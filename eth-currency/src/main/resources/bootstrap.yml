@@ -17,7 +17,7 @@ logging:
     org.springframework.web: debug
     com.unis: debug
 server:
-  port: 8060
+  port: 8013
 mybatis:
   mapperLocations: classpath:/mybatis/com/c2b/ethWallet/mapper/*.xml
 
