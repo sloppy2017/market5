@@ -25,9 +25,9 @@ spring:
         # 使用druid数据源
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://172.31.1.100:3306/coin?useUnicode=true&characterEncoding=UTF-8
-      username: kaifa
-      password: y9k(s*DlexrrYrq$m4W
+      url: jdbc:mysql://192.168.1.136:3306/market?useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: asdzxczxc
       validationQuery: SELECT 1 FROM DUAL
 
       

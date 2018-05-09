@@ -2,13 +2,21 @@ spring:
   application:
     name: zipkin-server
   datasource:
-    url: jdbc:mysql://mysql:3306/market?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.1.136:3306/market?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: asdzxczxc
     driverClassName: com.mysql.jdbc.Driver
 server:
   port: 8090
-
+eureka:
+  instance:
+    ip-address: 192.168.1.136
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
 zipkin:
   storage:
     type: mysql

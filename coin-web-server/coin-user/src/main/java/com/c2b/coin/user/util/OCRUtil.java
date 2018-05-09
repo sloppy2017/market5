@@ -188,22 +188,22 @@ public class OCRUtil {
     }
     return map;
   }
-	public static void main(String[] args) {
-//		String jsonString = "{\"message\":{\"status\":2,\"value\":\"识别成功\"},"
-//				+ "\"cardsinfo\":[" + "{\"type\":\"2\"," + "\"items\":["
-//				+ "{\"desc\":\"保留\",\"content\":\"\"},"
-//				+ "{\"desc\":\"姓名\",\"content\":\"王**\"},"
-//				+ "{\"desc\":\"性别\",\"content\":\"男\"},"
-//				+ "{\"desc\":\"民族\",\"content\":\"汉\"},"
-//				+ "{\"desc\":\"出生\",\"content\":\"1981-02-**\"},"
-//				+ "{\"desc\":\"住址\",\"content\":\"浙江省*******\"},"
-//				+ "{\"desc\":\"公民身份号码\",\"content\":\"3*********9\"},"
-//				+ "{\"desc\":\"头像\",\"content\":\"/9j/4AAQS2Q==\"}" + "]}"
-//				+ "]" + "}";
-      String jsonString  = "{\"message\":{\"status\":-1,\"value\":\"识别失败!ReconClientL:-2\"},\"cardsinfo\":[]}";
-    List<String> list = printjson(jsonString);
-    Map map = listToMap(list);
-    System.out.println(map.toString());
-
-	}
+//	public static void main(String[] args) {
+////		String jsonString = "{\"message\":{\"status\":2,\"value\":\"识别成功\"},"
+////				+ "\"cardsinfo\":[" + "{\"type\":\"2\"," + "\"items\":["
+////				+ "{\"desc\":\"保留\",\"content\":\"\"},"
+////				+ "{\"desc\":\"姓名\",\"content\":\"王**\"},"
+////				+ "{\"desc\":\"性别\",\"content\":\"男\"},"
+////				+ "{\"desc\":\"民族\",\"content\":\"汉\"},"
+////				+ "{\"desc\":\"出生\",\"content\":\"1981-02-**\"},"
+////				+ "{\"desc\":\"住址\",\"content\":\"浙江省*******\"},"
+////				+ "{\"desc\":\"公民身份号码\",\"content\":\"3*********9\"},"
+////				+ "{\"desc\":\"头像\",\"content\":\"/9j/4AAQS2Q==\"}" + "]}"
+////				+ "]" + "}";
+//      String jsonString  = "{\"message\":{\"status\":-1,\"value\":\"识别失败!ReconClientL:-2\"},\"cardsinfo\":[]}";
+//    List<String> list = printjson(jsonString);
+//    Map map = listToMap(list);
+//    System.out.println(map.toString());
+//
+//	}
 }

@@ -40,7 +40,7 @@ spring:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:mysql://mysql:3306/market?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.1.136:3306/market?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: asdzxczxc
   redis:
@@ -54,7 +54,7 @@ ETH:
 spring:
   profiles: default, dev
   datasource:
-    url: jdbc:mysql://mysql:3306/market?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://192.168.1.136:3306/market?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: asdzxczxc
   redis:

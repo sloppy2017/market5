@@ -1,5 +1,6 @@
 eureka:
     instance:
+        ip-address: 192.168.1.136
         prefer-ip-address: true
         leaseRenewalIntervalInSeconds: 10
         metadataMap:
@@ -10,7 +11,7 @@ eureka:
         serviceUrl:
             defaultZone: http://peer:8084/eureka/
 server:
-  port: 8011
+  port: 8012
   context-path: /eco-lite-service
    
    
@@ -25,9 +26,9 @@ spring:
         # 使用druid数据源
       type: com.alibaba.druid.pool.DruidDataSource
       driverClassName: com.mysql.jdbc.Driver
-      url: jdbc:mysql://10.0.11.123:3306/coin?useUnicode=true&characterEncoding=UTF-8
+      url: jdbc:mysql://192.168.1.136:3306/coin?useUnicode=true&characterEncoding=UTF-8
       username: root
-      password: 123456
+      password: asdzxczxc
       validationQuery: SELECT 1 FROM DUAL
 
       

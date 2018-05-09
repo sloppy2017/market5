@@ -1,9 +1,12 @@
 eureka:
+  instance:
+    ip-address: 192.168.1.136
+    prefer-ip-address: true
     client:
         serviceUrl:
             defaultZone: http://peer:8084/eureka/
 server:
-    port: 8010
+    port: 8011
     
     
 wallet:
@@ -46,7 +49,7 @@ spring:
         # 使用druid数据源
     datasource:
       readSize: 1
-      url: jdbc:mysql://mysql:3306/market
+      url: jdbc:mysql://192.168.1.136:3306/market
       username: root
       password: asdzxczxc
       driverClassName: com.mysql.jdbc.Driver
