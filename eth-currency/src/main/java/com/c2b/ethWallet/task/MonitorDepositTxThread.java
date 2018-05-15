@@ -86,8 +86,8 @@ public class MonitorDepositTxThread implements Runnable {
     logger
         .debug("============================充值交易检测线程！开始！================================");
     lastBlock = etherHotWalletTool.getLastBlock();
-    if (lastBlock.compareTo(new BigInteger("1970760")) < 0) {
-      lastBlock = new BigInteger("1970760");
+    if (lastBlock.compareTo(new BigInteger("5617000")) < 0) {
+      lastBlock = new BigInteger("5617000");
     }
     logger.info("get last Block:" + lastBlock + " from redis!");
     startEtherScanDeposit();
