@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>c2b-parent</artifactId>
-    <groupId>com.c2b</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <artifactId>coin-web-server</artifactId>
+        <groupId>com.c2b</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    
   <modelVersion>4.0.0</modelVersion>
   <artifactId>coin-market</artifactId>
   <packaging>jar</packaging>
-
   <name>coin-market</name>
   <url>http://maven.apache.org</url>
 
@@ -24,11 +24,11 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.4</version>
     </dependency>
-    <dependency>
-      <groupId>com.coin</groupId>
-      <artifactId>mybatis-config</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
+      <dependency>
+          <groupId>com.c2b</groupId>
+          <artifactId>mybatis-config</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
     <dependency>
       <groupId>com.c2b</groupId>
       <artifactId>coin-web-common</artifactId>
@@ -43,11 +43,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.coin</groupId>
-      <artifactId>redis-cache-config</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
+      <dependency>
+          <groupId>com.c2b</groupId>
+          <artifactId>redis-cache-config</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
     <!--<dependency>-->
       <!--<groupId>com.c2b</groupId>-->
       <!--<artifactId>coin-market-dao</artifactId>-->

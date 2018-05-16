@@ -1,16 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.7.RELEASE</version>
+    <artifactId>c2b</artifactId>
+    <groupId>com.c2b</groupId>
+    <version>1.0-SNAPSHOT</version>
   </parent>
+
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.coin</groupId>
   <artifactId>mybatis-config</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>mybatis-config</name>
+  <packaging>jar</packaging>
   <url>http://maven.apache.org/</url>
+
   <distributionManagement>
     <repository>
       <id>releases</id>
