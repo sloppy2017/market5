@@ -118,7 +118,7 @@
                     <dependency>
                         <groupId>tk.mybatis</groupId>
                         <artifactId>mapper</artifactId>
-                        <version>${mapper.version}</version>
+                        <version>${mybatis.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
