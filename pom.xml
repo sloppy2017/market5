@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>com.c2b</groupId>
   <artifactId>c2b</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>c2b</name>
+  <url>http://maven.apache.org</url>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.7.RELEASE</version>
+  </parent>
+
   <modules>
-    <module>c2b-parent</module>
     <module>coin-common</module>
+    <module>webmvc-config</module>
+    <module>mybatis-config</module>
+    <module>redis-cache-config</module>
+    <module>swagger-config</module>
     <module>config-server</module>
     <module>eureka-server</module>
-    <module>coin-dao</module>
     <module>coin-web-common</module>
     <module>coin-fegin</module>
     <module>coin-web-server</module>
@@ -20,44 +32,245 @@
     <module>eco-lite-currency</module>
     <module>zipkin-server</module>
     <module>matching-service</module>
-    <module>webmvc-config</module>
-    <module>mybatis-config</module>
-    <module>redis-cache-config</module>
-    <module>swagger-config</module>
     <module>message-server</module>
   </modules>
-  <packaging>pom</packaging>
 
-  <name>c2b</name>
-  <url>http://maven.apache.org</url>
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <profileActive>dev</profileActive>
-        <unis.retail.project>0.0.3-SNAPSHOT</unis.retail.project>
-        <unis.do.version>0.0.3-SNAPSHOT</unis.do.version>
-      </properties>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-    </profile>
-    <profile>
-      <id>release</id>
-      <properties>
-        <profileActive>release</profileActive>
-        <unis.retail.project>0.0.3-SNAPSHOT</unis.retail.project>
-        <unis.do.version>0.0.3-SNAPSHOT</unis.do.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>prod</id>
-      <properties>
-        <profileActive>prod</profileActive>
-        <unis.retail.project>0.0.3</unis.retail.project>
-        <unis.do.version>0.0.3</unis.do.version>
-      </properties>
-    </profile>
-  </profiles>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <pagehelper.version>4.1.6</pagehelper.version>
+    <mybatis.version>3.4.6</mybatis.version>
+    <mybatis.spring.version>1.3.2</mybatis.spring.version>
+    <mysql.version>5.1.21</mysql.version>
+    <druid.version>1.1.2</druid.version>
+    <tk.mybatis.version>1.3.0</tk.mybatis.version>
+    <com.fasterxml.jackson.version>2.9.1</com.fasterxml.jackson.version>
+    <fastjson.version>1.2.28</fastjson.version>
+    <swagger2.version>2.7.0</swagger2.version>
+    <pinyin4j.version>2.5.0</pinyin4j.version>
+  </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Dalston.SR4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>${mybatis.spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>tk.mybatis</groupId>
+        <artifactId>mapper</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper</artifactId>
+        <version>${pagehelper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${com.fasterxml.jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${com.fasterxml.jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${com.fasterxml.jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${swagger2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${swagger2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.7</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>1.8</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.zxing</groupId>
+        <artifactId>core</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.zxing</groupId>
+        <artifactId>javase</artifactId>
+        <version>2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.web3j</groupId>
+        <artifactId>core</artifactId>
+        <version>2.3.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google</groupId>
+        <artifactId>litecoinj</artifactId>
+        <version>0.10.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.lambdaworks</groupId>
+        <artifactId>scrypt</artifactId>
+        <version>1.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>2.9.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.belerweb</groupId>
+        <artifactId>pinyin4j</artifactId>
+        <version>${pinyin4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpcore</artifactId>
+        <version>4.4.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpmime</artifactId>
+        <version>4.5.3</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-httpclient</groupId>
+        <artifactId>commons-httpclient</artifactId>
+        <version>3.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>cz.mallat.uasparser</groupId>
+        <artifactId>uasparser</artifactId>
+        <version>0.6.2</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.jregex</groupId>
+        <artifactId>jregex</artifactId>
+        <version>1.2_01</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jolokia</groupId>
+      <artifactId>jolokia-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>versions-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>2.2</version>
+        <configuration>
+          <!--这是新版本号-->
+          <newVersion>1.0-SNAPSHOT</newVersion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <delimiters>
+            <delimiter>@</delimiter>
+          </delimiters>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
