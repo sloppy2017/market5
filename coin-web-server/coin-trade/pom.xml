@@ -80,6 +80,7 @@
             </exclusions>
         </dependency>
     </dependencies>
+
     <build>
         <resources>
             <resource>
