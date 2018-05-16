@@ -14,5 +14,6 @@
     <module>coin-trade</module>
     <module>coin-user</module>
     <module>coin-file-server</module>
+    <module>coin-api</module>
   </modules>
 </project>
