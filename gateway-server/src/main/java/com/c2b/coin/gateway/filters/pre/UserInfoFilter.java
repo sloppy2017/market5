@@ -10,20 +10,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Component
 public class UserInfoFilter extends ZuulFilter {
+
   private Logger logger = LoggerFactory.getLogger(UserInfoFilter.class);
-  @Resource(name = "redisTemplate")
-  private RedisTemplate<Object, Object> redisTemplate;
 
   @Autowired
   private StringRedisTemplate stringRedisTemplate;

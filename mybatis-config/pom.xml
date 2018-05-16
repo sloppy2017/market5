@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
@@ -12,24 +13,10 @@
   <packaging>jar</packaging>
   <url>http://maven.apache.org/</url>
 
-  <distributionManagement>
-    <repository>
-      <id>releases</id>
-      <name>release</name>
-      <url>http://10.0.11.123:8081/repository/maven-public/</url>
-    </repository>
-    <snapshotRepository>
-      <id>snapshot</id>
-      <name>dev</name>
-      <url>http://10.0.11.123:8081/repository/maven-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <pagehelper.version>4.1.6</pagehelper.version>
-    <mapper.version>3.3.9</mapper.version>
-    <mysql.version>5.1.21</mysql.version>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -38,34 +25,25 @@
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>1.1.1</version>
     </dependency>
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper</artifactId>
-      <version>${pagehelper.version}</version>
     </dependency>
     <dependency>
       <groupId>tk.mybatis</groupId>
       <artifactId>mapper</artifactId>
-      <version>${mapper.version}</version>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql.version}</version>
     </dependency>
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid</artifactId>
-      <version>1.0.18</version>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.16.18</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
