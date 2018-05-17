@@ -32,7 +32,7 @@ public class MarketService extends TaskServiceBase {
 
 	@Autowired
 	private RedisUtil redisUtil;
-	
+
 	@Autowired
 	RestTemplate restTemplate;
 
@@ -133,7 +133,7 @@ public class MarketService extends TaskServiceBase {
 		newPrice = newMap != null && newMap.size()>0 ? (BigDecimal) newMap.get("made_price"):BigDecimal.ZERO;
 		oldPrice = oldMap != null && oldMap.size()>0 ? (BigDecimal) oldMap.get("made_price"):BigDecimal.ZERO;
 
-		BigDecimal amountIncrease = (oldPrice==null || BigDecimal.ZERO == oldPrice) ? BigDecimal.ZERO : oldPrice.subtract(newPrice).divide(oldPrice,8,BigDecimal.ROUND_HALF_DOWN);
+		BigDecimal amountIncrease = (oldPrice==null || BigDecimal.ZERO == oldPrice) ? BigDecimal.ZERO : newPrice.subtract(oldPrice).divide(oldPrice,8,BigDecimal.ROUND_HALF_DOWN);
 		HashMap resultMap = new HashMap();
 		resultMap.put("max",maxPrice);
 		resultMap.put("min",minPrice);
@@ -167,7 +167,7 @@ public class MarketService extends TaskServiceBase {
 		JSONArray jsonArray = new JSONArray();
 		Map<String,Object> messageMap = null;
 		if(list!=null && list.size()!=0) {
-			
+
 			BigDecimal sumCount = BigDecimal.ZERO;
 			if("BUY".equals(type)) {//买盘由大到小取十个档位
 				messageMap = new TreeMap<>(new Comparator<String>(){
