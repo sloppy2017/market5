@@ -59,7 +59,7 @@ public class SwaggerConfiguration {
     signatureVersion.name("SignatureVersion").description("版本").defaultValue("1").modelRef(new ModelRef("string")).parameterType("query").required(false);
     pars.add(signatureVersion.build());
 
-    return new Docket(DocumentationType.SWAGGER_2).globalOperationParameters(pars).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.c2b")).paths(PathSelectors.any()).build();
+    return new Docket(DocumentationType.SWAGGER_2).globalOperationParameters(pars).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.c2b.coin.api")).paths(PathSelectors.any()).build();
   }
 
   private ApiInfo apiInfo() {

@@ -82,7 +82,7 @@ public class SignInterceptor implements HandlerInterceptor {
 
     //判断时间是否已过期
     if (isTimeout(timestamp)) {  //客户端传的本地时间，有可能比服务器时间快或则慢，但不能超过正负15分钟，否则认为时间非法
-      writeError(httpServletResponse, RestResponseCode.SignError.InvalidParameter);
+      writeError(httpServletResponse, RestResponseCode.SignError.InvalidTimeStampExpired);
       return false;
     }
 
@@ -103,7 +103,6 @@ public class SignInterceptor implements HandlerInterceptor {
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
-
   }
 
   private static final Pattern accessKeyIdPattern = Pattern.compile("[\\-a-z0-9]+");
@@ -117,7 +116,7 @@ public class SignInterceptor implements HandlerInterceptor {
    * @param s
    * @return
    */
-  private static final Pattern timestampPattern = Pattern.compile("((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)) (0\\d{1}|1\\d{1}|2[0-3]):([0-5]\\d{1}):([0-5]\\d{1})");
+  private static final Pattern timestampPattern = Pattern.compile("((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))T(0\\d{1}|1\\d{1}|2[0-3]):([0-5]\\d{1}):([0-5]\\d{1})");
   private boolean checkTimestamp(String timestamp) {
     return timestampPattern.matcher(timestamp).matches();
   }
@@ -128,13 +127,12 @@ public class SignInterceptor implements HandlerInterceptor {
   }
 
   private boolean isTimeout(String timestamp) {
-    return Math.abs(new Date().getTime() - toGMT8(timestamp).getTime()) > 900000;
+    return Math.abs(new Date().getTime() - toUTC(timestamp).getTime()) > 900000;
   }
 
-  private Date toGMT8(String utcTime) {
-    DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-    DateTime dateTime = DateTime.parse(utcTime, format).plusHours(8);
-    return dateTime.toDate();
+  private static final DateTimeFormatter utcFormat = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
+  private Date toUTC(String utcTime) {
+    return DateTime.parse(utcTime, utcFormat).toDate();
   }
 
   private void writeError(HttpServletResponse response, IRestResponseCode responseCode) throws IOException {
