@@ -15,8 +15,6 @@ logging:
   config: classpath:logback.xml
 server:
   port: 8060
-mybatis:
-  mapperLocations: classpath:/mybatis/com/c2b/coin/**/mapper/*.xml
 feign:
   hystrix:
     enabled: false
