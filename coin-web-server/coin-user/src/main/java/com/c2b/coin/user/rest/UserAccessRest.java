@@ -5,14 +5,12 @@ import com.c2b.coin.common.RegexUtil;
 import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.user.service.IUserAccessService;
 import com.c2b.coin.web.common.BaseRest;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api("用户AccessKey服务")
+@Api("用户AccessKey")
 @RestController
 @RequestMapping("/accesskey")
 public class UserAccessRest extends BaseRest {
@@ -21,54 +19,31 @@ public class UserAccessRest extends BaseRest {
   private IUserAccessService iUserAccessService;
 
   @ApiOperation(value = "创建AccessKey")
-  @ApiImplicitParams({
-    @ApiImplicitParam(name = "userId", value = "userId", required = true, paramType = "query", dataType = "string"),
-    @ApiImplicitParam(name = "allowIp", value = "allowIp", paramType = "query", dataType = "string"),
-    @ApiImplicitParam(name = "remark", value = "remark", paramType = "query", dataType = "string")
-  })
   @RequestMapping(value = "/create", method = RequestMethod.POST)
-  public AjaxResponse create(@RequestParam(name = "userId", required = false, defaultValue = "") String userId,
-                             @RequestParam(name = "allowIp", required = false, defaultValue = "") String allowIp,
-                             @RequestParam(name = "remark", required = false, defaultValue = "") String remark) {
-    if (!RegexUtil.isId(userId)) {
-      return writeObj(ErrorMsgEnum.PARAM_ERROR);
-    }
-    if (!RegexUtil.ipsRegex(allowIp)) {
+  public AjaxResponse create(
+    @ApiParam(name = "allowIp", value = "IP白名单,多个以逗号分隔") @RequestParam(name = "allowIp", required = false, defaultValue = "") String allowIp,
+    @ApiParam(name = "remark", value = "备注") @RequestParam(name = "remark", required = false, defaultValue = "") String remark) {
+    if (StringUtils.isNotEmpty(allowIp) && !RegexUtil.ipsRegex(allowIp)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
     if (remark.length() > 255) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    return writeObj(iUserAccessService.create(Long.parseLong(userId), allowIp, remark));
+    return writeObj(iUserAccessService.create(Long.parseLong(getUserId()), allowIp, remark));
   }
 
   @ApiOperation(value = "查询用户的AccessKey列表")
-  @ApiImplicitParams({
-    @ApiImplicitParam(name = "userId", value = "userId", required = true, paramType = "query", dataType = "string")
-  })
   @RequestMapping(value = "/list", method = RequestMethod.POST)
-  public AjaxResponse create(@RequestParam(name = "userId", required = false, defaultValue = "") String userId) {
-    if (!RegexUtil.isId(userId)) {
-      return writeObj(ErrorMsgEnum.PARAM_ERROR);
-    }
-    return writeObj(iUserAccessService.findByUserId(Long.parseLong(userId)));
+  public AjaxResponse create() {
+    return writeObj(iUserAccessService.findByUserId(Long.parseLong(getUserId())));
   }
 
-  @ApiOperation(value = "创建AccessKey")
-  @ApiImplicitParams({
-    @ApiImplicitParam(name = "userId", value = "userId", required = true, paramType = "query", dataType = "string"),
-    @ApiImplicitParam(name = "id", value = "id", required = true, paramType = "query", dataType = "string"),
-    @ApiImplicitParam(name = "allowIp", value = "allowIp", paramType = "query", dataType = "string"),
-    @ApiImplicitParam(name = "remark", value = "remark", paramType = "query", dataType = "string")
-  })
+  @ApiOperation(value = "修改AccessKey")
   @RequestMapping(value = "/update", method = RequestMethod.POST)
-  public AjaxResponse update(@RequestParam(name = "userId", required = false, defaultValue = "") String userId,
-                             @RequestParam(name = "id", required = false, defaultValue = "") String id,
-                             @RequestParam(name = "allowIp", required = false, defaultValue = "") String allowIp,
-                             @RequestParam(name = "remark", required = false, defaultValue = "") String remark) {
-    if (!RegexUtil.isId(userId)) {
-      return writeObj(ErrorMsgEnum.PARAM_ERROR);
-    }
+  public AjaxResponse update(
+    @ApiParam(name = "id", value = "ID", required = true) @RequestParam(name = "id", required = false, defaultValue = "") String id,
+    @ApiParam(name = "allowIp", value = "IP白名单,多个以逗号分隔") @RequestParam(name = "allowIp", required = false, defaultValue = "") String allowIp,
+    @ApiParam(name = "remark", value = "备注") @RequestParam(name = "remark", required = false, defaultValue = "") String remark) {
     if (!RegexUtil.isId(id)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
@@ -78,25 +53,18 @@ public class UserAccessRest extends BaseRest {
     if (remark.length() > 255) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    iUserAccessService.update(Long.parseLong(userId), Integer.parseInt(id), allowIp, remark);
+    iUserAccessService.update(Long.parseLong(getUserId()), Integer.parseInt(id), allowIp, remark);
     return writeObj(null);
   }
 
-  @ApiOperation(value = "修改AccessKey")
-  @ApiImplicitParams({
-    @ApiImplicitParam(name = "userId", value = "userId", required = true, paramType = "query", dataType = "string"),
-    @ApiImplicitParam(name = "id", value = "id", required = true, paramType = "query", dataType = "string")
-  })
+  @ApiOperation(value = "删除AccessKey")
   @RequestMapping(value = "/delete", method = RequestMethod.POST)
-  public AjaxResponse delete(@RequestParam(name = "userId", required = false, defaultValue = "") String userId,
-                             @RequestParam(name = "id", required = false, defaultValue = "") String id) {
-    if (!RegexUtil.isId(userId)) {
-      return writeObj(ErrorMsgEnum.PARAM_ERROR);
-    }
+  public AjaxResponse delete(
+    @ApiParam(name = "id", value = "ID", required = true) @RequestParam(name = "id", required = false, defaultValue = "") String id) {
     if (!RegexUtil.isId(id)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    iUserAccessService.delete(Long.parseLong(userId), Integer.parseInt(id));
+    iUserAccessService.delete(Long.parseLong(getUserId()), Integer.parseInt(id));
     return writeObj(null);
   }
 

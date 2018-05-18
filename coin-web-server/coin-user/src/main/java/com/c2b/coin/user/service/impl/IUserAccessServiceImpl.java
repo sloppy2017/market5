@@ -3,6 +3,7 @@ package com.c2b.coin.user.service.impl;
 import com.c2b.coin.user.entity.UserAccess;
 import com.c2b.coin.user.mapper.UserAccessMapper;
 import com.c2b.coin.user.service.IUserAccessService;
+import com.c2b.coin.user.vo.UserAccessVo;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class IUserAccessServiceImpl implements IUserAccessService {
   }
 
   @Override
-  public List<UserAccess> findByUserId(long userId) {
+  public List<UserAccessVo> findByUserId(long userId) {
     return userAccessMapper.findByUserId(userId);
   }
 

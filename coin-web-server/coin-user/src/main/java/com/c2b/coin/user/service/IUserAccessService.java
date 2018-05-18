@@ -1,6 +1,7 @@
 package com.c2b.coin.user.service;
 
 import com.c2b.coin.user.entity.UserAccess;
+import com.c2b.coin.user.vo.UserAccessVo;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface IUserAccessService {
 
   UserAccess create(long userId, String allowIp, String remark);
 
-  List<UserAccess> findByUserId(long userId);
+  List<UserAccessVo> findByUserId(long userId);
 
   void update(long userId, int id, String allowIp, String remark);
 
