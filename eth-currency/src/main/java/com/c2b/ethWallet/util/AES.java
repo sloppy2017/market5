@@ -1,7 +1,19 @@
 package com.c2b.ethWallet.util;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.DecoderException;
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.utils.Numeric;
+
+import com.c2b.coin.common.DateUtil;
+import com.c2b.ethWallet.entity.UserCoin;
+import com.c2b.ethWallet.util.EtherWalletUtil.EtherWallet;
 
 /**
  * AES加解密工具
@@ -100,5 +112,39 @@ public class AES {
         }  
         return result;  
     }
+    
+    public static void main(String[] args) {
+////    		String privateKey = "c5dcde9416239c697c131342aa66ac85a312755ac20f21e7db3e5e6f6ab9c90b";
+////    		
+////    		EtherWalletUtil.decryptPrivateKey(salt, iv, cipherKey)
+//			String pk = encrypt("10148807834834672580300528225791268477424646694962654520693361135116595652119".getBytes());
+//			System.out.println(pk);
+//			String prk =decrypt("F6369E28EB4F82EBDB6132F0CBFF571B2690F8A40B59DCE1C84855D5231CCDC8A7743371CB48B498635C22E8B35FC1C5278E3D967E80BE1D7A960CE7886659F8ED11D15AAB6DB81B95380A45BC62515C");
+//			System.out.println(prk);
+//		
+//    	
+    	EtherWallet walletOne = EtherWalletUtil.createWallet();
+//
+		String privateKey;
+		try {
+			privateKey = EtherWalletUtil.decryptPrivateKey(walletOne.getSalt(),
+					walletOne.getIv(), walletOne.getCipherText());
+			String onlyPrivateKey = walletOne.getPrivateKeys();
+			System.out.println("address:"+walletOne.getAddress());
+			System.out.println("privateKey:"+onlyPrivateKey);
+			System.out.println("dePrivateKey:"+privateKey);
+			System.out.println(encrypt(onlyPrivateKey.getBytes()));
+//			System.out.println(WalletUtils.isValidPrivateKey(privateKey));
+//
+//			Credentials credential = EtherWalletUtil.getCredentials(privateKey);
+//
+//			System.out.println(walletOne.getAddress()
+//					.equals(Numeric.cleanHexPrefix(credential.getAddress())));
+		} catch (DecoderException | CipherException e) {
+			e.printStackTrace();
+		}
+//
+//		
+	}
 
 }
