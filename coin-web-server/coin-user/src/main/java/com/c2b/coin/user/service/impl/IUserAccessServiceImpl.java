@@ -28,7 +28,7 @@ public class IUserAccessServiceImpl implements IUserAccessService {
   @Override
   public UserAccess create(long userId, String allowIp, String remark) {
     if (userAccessMapper.findCountByUserId(userId) >= 5) {
-      throw new BusinessException(ErrorMsgEnum.USER_ACCESS_CREATE_MORE_THAN_SIZE);
+      throw new BusinessException(ErrorMsgEnum.USER_ACCESS_CREATE_MAXIMUM_ALLOWED);
     }
     UserAccess userAccess = new UserAccess();
     userAccess.setUserId(userId);
@@ -37,7 +37,7 @@ public class IUserAccessServiceImpl implements IUserAccessService {
     userAccess.setAllowIp(allowIp);
     userAccess.setRemark(remark);
     DateTime nowtime = new DateTime();
-    DateTime expire = nowtime.plusDays(90).withTime(23,59,59,999);//有效期90天
+    DateTime expire = nowtime.plusDays(90).withTime(23, 59, 59, 999);//有效期90天
     userAccess.setExpireDate(expire.getMillis());
     userAccess.setCreateTime(nowtime.getMillis());
     userAccessMapper.insert(userAccess);
