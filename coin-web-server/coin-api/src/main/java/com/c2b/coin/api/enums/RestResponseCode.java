@@ -1,6 +1,6 @@
 package com.c2b.coin.api.enums;
 
-import com.c2b.coin.web.common.enums.IRestResponseCode;
+import com.c2b.coin.web.common.enums.IResponseCode;
 
 /**
  * 返回状态码
@@ -10,7 +10,7 @@ import com.c2b.coin.web.common.enums.IRestResponseCode;
  */
 public class RestResponseCode {
 
-  public enum SignError implements IRestResponseCode {
+  public enum SignError implements IResponseCode {
 
     InvalidParameter("invalid-parameter", "参数错误"),
     InvalidAccessKeyIdNotFound("invalid-access-key-id-notfound", "无效的AccessKeyId,请检查是否正确"),

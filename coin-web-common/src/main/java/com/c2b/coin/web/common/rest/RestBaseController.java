@@ -1,7 +1,7 @@
 package com.c2b.coin.web.common.rest;
 
 import com.c2b.coin.web.common.rest.bean.RestResponseBean;
-import com.c2b.coin.web.common.enums.IRestResponseCode;
+import com.c2b.coin.web.common.enums.IResponseCode;
 
 /**
  * BaseController
@@ -14,7 +14,7 @@ public class RestBaseController {
 		return RestResponseBean.onFailure();
 	}
 
-	public RestResponseBean onFailure(IRestResponseCode responseCode) {
+	public RestResponseBean onFailure(IResponseCode responseCode) {
 		return responseCode == null ? onFailure() : RestResponseBean.onFailure(responseCode);
 	}
 

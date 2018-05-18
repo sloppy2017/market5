@@ -1,6 +1,6 @@
 package com.c2b.coin.web.common.rest.bean;
 
-import com.c2b.coin.web.common.enums.IRestResponseCode;
+import com.c2b.coin.web.common.enums.IResponseCode;
 
 import java.util.Date;
 
@@ -79,7 +79,7 @@ public class RestResponseBean<T> {
     this.data = data;
   }
 
-  private void fillResponse(IRestResponseCode responseCode, T data) {
+  private void fillResponse(IResponseCode responseCode, T data) {
     if (responseCode != null) {
       setErrCode(responseCode.getCode());
       setErrMsg(responseCode.getMessage());
@@ -110,7 +110,7 @@ public class RestResponseBean<T> {
     return responseBean;
   }
 
-  public static <T> RestResponseBean<T> onFailure(IRestResponseCode responseCode) {
+  public static <T> RestResponseBean<T> onFailure(IResponseCode responseCode) {
     RestResponseBean responseBean = new RestResponseBean();
     responseBean.setStatus(Status.ERROR.getCode());
     responseBean.setTs(new Date().getTime());

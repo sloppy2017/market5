@@ -5,7 +5,7 @@ import com.c2b.coin.api.annotation.Sign;
 import com.c2b.coin.api.enums.RestResponseCode;
 import com.c2b.coin.common.EncryptUtil;
 import com.c2b.coin.web.common.rest.bean.RestResponseBean;
-import com.c2b.coin.web.common.enums.IRestResponseCode;
+import com.c2b.coin.web.common.enums.IResponseCode;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.protocol.HTTP;
@@ -135,7 +135,7 @@ public class SignInterceptor implements HandlerInterceptor {
     return DateTime.parse(utcTime, utcFormat).toDate();
   }
 
-  private void writeError(HttpServletResponse response, IRestResponseCode responseCode) throws IOException {
+  private void writeError(HttpServletResponse response, IResponseCode responseCode) throws IOException {
     response.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
     response.getWriter().append(JSON.toJSONString(RestResponseBean.onFailure(responseCode)));
   }
