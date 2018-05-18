@@ -43,7 +43,7 @@ public class RedisUtil {
   public void set(final String key,final Object value) {
 	  valOps.set(key, value);
   }
-  
+
   public void set(final String key, final String value, final int expiresTimes) {
     valOpsStr.set(key, value, expiresTimes, TimeUnit.SECONDS);
   }
@@ -69,8 +69,12 @@ public class RedisUtil {
     });
   }
 
-  public boolean expire(final String key, long expire) {
+  public boolean expire(final String key, final long expire) {
     return redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+  }
+
+  public boolean expire(final String key, final long expire, final TimeUnit unit) {
+    return redisTemplate.expire(key, expire, unit);
   }
 
   public boolean hset(final String key, final String field, Object obj) {
@@ -211,7 +215,7 @@ public class RedisUtil {
     return flag;
   }
 
-  
+
   public Object getObject(String key) {
 	 return valOps.get(key);
   }
