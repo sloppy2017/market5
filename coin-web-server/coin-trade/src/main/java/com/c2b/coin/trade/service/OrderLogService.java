@@ -164,6 +164,7 @@ public class OrderLogService {
     buyOrderLog.setPoundage(matchInfoVO.getBuyMoney());
     buyOrderLog.setUserId(buyConsignationLog.getUserId().intValue());
     buyOrderLog.setMadeAveragePrice(buyConsignationLog.getMadeAveragePrice());
+    buyOrderLog.setMadePrice(matchInfoVO.getMoney());
     buyOrderLog.setOrderType(Integer.valueOf(ConsignationTradeTypeEnum.getConsignationTradeTypeEnum("BUY_" + matchInfoVO.getBuyGenre().toUpperCase()).getStatusCode()));
     orderLogMapper.insert(buyOrderLog);
     updateConsignation(buyConsignationLog, matchInfoVO);
@@ -183,6 +184,7 @@ public class OrderLogService {
     sellOrderLog.setPoundage(matchInfoVO.getSellMoney());
     sellOrderLog.setOrderType(Integer.valueOf(ConsignationTradeTypeEnum.getConsignationTradeTypeEnum("SELL_" + matchInfoVO.getSellGenre().toUpperCase()).getStatusCode()));
     sellOrderLog.setUserId(sellConsignationLog.getUserId().intValue());
+    sellOrderLog.setMadePrice(matchInfoVO.getMoney());
     sellOrderLog.setMadeAveragePrice(sellConsignationLog.getMadeAveragePrice());
     orderLogMapper.insert(sellOrderLog);
     updateConsignation(sellConsignationLog, matchInfoVO);
@@ -305,7 +307,15 @@ public class OrderLogService {
     }else{
       consignationLog.setConsignationStatus(consignationStatus);
       consignationLogMapper.updateConsignationWithEnd(consignationLog);
+
+      //修改order_log madeAveragePrice 值
+      OrderLog ol = new OrderLog();
+      ol.setConsignationNo(consignationLog.getConsignationNo()); //修改订单号相同的 madeAveragePrice 值
+      OrderLog obj = orderLogMapper.selectOne(ol);
+      String orderNo = obj.getOrderNo();
+      orderLogMapper.updateByOrderNo(consignationLog.getMadeAveragePrice(),orderNo);
     }
+
   }
 
   public Integer getSetConsignationStatusValue(ExchangeVO vo, ConsignationLog consignationLog) {

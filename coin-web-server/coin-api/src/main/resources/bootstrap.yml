@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: coin-api
+  cloud:
+    config:
+      label: master
+      discovery:
+        service-id: config-server
+        enabled: true
+  profiles:
+    active: dev
+
+#logging 配置
+logging:
+  config: classpath:logback.xml
+server:
+  port: 8060
+feign:
+  hystrix:
+    enabled: false
+
+---
+spring:
+  cloud:
+    config:
+      profile: prod
+  profiles: prod
+  zipkin:
+    base-url: http://peer:8090
+eureka:
+  instance:
+    ip-address: 192.168.1.136
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      cluster: COIN-USER
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer1:8084/eureka/,http://peer2:8085/eureka/,http://peer3:8086/eureka/
+logging:
+  level:
+    org.springframework.web: info
+    com.c2b.coin: info
+---
+spring:
+  cloud:
+    config:
+      profile: default
+    inetutils:
+      ignoredInterfaces[0]: eth0
+  profiles: default,dev
+  zipkin:
+    base-url: http://peer:8090
+eureka:
+  instance:
+    ip-address: 192.168.1.136
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer:8084/eureka/
+logging:
+  level:
+    org.springframework.web: info
+    com.c2b.coin: info
+---
+spring:
+  cloud:
+    config:
+      profile: release
+  profiles: release
+  zipkin:
+    base-url: http://peer:8090
+eureka:
+  instance:
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      cluster: COIN-USER
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://peer1:8081/eureka
+logging:
+  level:
+    org.springframework.web: info
+    com.c2b.coin: info
+
+
+
+
+

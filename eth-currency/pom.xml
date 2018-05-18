@@ -1,93 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<artifactId>c2b-parent</artifactId>
-		<groupId>com.c2b</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>c2b</artifactId>
+        <groupId>com.c2b</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>eth-currency</artifactId>
-	<packaging>jar</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>eth-currency</artifactId>
+    <packaging>jar</packaging>
+    <name>eth-currency</name>
+    <url>http://maven.apache.org</url>
 
-	<name>eth-currency</name>
-	<url>http://maven.apache.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mapper.version>3.3.9</mapper.version>
+        <mysql.version>5.1.21</mysql.version>
+        <start-class>com.c2b.ethWallet.EthWalletApplication</start-class>
+        <properties>
+        </properties>
+    </properties>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mapper.version>3.3.9</mapper.version>
-		<mysql.version>5.1.21</mysql.version>
-		<start-class>com.c2b.ethWallet.EthWalletApplication</start-class>
-		<properties>
-		</properties>
-	</properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.c2b</groupId>
+            <artifactId>coin-web-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.c2b</groupId>
+            <artifactId>coin-account-feign</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.c2b</groupId>
+            <artifactId>mybatis-config</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.c2b</groupId>
+            <artifactId>redis-cache-config</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lambdaworks</groupId>
+            <artifactId>scrypt</artifactId>
+        </dependency>
+    </dependencies>
 
-	<dependencies>
-
-
-		<!-- https://mvnrepository.com/artifact/com.lambdaworks/scrypt -->
-		<dependency>
-			<groupId>com.lambdaworks</groupId>
-			<artifactId>scrypt</artifactId>
-			<version>1.4.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.c2b</groupId>
-			<artifactId>coin-account-feign</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.coin</groupId>
-			<artifactId>mybatis-config</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.web3j</groupId>
-			<artifactId>core</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-ribbon</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-feign</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.c2b</groupId>
-			<artifactId>coin-common</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.c2b</groupId>
-			<artifactId>coin-web-common</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.commons</groupId>
-					<artifactId>commons-lang3</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.coin</groupId>
-			<artifactId>redis-cache-config</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-	 <build>
+    <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -106,6 +84,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 </project>

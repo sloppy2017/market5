@@ -1,9 +1,13 @@
 package com.c2b.coin.common;
 
+import org.apache.commons.codec.digest.HmacAlgorithms;
+import org.apache.commons.codec.digest.HmacUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class EncryptUtil {
+
   public static String encrypt(String str) {
     return SHA512(str);
   }
@@ -68,7 +72,15 @@ public class EncryptUtil {
     return strResult;
   }
 
-  public static void main(String[] args) {
-    System.out.println(encrypt("111111"));
+  /**
+   * HmacSHA加密
+   *
+   * @param encryptKey
+   * @param encryptText
+   * @return
+   */
+  public static String encryptHmacSHA(HmacAlgorithms hmacAlgorithms, String encryptKey, String encryptText) {
+    return new HmacUtils(hmacAlgorithms, encryptKey).hmacHex(encryptText);
   }
+
 }

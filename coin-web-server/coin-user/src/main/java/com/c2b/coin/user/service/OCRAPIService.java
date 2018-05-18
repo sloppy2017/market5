@@ -14,11 +14,11 @@ import org.apache.http.util.CharsetUtils;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Encoder;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 @Service
 public class OCRAPIService {
@@ -118,8 +118,7 @@ public class OCRAPIService {
       e.printStackTrace();
     }
     //对字节数组Base64编码
-    BASE64Encoder encoder = new BASE64Encoder();
-    return encoder.encode(data);//返回Base64编码过的字节数组字符串
+    return Base64.getEncoder().encodeToString(data);//返回Base64编码过的字节数组字符串
   }
 
 //  public static void main(String[] args) {

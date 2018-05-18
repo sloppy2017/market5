@@ -4,7 +4,9 @@ import com.c2b.coin.trade.entity.OrderLog;
 import com.coin.config.mybatis.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +30,8 @@ public interface OrderLogMapper extends BaseMapper<OrderLog> {
 
   @Select("select * from order_log where consignation_no = #{consignationNo}")
   List<OrderLog> listOrders(String consignationNo);
+
+  @Update("update order_log set made_average_price = #{madeAveragePrice} where  order_no= #{orderNo} ")
+  int updateByOrderNo(@Param("madeAveragePrice") BigDecimal madeAveragePrice, @Param("orderNo") String orderNo);
+
 }
