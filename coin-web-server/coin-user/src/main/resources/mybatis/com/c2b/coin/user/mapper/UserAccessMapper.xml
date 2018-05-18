@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c2b.coin.user.mapper.UserAccessMapper" >
+  <resultMap id="BaseResultMap" type="com.c2b.coin.user.entity.UserAccess" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="access_key_id" property="accessKeyId" jdbcType="VARCHAR" />
+    <result column="access_key_secret" property="accessKeySecret" jdbcType="VARCHAR" />
+    <result column="allow_ip" property="allowIp" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="expire_date" property="expireDate" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+</mapper>

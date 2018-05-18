@@ -17,6 +17,8 @@ server:
   port: 8010
 mybatis:
   mapperLocations: classpath:/mybatis/com/c2b/coin/**/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
 feign:
   hystrix:
     enabled: false
