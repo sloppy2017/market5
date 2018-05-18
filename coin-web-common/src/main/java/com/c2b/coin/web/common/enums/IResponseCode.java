@@ -6,7 +6,7 @@ package com.c2b.coin.web.common.enums;
  * @author tangwei
  *
  */
-public interface IRestResponseCode {
+public interface IResponseCode {
 
     String getCode();
 
