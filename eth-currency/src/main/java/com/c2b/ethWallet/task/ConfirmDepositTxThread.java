@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.web3j.protocol.Web3j;
@@ -38,7 +39,7 @@ import com.c2b.ethWallet.util.WalletConstant;
  *
  */
 @Component("confirmDepositTxThread")
-public class ConfirmDepositTxThread implements Runnable {
+public class ConfirmDepositTxThread  {
 
   private Logger logger = LoggerFactory.getLogger(ConfirmDepositTxThread.class);
 
@@ -58,8 +59,7 @@ public class ConfirmDepositTxThread implements Runnable {
   @Value("ETH.hot.address")
   private String ethHotWallet;
 
-  @Scheduled(cron = "0 1/3 * * * ?")
-  @Override
+  @Scheduled(cron = "0/15 * * * * ?")
   public void run() {
     try {
       logger.info("begin confirm deposit tx");

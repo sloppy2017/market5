@@ -10,6 +10,7 @@ import com.c2b.coin.common.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.web3j.protocol.Web3j;
@@ -45,7 +46,7 @@ import com.c2b.ethWallet.util.WalletConstant;
  *
  */
 @Component("monitorDepositTxThread")
-public class MonitorDepositTxThread implements Runnable {
+public class MonitorDepositTxThread{
 
   private Logger logger = Logger.getLogger(MonitorDepositTxThread.class);
 
@@ -80,8 +81,7 @@ public class MonitorDepositTxThread implements Runnable {
 
   private BigInteger lastBlock;
 
-  @Scheduled(cron = "0 1/3 * * * ?")
-  @Override
+  @Scheduled(cron = "0/15 * * * * ?")
   public void run() {
     logger
         .debug("============================充值交易检测线程！开始！================================");

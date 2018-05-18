@@ -15,7 +15,7 @@ import org.web3j.protocol.http.HttpService;
 public class Web3JClient {
 
 //	private static String ip = "http://10.0.11.124:8545";//测试链地址
-    private static String ip = "http://54.238.197.120:8545";//主链地址
+    private static String ip = "https://mainnet.infura.io/XxkvK0eTug3mvXswlJaa";//主链地址
 //    private static String ip = "http://127.0.0.1:8545";
     private Web3JClient(){}
 

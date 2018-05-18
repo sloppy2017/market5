@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.web3j.protocol.Web3j;
@@ -37,7 +38,7 @@ import com.github.pagehelper.StringUtil;
  *
  */
 @Component("confirmWithdrawTxThread")
-public class ConfirmWithdrawTxThread implements Runnable {
+public class ConfirmWithdrawTxThread  {
 
   private Logger logger = Logger.getLogger(ConfirmWithdrawTxThread.class);
 
@@ -56,7 +57,6 @@ public class ConfirmWithdrawTxThread implements Runnable {
   private Integer confirmNum = 12;
 
   @Scheduled(cron = "0 1/3 * * * ?")
-  @Override
   public void run() {
     logger.info("提币确认工作线程！ 开始！");
     BigInteger maxBlock = this.getMaxBlockNumber();

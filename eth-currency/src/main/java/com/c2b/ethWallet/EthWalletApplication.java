@@ -8,6 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**  
  * 类说明   
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 @RefreshScope
 @EnableEurekaClient
 @EnableFeignClients
+@EnableScheduling
 public class EthWalletApplication {
 
   public static void main(String[] args) {
