@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 
 public class IPUtils {
+  
   private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
 
   /**
@@ -37,13 +38,32 @@ public class IPUtils {
     } catch (Exception e) {
       logger.error("IPUtils ERROR ", e);
     }
-
-//        //使用代理，则获取第一个IP地址
-//        if(StringUtils.isEmpty(ip) && ip.length() > 15) {
-//			if(ip.indexOf(",") > 0) {
-//				ip = ip.substring(0, ip.indexOf(","));
-//			}
-//		}
     return ip;
   }
+
+  /**
+   * 获取用户的真实IP，取X-Forwarded-For中第一个非unknown的有效IP字符串
+   *
+   * @param request
+   * @return
+   */
+  public static String getRealIpAddress(HttpServletRequest request) {
+    String ip = getIpAddr(request);
+    if (ip != null && ip.length() > 0 && ip.contains(",")) {
+      return getNotUnknown(ip.split(","), 0);
+    }
+    return ip;
+  }
+
+  private static String getNotUnknown(String[] ipAddress, int start) {
+    if (ipAddress != null && start < ipAddress.length) {
+      String ip = ipAddress[start];
+      if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        return getNotUnknown(ipAddress, ++start);
+      }
+      return ip;
+    }
+    return "";
+  }
+
 }

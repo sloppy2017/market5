@@ -5,16 +5,13 @@ import com.alibaba.fastjson.util.TypeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -25,23 +22,25 @@ import java.util.concurrent.TimeUnit;
  **/
 @Component
 public class RedisUtil {
+
   @Autowired
   private RedisTemplate<Object, Object> redisTemplate;
+
   @Resource(name = "redisTemplate")
   private ValueOperations<Object, Object> valOps;
 
   @Autowired
-  StringRedisTemplate stringRedisTemplate;
+  private StringRedisTemplate stringRedisTemplate;
 
   @Resource(name = "stringRedisTemplate")
-  ValueOperations<String, String> valOpsStr;
+  private ValueOperations<String, String> valOpsStr;
 
   public <T> T get(String key, Class<T> clazz) {
     return TypeUtils.castToJavaBean(valOps.get("key"), clazz);
   }
 
-  public void set(final String key,final Object value) {
-	  valOps.set(key, value);
+  public void set(final String key, final Object value) {
+    valOps.set(key, value);
   }
 
   public void set(final String key, final String value, final int expiresTimes) {
@@ -60,7 +59,7 @@ public class RedisUtil {
     return valOpsStr.increment(key, 1);
   }
 
-  public Long ttl(final String key){
+  public Long ttl(final String key) {
     return redisTemplate.execute(new RedisCallback<Long>() {
       @Override
       public Long doInRedis(RedisConnection redisConnection) throws DataAccessException {
@@ -77,30 +76,43 @@ public class RedisUtil {
     return redisTemplate.expire(key, expire, unit);
   }
 
-  public boolean hset(final String key, final String field, Object obj) {
-    final String value = JSONObject.toJSONString(obj);
+  public boolean hset(final String key, final String field, final Object value) {
     return redisTemplate.execute(new RedisCallback<Boolean>() {
       @Override
       public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
-        RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+        return redisConnection.hSet(key.getBytes(), field.getBytes(), JSONObject.toJSONString(value).getBytes());
+      }
+    });
+  }
+
+  public boolean hset(final String key, final String field, final String value) {
+    return redisTemplate.execute(new RedisCallback<Boolean>() {
+      @Override
+      public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
         return redisConnection.hSet(key.getBytes(), field.getBytes(), value.getBytes());
       }
     });
   }
-  public String hget(final String key, final String field){
+
+  public String hget(final String key, final String field) {
     try {
       String result = redisTemplate.execute(new RedisCallback<String>() {
         @Override
         public String doInRedis(RedisConnection redisConnection) throws DataAccessException {
-          return new String(redisConnection.hGet(key.getBytes(),field.getBytes()));
+          return new String(redisConnection.hGet(key.getBytes(), field.getBytes()));
         }
       });
       return result;
-    }catch (Exception e){
+    } catch (Exception e) {
       return "";
     }
-
   }
+
+  public Map<String, String> hgetall(final String key) {
+    BoundHashOperations<String, String, String> operations = stringRedisTemplate.boundHashOps(key);
+    return operations.entries();
+  }
+
   public <T> List<T> getList(String key, Class<T> clz) {
     String json = get(key);
     if (json != null) {
@@ -109,7 +121,8 @@ public class RedisUtil {
     }
     return null;
   }
-  public Boolean isMember(final String key,final String value){
+
+  public Boolean isMember(final String key, final String value) {
     return redisTemplate.execute(new RedisCallback<Boolean>() {
       @Override
       public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
@@ -118,7 +131,7 @@ public class RedisUtil {
     });
   }
 
-  public Long zset(final String key, final String value){
+  public Long zset(final String key, final String value) {
     return redisTemplate.execute(new RedisCallback<Long>() {
       @Override
       public Long doInRedis(RedisConnection connection) throws DataAccessException {
@@ -126,6 +139,7 @@ public class RedisUtil {
       }
     });
   }
+
   public long lpush(final String key, Object obj) {
     final String value = JSONObject.toJSONString(obj);
     long result = redisTemplate.execute(new RedisCallback<Long>() {
@@ -174,7 +188,7 @@ public class RedisUtil {
     return result;
   }
 
-  public Long sadd(final String key, final String value){
+  public Long sadd(final String key, final String value) {
     return redisTemplate.execute(new RedisCallback<Long>() {
       @Override
       public Long doInRedis(RedisConnection redisConnection) throws DataAccessException {
@@ -183,7 +197,7 @@ public class RedisUtil {
     });
   }
 
-  public Set<byte[]> smember(final String key){
+  public Set<byte[]> smember(final String key) {
     return redisTemplate.execute(new RedisCallback<Set<byte[]>>() {
       @Override
       public Set<byte[]> doInRedis(RedisConnection redisConnection) throws DataAccessException {
@@ -202,21 +216,21 @@ public class RedisUtil {
     });
   }
 
-  public Boolean setnx(final String key, final String value, long expire){
-    boolean flag =  redisTemplate.execute(new RedisCallback<Boolean>() {
+  public Boolean setnx(final String key, final String value, long expire) {
+    boolean flag = redisTemplate.execute(new RedisCallback<Boolean>() {
       @Override
       public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
         return connection.setNX(key.getBytes(), value.getBytes());
       }
     });
-    if (flag){
-      expire(key,expire); // 设置过期时间
+    if (flag) {
+      expire(key, expire); // 设置过期时间
     }
     return flag;
   }
 
 
   public Object getObject(String key) {
-	 return valOps.get(key);
+    return valOps.get(key);
   }
 }
