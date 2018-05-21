@@ -1,5 +1,7 @@
 package com.c2b.coin.user.service.impl;
 
+import com.c2b.coin.common.Constants;
+import com.c2b.coin.common.ParamMessageUtil;
 import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.user.entity.UserAccess;
 import com.c2b.coin.user.mapper.UserAccessMapper;
@@ -28,7 +30,7 @@ public class IUserAccessServiceImpl implements IUserAccessService {
   protected UserAccessMapper userAccessMapper;
 
   @Autowired
-  RedisUtil redisUtil;
+  protected RedisUtil redisUtil;
 
   @Override
   public UserAccess create(long userId, String allowIp, String remark) {
@@ -47,7 +49,7 @@ public class IUserAccessServiceImpl implements IUserAccessService {
     userAccess.setCreateTime(nowtime.getMillis());
     userAccessMapper.insert(userAccess);
 
-    String key = "USER_ACCESS_" + userAccess.getUserId() + "_" + userAccess.getAccessKeyId();
+    String key = ParamMessageUtil.format(Constants.REDIS_USER_ACCESS_KEY, userAccess.getUserId(), userAccess.getAccessKeyId());
     redisUtil.hset(key, "accessKeySecret", userAccess.getAccessKeySecret());
     redisUtil.hset(key, "allowIp", userAccess.getAllowIp());
     redisUtil.expire(key, userAccess.getExpireDate(), TimeUnit.MILLISECONDS);
@@ -61,14 +63,21 @@ public class IUserAccessServiceImpl implements IUserAccessService {
 
   @Override
   public void update(long userId, String accessKeyId, String allowIp, String remark) {
-    userAccessMapper.updateByUserId(userId, accessKeyId, allowIp, remark);
-    redisUtil.hset("USER_ACCESS_" + userId + "_" + accessKeyId, "allowIp", allowIp);
+    UserAccessVo userAccess = userAccessMapper.getByUserId(userId, accessKeyId);
+    if (userAccess == null) {
+      throw new BusinessException(ErrorMsgEnum.USER_ACCESS_NOT_EXISTS);
+    }
+    userAccessMapper.updateByUserId(userAccess.getUserId(), userAccess.getAccessKeyId(), allowIp, remark);
+
+    String key = ParamMessageUtil.format(Constants.REDIS_USER_ACCESS_KEY, userAccess.getUserId(), userAccess.getAccessKeyId());
+    redisUtil.hset(ParamMessageUtil.format(Constants.REDIS_USER_ACCESS_KEY, userAccess.getUserId(), userAccess.getAccessKeyId()), "allowIp", allowIp);
+    redisUtil.expire(key, userAccess.getExpireDate(), TimeUnit.MILLISECONDS);
   }
 
   @Override
   public void delete(long userId, String accessKeyId) {
     userAccessMapper.deleteByUserId(userId, accessKeyId);
-    redisUtil.delKey("USER_ACCESS_" + userId + "_" + accessKeyId);
+    redisUtil.delKey(ParamMessageUtil.format(Constants.REDIS_USER_ACCESS_KEY, userId, accessKeyId));
   }
 
 }

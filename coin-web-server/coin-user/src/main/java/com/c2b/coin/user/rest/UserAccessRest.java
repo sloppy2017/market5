@@ -49,7 +49,7 @@ public class UserAccessRest extends BaseRest {
     if (!accessKeyIdRegex(accessKeyId)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    if (!RegexUtil.ipsRegex(allowIp)) {
+    if (StringUtils.isNotEmpty(allowIp) && !RegexUtil.ipsRegex(allowIp)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
     if (remark.length() > 255) {
