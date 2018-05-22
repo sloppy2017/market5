@@ -61,6 +61,7 @@ spring:
     base-url: http://peer:8090
 eureka:
   instance:
+    ip-address: 192.168.1.136
     prefer-ip-address: true
     leaseRenewalIntervalInSeconds: 10
     metadataMap:
