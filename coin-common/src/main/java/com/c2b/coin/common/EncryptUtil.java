@@ -1,5 +1,6 @@
 package com.c2b.coin.common;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 
@@ -80,7 +81,7 @@ public class EncryptUtil {
    * @return
    */
   public static String encryptHmacSHA(HmacAlgorithms hmacAlgorithms, String encryptKey, String encryptText) {
-    return new HmacUtils(hmacAlgorithms, encryptKey).hmacHex(encryptText);
+    return Base64.encodeBase64String(new HmacUtils(hmacAlgorithms, encryptKey).hmac(encryptText));
   }
 
 }

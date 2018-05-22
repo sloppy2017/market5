@@ -8,16 +8,17 @@ import com.c2b.coin.web.common.enums.IResponseCode;
  * @auther: tangwei
  * @date: 2018/5/17
  */
-public class RestResponseCode {
+public class ApiResponseCode {
 
   public enum SignError implements IResponseCode {
 
-    InvalidParameter("invalid-parameter", "参数错误"),
+    BadRequest("bad-request", "请求无效"),
     InvalidAccessKeyIdNotFound("invalid-access-key-id-notfound", "无效的AccessKeyId,请检查是否正确"),
     InvalidTimeStampFormat("invalid-timestamp.format", "时间戳格式不正确,应为yyyy-MM-dd'T'HH:mm:ss,注意是(UTC时区)"),
     InvalidTimeStampExpired("invalid-timestamp.expired", "时间戳时间和服务器时间不在15分钟内"),
     InvalidSignatureMethodNotFound("invalid-signature-method-notfound", "无效的SignatureMethod,请检查是否正确"),
     InvalidSignatureVersionNotFound("invalid-signature-version-notfound", "无效的SignatureVersion,请检查是否正确"),
+    InvalidIpAddressNotFound("invalid-ip-notfound", "无效的IP地址"),
     SignatureDoesNotMatch("signature-does-not-match", "签名不匹配");
 
     private String code;

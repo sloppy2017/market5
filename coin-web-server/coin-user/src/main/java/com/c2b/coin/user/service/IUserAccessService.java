@@ -17,8 +17,8 @@ public interface IUserAccessService {
 
   List<UserAccessVo> findByUserId(long userId);
 
-  void update(long userId, int id, String allowIp, String remark);
+  void update(long userId, String accessKeyId, String allowIp, String remark);
 
-  void delete(long userId, int id);
+  void delete(long userId, String accessKeyId);
 
 }

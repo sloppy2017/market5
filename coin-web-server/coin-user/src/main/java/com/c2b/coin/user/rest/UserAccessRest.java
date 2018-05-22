@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Pattern;
+
 @Api("用户AccessKey")
 @RestController
 @RequestMapping("/accesskey")
@@ -41,31 +43,36 @@ public class UserAccessRest extends BaseRest {
   @ApiOperation(value = "修改AccessKey")
   @RequestMapping(value = "/update", method = RequestMethod.POST)
   public AjaxResponse update(
-    @ApiParam(name = "id", value = "ID", required = true) @RequestParam(name = "id", required = false, defaultValue = "") String id,
+    @ApiParam(name = "accessKeyId", value = "accessKeyId", required = true) @RequestParam(name = "accessKeyId", required = false, defaultValue = "") String accessKeyId,
     @ApiParam(name = "allowIp", value = "IP白名单,多个以逗号分隔") @RequestParam(name = "allowIp", required = false, defaultValue = "") String allowIp,
     @ApiParam(name = "remark", value = "备注") @RequestParam(name = "remark", required = false, defaultValue = "") String remark) {
-    if (!RegexUtil.isId(id)) {
+    if (!accessKeyIdRegex(accessKeyId)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    if (!RegexUtil.ipsRegex(allowIp)) {
+    if (StringUtils.isNotEmpty(allowIp) && !RegexUtil.ipsRegex(allowIp)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
     if (remark.length() > 255) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    iUserAccessService.update(Long.parseLong(getUserId()), Integer.parseInt(id), allowIp, remark);
+    iUserAccessService.update(Long.parseLong(getUserId()), accessKeyId, allowIp, remark);
     return writeObj(null);
   }
 
   @ApiOperation(value = "删除AccessKey")
   @RequestMapping(value = "/delete", method = RequestMethod.POST)
   public AjaxResponse delete(
-    @ApiParam(name = "id", value = "ID", required = true) @RequestParam(name = "id", required = false, defaultValue = "") String id) {
-    if (!RegexUtil.isId(id)) {
+    @ApiParam(name = "accessKeyId", value = "accessKeyId", required = true) @RequestParam(name = "accessKeyId", required = false, defaultValue = "") String accessKeyId) {
+    if (!accessKeyIdRegex(accessKeyId)) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    iUserAccessService.delete(Long.parseLong(getUserId()), Integer.parseInt(id));
+    iUserAccessService.delete(Long.parseLong(getUserId()), accessKeyId);
     return writeObj(null);
+  }
+
+  private static final Pattern accessKeyIdPattern = Pattern.compile("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}");
+  public static boolean accessKeyIdRegex(String s) {
+    return accessKeyIdPattern.matcher(s).matches();
   }
 
 }

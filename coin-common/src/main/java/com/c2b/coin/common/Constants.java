@@ -60,6 +60,7 @@ public class Constants {
   public static final int REDIS_USER_LOGIN_ERROR_TIMES_KEY_EXPIRE = 24 * 60 * 60;
 
   public static final String REDIS_USER_TOKEN_LIST_KEY = "coin:user:tokenlist:";
+  public static final String REDIS_USER_ACCESS_KEY = "coin:user:accesskey:";
 
 
   /*====================queue destination======================*/
