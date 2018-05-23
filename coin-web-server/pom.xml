@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
-  
   <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.7.RELEASE</version>
+    <artifactId>c2b</artifactId>
+    <groupId>com.c2b</groupId>
+    <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.c2b</groupId>
-  <version>1.0-SNAPSHOT</version>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>coin-web-server</artifactId>
@@ -26,143 +22,11 @@
     <module>coin-api</module>
   </modules>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
-    <!-- add maven release -->
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <encoding>UTF-8</encoding>
-    <fastjson.version>1.2.28</fastjson.version>
-    <pinyin4j.version>2.5.0</pinyin4j.version>
-  </properties>
-  <profiles>
-    <profile>
-      <id>dev</id>
-      <properties>
-        <profileActive>dev</profileActive>
-      </properties>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-    </profile>
-    <profile>
-      <id>release</id>
-      <properties>
-        <profileActive>release</profileActive>
-      </properties>
-    </profile>
-    <profile>
-      <id>prod</id>
-      <properties>
-        <profileActive>prod</profileActive>
-      </properties>
-    </profile>
-  </profiles>
-  <!-- <distributionManagement>
-    <repository>
-      <id>releases</id>
-      <name>release</name>
-      <url>http://10.0.11.123:8081/repository/maven-public/</url>
-    </repository>
-    <snapshotRepository>
-      <id>snapshot</id>
-      <name>dev</name>
-      <url>http://10.0.11.123:8081/repository/maven-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>-->
-  <dependencyManagement> 
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>Dalston.SR4</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-      <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>fastjson</artifactId>
-        <version>${fastjson.version}</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/com.belerweb/pinyin4j -->
-      <dependency>
-        <groupId>com.belerweb</groupId>
-        <artifactId>pinyin4j</artifactId>
-        <version>${pinyin4j.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-dependencies</artifactId>
-      <version>Camden.SR3</version>
-      <type>pom</type>
-      <scope>import</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.16.4</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jolokia</groupId>
-      <artifactId>jolokia-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-eureka-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
+      <artifactId>spring-cloud-starter-eureka</artifactId>
     </dependency>
   </dependencies>
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>versions-maven-plugin</artifactId>
-        <groupId>org.codehaus.mojo</groupId>
-        <version>2.2</version>
-        <configuration>
-          <!--这是新版本号-->
-          <newVersion>1.0-SNAPSHOT</newVersion>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <delimiters>
-            <delimiter>@</delimiter>
-          </delimiters>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+
 </project>
