@@ -10,7 +10,7 @@ import java.util.Date;
  * @author tangwei
  *
  */
-public class RestResponseBean<T> {
+public class ResponseBean<T> {
 
   public enum Status {
 
@@ -87,39 +87,39 @@ public class RestResponseBean<T> {
     setData(data);
   }
 
-  public static <T> RestResponseBean<T> onSuccess() {
-    RestResponseBean responseBean = new RestResponseBean();
+  public static <T> ResponseBean<T> onSuccess() {
+    ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.OK.getCode());
     responseBean.setTs(new Date().getTime());
     responseBean.fillResponse(null, null);
     return responseBean;
   }
 
-  public static <T> RestResponseBean<T> onSuccess(T data) {
-    RestResponseBean responseBean = new RestResponseBean();
+  public static <T> ResponseBean<T> onSuccess(T data) {
+    ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.OK.getCode());
     responseBean.setTs(new Date().getTime());
     responseBean.fillResponse(null, data);
     return responseBean;
   }
 
-  public static <T> RestResponseBean<T> onFailure() {
-    RestResponseBean responseBean = new RestResponseBean();
+  public static <T> ResponseBean<T> onFailure() {
+    ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.ERROR.getCode());
     responseBean.setTs(new Date().getTime());
     return responseBean;
   }
 
-  public static <T> RestResponseBean<T> onFailure(IResponseCode responseCode) {
-    RestResponseBean responseBean = new RestResponseBean();
+  public static <T> ResponseBean<T> onFailure(IResponseCode responseCode) {
+    ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.ERROR.getCode());
     responseBean.setTs(new Date().getTime());
     responseBean.fillResponse(responseCode, null);
     return responseBean;
   }
 
-  public static <T> RestResponseBean<T> onFailure(String errCode, String errMsg) {
-    RestResponseBean responseBean = new RestResponseBean();
+  public static <T> ResponseBean<T> onFailure(String errCode, String errMsg) {
+    ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.ERROR.getCode());
     responseBean.setTs(new Date().getTime());
     responseBean.setErrCode(errCode);

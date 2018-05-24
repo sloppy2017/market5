@@ -2,13 +2,14 @@ package com.c2b.coin.api.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.c2b.coin.api.annotation.Sign;
+import com.c2b.coin.api.controller.v1.ApiBaseController;
 import com.c2b.coin.api.enums.ApiResponseCode;
 import com.c2b.coin.common.Constants;
 import com.c2b.coin.common.EncryptUtil;
 import com.c2b.coin.common.URLCodeUtil;
 import com.c2b.coin.web.common.IPUtils;
 import com.c2b.coin.web.common.RedisUtil;
-import com.c2b.coin.web.common.rest.bean.RestResponseBean;
+import com.c2b.coin.web.common.rest.bean.ResponseBean;
 import com.c2b.coin.web.common.enums.IResponseCode;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.lang3.StringUtils;
@@ -133,6 +134,9 @@ public class SignInterceptor implements HandlerInterceptor {
       writeError(httpServletResponse, ApiResponseCode.SignError.SignatureDoesNotMatch);
       return false;
     }
+
+    ApiBaseController.put(ApiBaseController.ThreadContextMapKey.USER_ID, userAcess.get("userId"));
+    ApiBaseController.put(ApiBaseController.ThreadContextMapKey.USER_NAME, userAcess.get("userName"));
     return true;
   }
 
@@ -142,6 +146,7 @@ public class SignInterceptor implements HandlerInterceptor {
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
+    ApiBaseController.clearThreadContextMap();
   }
 
   private StringBuilder createSignStringBuilder(HttpServletRequest httpServletRequest) {
@@ -213,7 +218,7 @@ public class SignInterceptor implements HandlerInterceptor {
 
   private void writeError(HttpServletResponse response, IResponseCode responseCode) throws IOException {
     response.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
-    response.getWriter().append(JSON.toJSONString(RestResponseBean.onFailure(responseCode)));
+    response.getWriter().append(JSON.toJSONString(ResponseBean.onFailure(responseCode)));
   }
 
 }

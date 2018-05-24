@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AccountClient {
 
   @RequestMapping(value = "/client/asset/total", method = RequestMethod.GET)
-  String getAssetTotal(@RequestParam long userId);
+  String getAssetTotal(@RequestParam("userId") long userId);
 
   @RequestMapping(value = "/client/asset/list", method = RequestMethod.GET)
-  String getAssetList(@RequestParam long userId);
+  String getAssetList(@RequestParam("userId") long userId);
 
   @RequestMapping(value = "/client/account/assetChange", method = RequestMethod.POST)
   String assetChange(
