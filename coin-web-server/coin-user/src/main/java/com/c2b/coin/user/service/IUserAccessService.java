@@ -6,14 +6,14 @@ import com.c2b.coin.user.vo.UserAccessVo;
 import java.util.List;
 
 /**
- *
+ * 用户AccessKey
  *
  * @auther: tangwei
  * @date: 2018/5/17
  */
 public interface IUserAccessService {
 
-  UserAccess create(long userId, String allowIp, String remark);
+  UserAccess create(long userId, String username, String allowIp, String remark);
 
   List<UserAccessVo> findByUserId(long userId);
 

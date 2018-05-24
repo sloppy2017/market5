@@ -13,7 +13,9 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +34,7 @@ public class IUserAccessServiceImpl implements IUserAccessService {
   protected RedisUtil redisUtil;
 
   @Override
-  public UserAccess create(long userId, String allowIp, String remark) {
+  public UserAccess create(long userId, String username, String allowIp, String remark) {
     if (userAccessMapper.findCountByUserId(userId) >= 5) {
       throw new BusinessException(ErrorMsgEnum.USER_ACCESS_CREATE_MAXIMUM_ALLOWED);
     }
@@ -49,8 +51,13 @@ public class IUserAccessServiceImpl implements IUserAccessService {
     userAccessMapper.insert(userAccess);
 
     String key = Constants.REDIS_USER_ACCESS_KEY + userAccess.getAccessKeyId();
-    redisUtil.hset(key, "accessKeySecret", userAccess.getAccessKeySecret());
-    redisUtil.hset(key, "allowIp", userAccess.getAllowIp());
+    Map<String, String> map = new HashMap<>();
+    map.put("userId", String.valueOf(userId));
+    map.put("username", username);
+    map.put("accessKeySecret", userAccess.getAccessKeySecret());
+    map.put("allowIp", userAccess.getAllowIp());
+    redisUtil.hputall(key, map);
+
     redisUtil.expire(key, userAccess.getExpireDate(), TimeUnit.MILLISECONDS);
     return userAccess;
   }

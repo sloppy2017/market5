@@ -31,7 +31,7 @@ public class UserAccessRest extends BaseRest {
     if (remark.length() > 255) {
       return writeObj(ErrorMsgEnum.PARAM_ERROR);
     }
-    return writeObj(iUserAccessService.create(Long.parseLong(getUserId()), allowIp, remark));
+    return writeObj(iUserAccessService.create(Long.parseLong(getUserId()), getUsername(), allowIp, remark));
   }
 
   @ApiOperation(value = "查询用户的AccessKey列表")

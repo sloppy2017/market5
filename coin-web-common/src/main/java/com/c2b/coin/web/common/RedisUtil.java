@@ -108,6 +108,11 @@ public class RedisUtil {
     }
   }
 
+  public void hputall(final String key, Map<String, String> map) {
+    BoundHashOperations<String, String, String> operations = stringRedisTemplate.boundHashOps(key);
+    operations.putAll(map);
+  }
+
   public Map<String, String> hgetall(final String key) {
     BoundHashOperations<String, String, String> operations = stringRedisTemplate.boundHashOps(key);
     return operations.entries();
