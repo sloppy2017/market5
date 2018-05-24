@@ -1,7 +1,7 @@
 package com.c2b.coin.api.controller.v1.trade;
 
 import com.c2b.coin.api.annotation.Sign;
-import com.c2b.coin.api.controller.v1.ApiBaseController;
+import com.c2b.coin.api.controller.v1.BaseController;
 import com.c2b.coin.common.AjaxResponse;
 import com.c2b.coin.trade.api.ConsignationClient;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/v1/trade")
 @Api(value = "/v1/trade", description = "交易")
-public class ConsignationController extends ApiBaseController {
+public class ConsignationController extends BaseController {
 
   @Autowired
   private ConsignationClient consignationClient;

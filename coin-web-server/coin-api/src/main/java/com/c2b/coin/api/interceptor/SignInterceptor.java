@@ -2,7 +2,7 @@ package com.c2b.coin.api.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.c2b.coin.api.annotation.Sign;
-import com.c2b.coin.api.controller.v1.ApiBaseController;
+import com.c2b.coin.api.controller.v1.BaseController;
 import com.c2b.coin.api.enums.ApiResponseCode;
 import com.c2b.coin.common.Constants;
 import com.c2b.coin.common.EncryptUtil;
@@ -135,8 +135,8 @@ public class SignInterceptor implements HandlerInterceptor {
       return false;
     }
 
-    ApiBaseController.getThreadContextMap().putUserId(userAcess.get("userId"));
-    ApiBaseController.getThreadContextMap().putUserName(userAcess.get("userName"));
+    BaseController.getThreadContextMap().putUserId(userAcess.get("userId"));
+    BaseController.getThreadContextMap().putUserName(userAcess.get("userName"));
     return true;
   }
 
@@ -146,7 +146,7 @@ public class SignInterceptor implements HandlerInterceptor {
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
-    ApiBaseController.getThreadContextMap().clear();
+    BaseController.getThreadContextMap().clear();
   }
 
   private StringBuilder createSignStringBuilder(HttpServletRequest httpServletRequest) {
