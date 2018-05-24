@@ -178,7 +178,7 @@ public class SignInterceptor implements HandlerInterceptor {
   }
 
   /**
-   * 验证日期格式（yyyy-MM-dd'T'HH:mm:ss）
+   * 验证日期格式（yyyy-MM-dd'T'HH:mm:ss'Z'）
    *
    * @param s
    * @return
