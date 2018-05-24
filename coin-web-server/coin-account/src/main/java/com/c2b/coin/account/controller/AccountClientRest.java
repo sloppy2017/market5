@@ -3,10 +3,7 @@ package com.c2b.coin.account.controller;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.c2b.coin.account.exception.AssetChangeException;
 import com.c2b.coin.account.service.IAssetChangeLogService;
@@ -31,13 +28,13 @@ public class AccountClientRest extends BaseRest {
   @Autowired
   private IUserAccountAssetService userAccountAssetService;
 
-  @PostMapping("/total")
+  @GetMapping("/total")
   @ApiOperation(value = "获取资产总计接口", notes = "'totalBTC':'总资产折算BTC','totalUSD':'总资产折算usd','availableBTC':'可用资产折算BTC','availableUSD':'可用资产折算usd','freezingBTC','冻结资产折算BTC','freezingUSD','冻结资产折算usd'")
   public String getAssetTotal(@RequestParam long userId) {
     return writeJson(this.userAccountAssetService.assetTotal(userId));
   }
 
-  @PostMapping("/asset")
+  @GetMapping("/asset")
   @ApiOperation(value = "获取总资产接口", notes = "'currencyType':'货币类型标识','currencyName','货币名称','currencyFullName':'货币全称','totalAmount':'货币总量','availableAmount':'可用数量','freezingAmount':'冻结数量'")
   public String totalAsset(@RequestParam long userId) {
     return writeJson(this.userAccountAssetService.getTotalAsset(userId));
@@ -55,12 +52,10 @@ public class AccountClientRest extends BaseRest {
 
   })
   public String assetChange(long userId, String userName, String orderNo, int bizType, int currencyType, BigDecimal amount) {
-
     try {
       this.assetChangeLogService.assetChange(userId, userName, orderNo, bizType, currencyType, amount);
       return writeJson(null);
     } catch (Exception e) {
-      e.printStackTrace();
       if (e instanceof AssetChangeException) {
         AssetChangeException ace = (AssetChangeException) e;
         return writeJson(ace.getMsg());
