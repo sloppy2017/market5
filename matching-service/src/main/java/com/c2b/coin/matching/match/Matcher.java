@@ -86,10 +86,7 @@ public final class Matcher implements BizAdaptor{
 	/**
 	 * 撤单事件
 	 * @param tradePair
-	 * @param price
-	 * @param amount
 	 * @param orderNo
-	 * @param enumConsignedType
 	 */
 	public ResultCallbackVO matchCallback(String tradePair,String orderNo) {
 		//根据订单号获取队列中的值
@@ -421,7 +418,7 @@ public final class Matcher implements BizAdaptor{
 	 */
 	private boolean hitSellLimitMatchList(String tradePair,LinkedList<Order> buyList, BigDecimal price, BigDecimal amount, String orderNo,BigDecimal makeMoney,List<Object> detailList,String buyGenre) {
 		if(buyList.size()==0){return false;}
-    Order order = buyList.getLast();
+    Order order = buyList.get(0);
 		if(order.getPrice().compareTo(price)>=0) {//命中买盘
 			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
