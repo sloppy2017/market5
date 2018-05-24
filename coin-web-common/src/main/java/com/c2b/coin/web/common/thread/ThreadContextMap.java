@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class ThreadContextMap {
 
-  private final ThreadLocal<Map<String, String>> localMap;
+  protected final ThreadLocal<Map<String, String>> localMap;
 
   public ThreadContextMap() {
     this.localMap = new ThreadLocal<>();

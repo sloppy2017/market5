@@ -2,7 +2,7 @@ package com.c2b.coin.api.controller.v1.account;
 
 import com.c2b.coin.account.api.AccountClient;
 import com.c2b.coin.api.annotation.Sign;
-import com.c2b.coin.web.common.rest.BaseController;
+import com.c2b.coin.api.controller.v1.ApiBaseController;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/v1/account")
 @Api(value = "/v1/account", description = "资产")
-public class UserAccountController extends BaseController {
+public class UserAccountController extends ApiBaseController {
 
   @Autowired
   private AccountClient accountClient;

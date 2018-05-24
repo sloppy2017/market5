@@ -135,8 +135,8 @@ public class SignInterceptor implements HandlerInterceptor {
       return false;
     }
 
-    ApiBaseController.put(ApiBaseController.ThreadContextMapKey.USER_ID, userAcess.get("userId"));
-    ApiBaseController.put(ApiBaseController.ThreadContextMapKey.USER_NAME, userAcess.get("userName"));
+    ApiBaseController.getThreadContextMap().putUserId(userAcess.get("userId"));
+    ApiBaseController.getThreadContextMap().putUserName(userAcess.get("userName"));
     return true;
   }
 
@@ -146,7 +146,7 @@ public class SignInterceptor implements HandlerInterceptor {
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) throws Exception {
-    ApiBaseController.clearThreadContextMap();
+    ApiBaseController.getThreadContextMap().clear();
   }
 
   private StringBuilder createSignStringBuilder(HttpServletRequest httpServletRequest) {
@@ -158,12 +158,12 @@ public class SignInterceptor implements HandlerInterceptor {
     List<String> parameterNames = getParameterNames(httpServletRequest);
     for (int i = 0; i < parameterNames.size(); i++) {
       String name = parameterNames.get(i);
-      if (i > 0) {
-        encryptText.append("&");
-      }
       if (name.equals("Signature")) {
         continue;
       } else {
+        if (i > 0) {
+          encryptText.append("&");
+        }
         encryptText.append(name).append("=").append(httpServletRequest.getParameter(name));
       }
     }
