@@ -21,4 +21,13 @@ public interface ConsignationClient {
   @RequestMapping(value = "/client/trade/marketPriceSellConsignation", method = RequestMethod.POST)
   AjaxResponse marketPriceSellConsignation(@RequestParam("userId") long userId, @RequestParam("bizType") String bizType, @RequestParam("consignationCount") String consignationCount);
 
+  @RequestMapping(value = "/revokeOrder", method = RequestMethod.POST)
+  AjaxResponse revokeOrder(@RequestParam("userId") String userId, @RequestParam("consignationNo") String consignationNo);
+
+  @RequestMapping(value = "/getBuySellOrder", method = RequestMethod.GET)
+  AjaxResponse getBuySellOrder(@RequestParam("userId") String userId, @RequestParam("pageNo") int pageNo, @RequestParam("pageSize") int pageSize, @RequestParam("consignationStatus") int consignationStatus, @RequestParam("bizType") int bizType);
+
+  @RequestMapping(value = "/getUntradeBuySellOrder", method = RequestMethod.GET)
+  AjaxResponse getUntradeBuySellOrder(@RequestParam("userId") String userId);
+
 }
