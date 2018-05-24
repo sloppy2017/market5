@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "/v1/account")
 @Api(value = "/v1/account", description = "资产")
@@ -23,18 +21,14 @@ public class UserAccountController extends BaseController {
   @GetMapping(value = "/asset/total")
   @ApiOperation(value = "获取用户总资产")
   public ResponseBean getAssetTotal() {
-    //accountClient.getAssetTotal(1);
-    List list = null;
-    list.size();
-    return onSuccess();
+    return onSuccess(accountClient.getAssetTotal(Long.parseLong(getThreadContextMap().getUserId())));
   }
 
   @Sign
   @GetMapping(value = "/asset/list")
   @ApiOperation(value = "获取用户列表")
   public ResponseBean getAssetList() {
-    accountClient.getAssetList(1);
-    return onSuccess();
+    return onSuccess(accountClient.getAssetList(Long.parseLong(getThreadContextMap().getUserId())));
   }
 
 }

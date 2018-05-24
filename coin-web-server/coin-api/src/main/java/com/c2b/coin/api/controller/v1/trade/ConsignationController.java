@@ -2,7 +2,6 @@ package com.c2b.coin.api.controller.v1.trade;
 
 import com.c2b.coin.api.annotation.Sign;
 import com.c2b.coin.api.controller.v1.BaseController;
-import com.c2b.coin.common.AjaxResponse;
 import com.c2b.coin.trade.api.ConsignationClient;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
 import io.swagger.annotations.Api;
@@ -22,28 +21,28 @@ public class ConsignationController extends BaseController {
   @ApiOperation(value = "限价买入委托单")
   @PostMapping(value = "/limitPriceBuyConsignation")
   public ResponseBean limitPriceBuyConsignation(@RequestParam long userId, @RequestParam String bizType, @RequestParam String consignationPrice, @RequestParam String consignationCount) {
-    AjaxResponse a = consignationClient.limitPriceBuyConsignation(userId, bizType, consignationPrice, consignationCount);
+    consignationClient.limitPriceBuyConsignation(userId, bizType, consignationPrice, consignationCount);
     return onSuccess();
   }
 
   @ApiOperation(value = "限价卖出委托单")
   @PostMapping(value = "/limitPriceSellConsignation")
   public ResponseBean limitPriceSellConsignation(@RequestParam long userId, @RequestParam String bizType, @RequestParam String consignationPrice, @RequestParam String consignationCount) {
-    AjaxResponse a = consignationClient.limitPriceSellConsignation(userId, bizType, consignationPrice, consignationCount);
+    consignationClient.limitPriceSellConsignation(userId, bizType, consignationPrice, consignationCount);
     return onSuccess();
   }
 
   @ApiOperation(value = "市价买入委托单")
   @PostMapping(value = "/marketPriceBuyConsignation")
   public ResponseBean marketPriceBuyConsignation(@RequestParam long userId, @RequestParam String bizType, @RequestParam String consignationCount) {
-    AjaxResponse a = consignationClient.marketPriceBuyConsignation(userId, bizType, consignationCount);
+    consignationClient.marketPriceBuyConsignation(userId, bizType, consignationCount);
     return onSuccess();
   }
 
   @ApiOperation(value = "市价卖出委托单")
   @PostMapping(value = "/marketPriceSellConsignation")
   public ResponseBean marketPriceSellConsignation(@RequestParam long userId, @RequestParam String bizType, @RequestParam String consignationCount) {
-    AjaxResponse a = consignationClient.marketPriceSellConsignation(userId, bizType, consignationCount);
+    consignationClient.marketPriceSellConsignation(userId, bizType, consignationCount);
     return onSuccess();
   }
 
