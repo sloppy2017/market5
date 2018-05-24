@@ -10,17 +10,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("coin-account")
 public interface AccountClient {
 
-  @RequestMapping(value = "/total", method = RequestMethod.GET)
+  @RequestMapping(value = "/client/asset/total", method = RequestMethod.GET)
   String getAssetTotal(@RequestParam long userId);
 
-  @RequestMapping(value = "/asset", method = RequestMethod.GET)
-  String totalAsset(@RequestParam long userId);
+  @RequestMapping(value = "/client/asset/list", method = RequestMethod.GET)
+  String getAssetList(@RequestParam long userId);
 
   @RequestMapping(value = "/client/account/assetChange", method = RequestMethod.POST)
   String assetChange(
     @RequestParam("userId") long userId,
     @RequestParam("userName") String userName,
-    @RequestParam("orderNo") String orderNo, @RequestParam("bizType") int bizType,
+    @RequestParam("orderNo") String orderNo,
+    @RequestParam("bizType") int bizType,
     @RequestParam("currencyType") int currencyType,
     @RequestParam("amount") BigDecimal amount);
 

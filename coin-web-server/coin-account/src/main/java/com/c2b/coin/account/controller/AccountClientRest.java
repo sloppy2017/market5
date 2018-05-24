@@ -28,19 +28,19 @@ public class AccountClientRest extends BaseRest {
   @Autowired
   private IUserAccountAssetService userAccountAssetService;
 
-  @GetMapping("/total")
+  @GetMapping("/asset/total")
   @ApiOperation(value = "获取资产总计接口", notes = "'totalBTC':'总资产折算BTC','totalUSD':'总资产折算usd','availableBTC':'可用资产折算BTC','availableUSD':'可用资产折算usd','freezingBTC','冻结资产折算BTC','freezingUSD','冻结资产折算usd'")
   public String getAssetTotal(@RequestParam long userId) {
-    return writeJson(this.userAccountAssetService.assetTotal(userId));
+    return writeJson(this.userAccountAssetService.getAssetTotal(userId));
   }
 
-  @GetMapping("/asset")
+  @GetMapping("/asset/list")
   @ApiOperation(value = "获取总资产接口", notes = "'currencyType':'货币类型标识','currencyName','货币名称','currencyFullName':'货币全称','totalAmount':'货币总量','availableAmount':'可用数量','freezingAmount':'冻结数量'")
-  public String totalAsset(@RequestParam long userId) {
-    return writeJson(this.userAccountAssetService.getTotalAsset(userId));
+  public String getAssetList(@RequestParam long userId) {
+    return writeJson(this.userAccountAssetService.getAssetList(userId));
   }
 
-  @PostMapping("assetChange")
+  @PostMapping("/assetChange")
   @ApiOperation(value = "插入资产变更记录", notes = "插入资产变更记录时调用")
   @ApiImplicitParams({
     @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "long", paramType = "query"),
@@ -49,7 +49,6 @@ public class AccountClientRest extends BaseRest {
     @ApiImplicitParam(name = "bizType", value = "变动类型", required = true, dataType = "int", paramType = "query"),
     @ApiImplicitParam(name = "currencyType", value = "币种类型", required = true, dataType = "int", paramType = "query"),
     @ApiImplicitParam(name = "amount", value = "变动数量", required = true, dataType = "int", paramType = "query")
-
   })
   public String assetChange(long userId, String userName, String orderNo, int bizType, int currencyType, BigDecimal amount) {
     try {
@@ -64,13 +63,13 @@ public class AccountClientRest extends BaseRest {
     }
   }
 
-  @PostMapping("checkAvailableAsset")
+  @PostMapping("/checkAvailableAsset")
   @ApiOperation(value = "校验可用余额", notes = "校验可用余额")
   public boolean checkAvailableAsset(long userId, int currencyType, BigDecimal amount) {
     return this.userAccountAssetService.checkAvailableAsset(userId, currencyType, amount);
   }
 
-  @PostMapping("tradePairAssetChange")
+  @PostMapping("/tradePairAssetChange")
   @ApiOperation(value = "交易对撮合成功后资产变动接口", notes = "交易对撮合成功后调用")
   @ApiImplicitParams({
     @ApiImplicitParam(name = "buyerUserId", value = "买方用户id", required = true, dataType = "long", paramType = "query"),
@@ -98,7 +97,7 @@ public class AccountClientRest extends BaseRest {
     }
   }
 
-  @PostMapping("discountPoundage")
+  @PostMapping("/discountPoundage")
   @ApiOperation(value = "交易手续费减免接口", notes = "交易对撮合成功后调用")
   @ApiImplicitParams({
     @ApiImplicitParam(name = "buyerUserId", value = "买方用户id", required = true, dataType = "long", paramType = "query"),

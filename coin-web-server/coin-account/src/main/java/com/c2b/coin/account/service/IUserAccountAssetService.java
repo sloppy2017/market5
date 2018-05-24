@@ -14,12 +14,14 @@ import com.c2b.coin.account.entity.vo.AssetTotalVO;
 
 public interface IUserAccountAssetService {
 
+  AssetTotalVO getAssetTotal(long userId);
+
 	/**
 	 * 获取总资产
 	 * @param userId 用户id
 	 * @return 用户资产列表
 	 */
-	List<AccountAssetVO> getTotalAsset(long userId);
+	List<AccountAssetVO> getAssetList(long userId);
 
 	/**
 	 * 获取资产历史表
@@ -43,15 +45,12 @@ public interface IUserAccountAssetService {
 	 */
 	boolean checkAvailableAsset(long userId, int currencyType, BigDecimal amount);
 
-	AssetTotalVO assetTotal(long userId);
-
 	Map<String,Object> exchangeRate();
 
 	String poundage(String currencyName);
 
-	
 	UserAccount addUserAccount(int currencyType,String currencyName,long userId,String userName,String address);
 
 	Object usdToCNYRate();
-	
+
 }
