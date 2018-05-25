@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import com.coin.config.cache.redis.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.bouncycastle.util.encoders.DecoderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

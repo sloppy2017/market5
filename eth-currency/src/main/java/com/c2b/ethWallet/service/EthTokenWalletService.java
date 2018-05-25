@@ -33,7 +33,7 @@
 //import org.web3j.utils.Numeric;
 //
 //import com.c2b.coin.common.DateUtil;
-//import com.coin.config.cache.redis.RedisUtil;
+//import com.c2b.coin.cache.redis.RedisUtil;
 //import com.c2b.ethWallet.client.Web3JClient;
 //import com.c2b.ethWallet.entity.UserCoin;
 //import com.c2b.ethWallet.entity.WithdrawLog;

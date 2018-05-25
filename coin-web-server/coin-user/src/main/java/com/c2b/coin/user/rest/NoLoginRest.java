@@ -17,7 +17,7 @@ import com.c2b.coin.user.service.UserInfoService;
 import com.c2b.coin.user.util.Operation;
 import com.c2b.coin.web.common.BaseRest;
 import com.c2b.coin.web.common.IPUtils;
-import com.coin.config.cache.redis.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import com.c2b.coin.web.common.UserAgent;
 import com.c2b.coin.web.common.annotation.SysLog;
 import cz.mallat.uasparser.UserAgentInfo;

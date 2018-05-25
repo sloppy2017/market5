@@ -2,7 +2,7 @@ package com.c2b.ethWallet.task;
 
 import java.math.BigInteger;
 
-import com.coin.config.cache.redis.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

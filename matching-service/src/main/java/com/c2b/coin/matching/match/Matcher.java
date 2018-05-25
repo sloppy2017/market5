@@ -5,7 +5,7 @@ import java.util.*;
 
 import javax.jms.Queue;
 
-import com.coin.config.cache.redis.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;

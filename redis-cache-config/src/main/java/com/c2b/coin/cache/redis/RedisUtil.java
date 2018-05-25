@@ -1,4 +1,4 @@
-package com.coin.config.cache.redis;
+package com.c2b.coin.cache.redis;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.TypeUtils;
