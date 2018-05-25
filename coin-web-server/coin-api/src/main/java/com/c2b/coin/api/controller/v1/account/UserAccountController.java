@@ -35,7 +35,12 @@ public class UserAccountController extends BaseController {
   @GetMapping(value = "/asset/list")
   @ApiOperation(value = "获取用户列表")
   public ResponseBean getAssetList() {
-    return onSuccess(accountClient.getAssetList(Long.parseLong(getThreadContextMap().getUserId())));
+    AjaxResponse response = accountClient.getAssetList(Long.parseLong(getThreadContextMap().getUserId()));
+    if (response.isSuccess()) {
+      return onSuccess(response.getData());
+    } else {
+      return onFailure(ErrorMsgEnum.SERVER_BUSY);
+    }
   }
 
 }

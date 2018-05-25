@@ -92,7 +92,7 @@ public class ConsignationClientRest extends BaseRest {
 
   @RequestMapping(value = "/revokeOrder", method = RequestMethod.POST)
   public AjaxResponse revokeOrder(@RequestParam String userId, @RequestParam String consignationNo) {
-    logger.debug("marketPriceSellConsignation");
+    logger.debug("revokeOrder");
     try {
       return writeObj(consignationService.revokeOrder(consignationNo));
     } catch (final IllegalParamException e) {
@@ -102,12 +102,8 @@ public class ConsignationClientRest extends BaseRest {
 
   @RequestMapping(value = "/getBuySellOrder", method = RequestMethod.GET)
   public AjaxResponse getBuySellOrder(@RequestParam String userId, @RequestParam int pageNo, @RequestParam int pageSize, @RequestParam int consignationStatus, @RequestParam int bizType) {
+    logger.debug("getBuySellOrder");
     return writeObj(consignationService.listConsignationOrderByUserId(userId, consignationStatus, bizType, pageNo, pageSize));
-  }
-
-  @RequestMapping(value = "/getUntradeBuySellOrder", method = RequestMethod.GET)
-  public AjaxResponse getUntradeBuySellOrder(@RequestParam String userId) {
-    return writeObj(consignationService.listUnTradeOrder(userId));
   }
 
 }
