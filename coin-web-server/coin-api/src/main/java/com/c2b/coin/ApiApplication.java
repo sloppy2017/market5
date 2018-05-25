@@ -15,7 +15,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,7 +29,6 @@ import java.util.List;
 @RefreshScope
 @EnableEurekaClient
 @EnableFeignClients
-@EnableTransactionManagement
 public class ApiApplication {
 
   @Bean
