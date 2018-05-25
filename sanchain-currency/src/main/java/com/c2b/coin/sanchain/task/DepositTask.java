@@ -30,7 +30,7 @@ import com.c2b.coin.sanchain.mapper.RechargeLogMapper;
 import com.c2b.coin.sanchain.mapper.UserCoinMapper;
 import com.c2b.coin.sanchain.service.ISanchainService;
 import com.c2b.coin.sanchain.util.OrderGenerater;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 
 /**
  * 充币监控线程
@@ -62,10 +62,10 @@ public class DepositTask {
 
 	/**
 	 * 每10分钟去调度一次
-	 * @throws InterruptedException 
-	 * @throws APIException 
-	 * @throws JSONException 
-	 * @throws URISyntaxException 
+	 * @throws InterruptedException
+	 * @throws APIException
+	 * @throws JSONException
+	 * @throws URISyntaxException
 	 */
 	@Scheduled(fixedDelay = 600000,initialDelay=100)
 	public void monitorDeposit() throws InterruptedException, APIException, JSONException, URISyntaxException {
@@ -117,11 +117,11 @@ public class DepositTask {
 											.divide(new BigDecimal(1000000),6,BigDecimal.ROUND_HALF_UP);
 									try {
 										saveElecoinOrder(digitalCoin,destination, hxId, amount,  String.valueOf(startIndex), fee);
-										
+
 									} catch (Exception e) {
 										e.printStackTrace();
 									}
-									
+
 									try {
 										changeElecoinOrder(digitalCoin,destination, hxId, amount,  String.valueOf(startIndex), fee);
 									} catch (Exception e) {

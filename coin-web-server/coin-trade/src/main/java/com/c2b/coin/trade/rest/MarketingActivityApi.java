@@ -7,7 +7,7 @@ import com.c2b.coin.common.MarketingRandomCoinNumber;
 import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.trade.mapper.MarketingActivityPlanMapper;
 import com.c2b.coin.web.common.BaseRest;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;

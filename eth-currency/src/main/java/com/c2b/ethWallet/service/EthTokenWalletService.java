@@ -33,7 +33,7 @@
 //import org.web3j.utils.Numeric;
 //
 //import com.c2b.coin.common.DateUtil;
-//import com.c2b.coin.web.common.RedisUtil;
+//import com.coin.config.cache.redis.RedisUtil;
 //import com.c2b.ethWallet.client.Web3JClient;
 //import com.c2b.ethWallet.entity.UserCoin;
 //import com.c2b.ethWallet.entity.WithdrawLog;
@@ -70,7 +70,7 @@
 //  Logger logger = LoggerFactory.getLogger(getClass());
 //
 //  private static String REDIS_ETH_TOKEN_MEMBER_ADDRESS = "ETH_TOKEN_MEMBER_ADDRESS";
-//  
+//
 //  private static String REDIS_ETH_MEMBER_ADDRESS = "ETH_MEMBER_ADDRESS";
 //
 //  private static Web3j web3j = Web3JClient.getClient();
@@ -125,7 +125,7 @@
 //
 //  @Value("${PKT.hotWalletPrivateKey}")
 //  private String PKTHotWalletPrivateKey;
-//  
+//
 //  @Value("${zg.contractAddress}")
 //  private String zgContractAddress;
 //
@@ -134,7 +134,7 @@
 //
 //  @Value("${zg.hotWalletPrivateKey}")
 //  private String zgHotWalletPrivateKey;
-//  
+//
 //  int attempts = 20;
 //  int sleepDuration = 15000;
 //
@@ -194,7 +194,7 @@
 //          if (WalletUtils.isValidAddress(etherTokenWallet.getAddress())) {
 //            address = Numeric.prependHexPrefix(etherTokenWallet.getAddress());
 //            if (address != null && !"".equals(address)) {
-//              
+//
 //              redisUtil.zset(REDIS_ETH_MEMBER_ADDRESS, address);
 //              UserCoin userCoin = new UserCoin();
 //              userCoin.setAccount(account);
@@ -274,9 +274,9 @@
 //  public UserCoin getUserCoinByAddress(String address, String currency){
 //    return userCoinMapper.getUserCoinByAddressAndCurrency(address, currency);
 //  }
-//  
+//
 //  /**
-//   * 
+//   *
 //   * @param TOKENAddress
 //   *          token钱包地址
 //   * @return token钱包地址余额
@@ -302,9 +302,9 @@
 //    }
 //    return Convert.fromWei(balance.getValue().toString(), Convert.Unit.ETHER);
 //  }
-//  
+//
 //  /**
-//   * 
+//   *
 //   * @param currency
 //   *          token币种名称
 //   * @return token合约地址
@@ -327,9 +327,9 @@
 //       return OMGContractAddress;
 //    }
 //  }
-//  
+//
 //  /**
-//   * 
+//   *
 //   * @param address
 //   *          token地址
 //   * @return 证书
@@ -347,7 +347,7 @@
 //  }
 //
 //  /**
-//   * 
+//   *
 //   * @param currency
 //   *          token币种名称
 //   * @return token热钱包地址
@@ -372,7 +372,7 @@
 //  }
 //
 //  /**
-//   * 
+//   *
 //   * @param currency
 //   *          token币种名称
 //   * @return token热钱包私钥
@@ -397,7 +397,7 @@
 //  }
 //
 //  /**
-//   * 
+//   *
 //   * @param currency
 //   *          token币种名称
 //   * @return token热钱包余额
@@ -425,7 +425,7 @@
 //  }
 //
 //  /**
-//   * 
+//   *
 //   * @param currency token币种名称
 //   * @return 获取热钱包证书
 //   */
@@ -435,9 +435,9 @@
 //    Credentials credentials = Credentials.create(ecKeyPair);
 //    return  credentials;
 //  }
-//  
+//
 //  /**
-//   * 
+//   *
 //   * @param withdrawLog
 //   */
 //  @Transactional
@@ -509,7 +509,7 @@
 //    }
 //    return map;
 //}
-//  
+//
 //  /**
 //   * 调用web3j的API发送交易
 //   * @param credentials
@@ -538,9 +538,9 @@
 //      try {
 //        ethSendTransaction = transactionManager.sendTransaction(
 //            Transfer.GAS_PRICE,
-//            Transfer.GAS_LIMIT, 
-//            toAddress, 
-//            data, 
+//            Transfer.GAS_LIMIT,
+//            toAddress,
+//            data,
 //            weiValue.toBigIntegerExact());
 //      } catch (IOException e) {
 //        e.printStackTrace();

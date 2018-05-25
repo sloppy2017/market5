@@ -9,7 +9,7 @@ import com.c2b.coin.common.MessageEnum;
 import com.c2b.coin.user.entity.UserInfo;
 import com.c2b.coin.user.util.MqUtil;
 import com.c2b.coin.user.vo.MessageVo;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.c2b.coin.common.AjaxResponse;
 import com.c2b.coin.common.Constants;
 import com.c2b.coin.user.annotation.LoginSecondVerfiy;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import com.c2b.coin.web.common.UserAgent;
 import cz.mallat.uasparser.UserAgentInfo;
 import org.aspectj.lang.ProceedingJoinPoint;

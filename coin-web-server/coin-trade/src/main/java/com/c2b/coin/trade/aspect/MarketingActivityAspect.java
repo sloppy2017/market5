@@ -13,7 +13,7 @@ import com.c2b.coin.trade.mapper.MarketingActivityPlanMapper;
 import com.c2b.coin.trade.service.ConsignationService;
 import com.c2b.coin.trade.service.DigitalCoinService;
 import com.c2b.coin.trade.vo.MatchInfoVO;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;

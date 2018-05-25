@@ -2,19 +2,17 @@ package com.c2b.ethWallet.task;
 
 import java.math.BigInteger;
 
+import com.coin.config.cache.redis.RedisUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.c2b.coin.web.common.RedisUtil;
-
-
 /**
- * 
-* @ClassName: EtherHotWalletTool 
-* @Description: TODO(以太坊钱包工具类，主要用于从redis存取数据) 
-* @author 焦博韬  
-* @date 2017年10月12日 上午10:50:24 
+ *
+* @ClassName: EtherHotWalletTool
+* @Description: TODO(以太坊钱包工具类，主要用于从redis存取数据)
+* @author 焦博韬
+* @date 2017年10月12日 上午10:50:24
 *
  */
 @Service
@@ -23,8 +21,8 @@ public class EtherHotWalletTool {
   private Logger logger = Logger.getLogger(EtherHotWalletTool.class);
 
 	@Autowired
-	RedisUtil redisUtil;
-	
+  RedisUtil redisUtil;
+
 	private static String REDIS_LAST_BLOCK_KEY = "ETH_LAST_BLOCK_NUMBER";
 	private static String REDIS_ETH_MEMBER_ADDRESS = "ETH_MEMBER_ADDRESS";
 	private static String REDIS_ETH_TOKEN_MEMBER_ADDRESS = "ETH_TOKEN_MEMBER_ADDRESS";
@@ -35,8 +33,8 @@ public class EtherHotWalletTool {
 //		Set<Object> set  =  redisTemplate.opsForHash().keys(EtherHotWalletTool.REDIS_GATHERING_ORDER);
 //		return set;
 //	}
-	
-	
+
+
 //	public void delGatherTxHashByOrderId(String orderId){
 //		Jedis jedis = null;
 //		try {
@@ -83,7 +81,7 @@ public class EtherHotWalletTool {
 	public boolean isExistForDepositAddr(String addr){
 	  return redisUtil.isMember(EtherHotWalletTool.REDIS_ETH_MEMBER_ADDRESS,addr);
     }
-	
+
 	public boolean isExistForTOKENDepositAddr(String tokenName, String addr){
       return redisUtil.isMember(EtherHotWalletTool.REDIS_ETH_TOKEN_MEMBER_ADDRESS+"_"+tokenName,addr);
     }
@@ -115,7 +113,7 @@ public class EtherHotWalletTool {
 			return BigInteger.ZERO;
 		}
 	}
-	
+
 	public void saveTOKENLastBlock(BigInteger blkNum){
       try{
         redisUtil.set(EtherHotWalletTool.REDIS_ETH_TOKEN_LAST_BLOCK_KEY, blkNum.toString());
@@ -123,7 +121,7 @@ public class EtherHotWalletTool {
           e.printStackTrace();
       }
   }
-	
+
 	public BigInteger getTOKENLastBlock(){
       logger.debug("go to getTOKENLastBlock function ");
       BigInteger encodeBlkNum = null;
@@ -140,7 +138,7 @@ public class EtherHotWalletTool {
           return BigInteger.ZERO;
       }
   }
-	
+
 //
 //
 //	public void createEtherMicroHotWallet() throws APIException{

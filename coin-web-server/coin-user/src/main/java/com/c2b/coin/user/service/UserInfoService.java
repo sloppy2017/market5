@@ -10,7 +10,7 @@ import com.c2b.coin.user.mapper.UserInfoMapper;
 import com.c2b.coin.user.mapper.UserNewsMapper;
 import com.c2b.coin.user.mapper.UserRegInfoMapper;
 import com.c2b.coin.user.util.Common;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import cz.mallat.uasparser.UserAgentInfo;

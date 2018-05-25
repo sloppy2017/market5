@@ -3,7 +3,7 @@ package com.c2b.coin.matching.consumer;
 import java.math.BigDecimal;
 import java.util.Map;
 
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;

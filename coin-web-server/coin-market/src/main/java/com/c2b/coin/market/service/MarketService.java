@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.c2b.coin.market.mapper.MatchMoneyMapper;
 import com.c2b.coin.market.thread.KLineDataThread;
 import com.c2b.coin.matching.model.Order;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import org.apache.commons.lang.StringUtils;

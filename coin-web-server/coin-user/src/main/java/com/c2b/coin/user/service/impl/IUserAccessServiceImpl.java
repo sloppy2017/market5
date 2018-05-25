@@ -6,7 +6,7 @@ import com.c2b.coin.user.entity.UserAccess;
 import com.c2b.coin.user.mapper.UserAccessMapper;
 import com.c2b.coin.user.service.IUserAccessService;
 import com.c2b.coin.user.vo.UserAccessVo;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import com.c2b.coin.web.common.exception.BusinessException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;

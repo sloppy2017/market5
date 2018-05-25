@@ -8,7 +8,7 @@ import com.c2b.coin.common.EncryptUtil;
 import com.c2b.coin.common.URLCodeUtil;
 import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.web.common.IPUtils;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.lang3.StringUtils;

@@ -6,7 +6,7 @@ import com.c2b.coin.common.DateUtil;
 import com.c2b.coin.common.GoogleAuthenticator;
 import com.c2b.coin.user.entity.UserInfo;
 import com.c2b.coin.user.util.Common;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

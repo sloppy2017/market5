@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import com.coin.config.cache.redis.RedisUtil;
 import org.bouncycastle.util.encoders.DecoderException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
 import com.c2b.coin.common.DateUtil;
-import com.c2b.coin.web.common.RedisUtil;
 import com.c2b.ethWallet.client.Web3JClient;
 import com.c2b.ethWallet.entity.UserCoin;
 import com.c2b.ethWallet.entity.WithdrawLog;

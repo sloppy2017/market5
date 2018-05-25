@@ -6,7 +6,7 @@ import com.c2b.coin.user.feign.ActivityFeign;
 import com.c2b.coin.user.mapper.MarketingActivityPlanMapper;
 import com.c2b.coin.user.annotation.MarketingActivity;
 import com.c2b.coin.user.entity.UserInfo;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;

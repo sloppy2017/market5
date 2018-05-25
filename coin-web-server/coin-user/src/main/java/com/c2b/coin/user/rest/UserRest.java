@@ -17,7 +17,7 @@ import com.c2b.coin.user.service.VerifiyService;
 import com.c2b.coin.user.util.Common;
 import com.c2b.coin.user.util.MqUtil;
 import com.c2b.coin.user.util.Operation;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 import com.c2b.coin.web.common.BaseRest;
 import com.c2b.coin.web.common.annotation.SysLog;
 import io.swagger.annotations.Api;
