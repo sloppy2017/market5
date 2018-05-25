@@ -334,7 +334,7 @@ public final class Matcher implements BizAdaptor{
 			order = sellList.get(0);
 		}
 		if(order.getPrice().compareTo(price)<=0) {//命中卖盘
-			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
+			if(order.getAmount().compareTo(amount)>=0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
 				order.setAmount(order.getAmount().subtract(amount));
 				//撮合订单
@@ -420,7 +420,7 @@ public final class Matcher implements BizAdaptor{
 		if(buyList.size()==0){return false;}
     Order order = buyList.get(0);
 		if(order.getPrice().compareTo(price)>=0) {//命中买盘
-			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
+			if(order.getAmount().compareTo(amount)>=0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
 				order.setAmount(order.getAmount().subtract(amount));
 				//撮合订单
@@ -536,7 +536,7 @@ public final class Matcher implements BizAdaptor{
 			matchInfoVO.setCurrency(tradePair);//交易对
 			matchInfoVO.setBuySeq(orderNo);//买单号
 			matchInfoVO.setSellSeq(order.getOrderNo());//卖单号
-			matchInfoVO.setBuyMoney(order.getPrice().multiply(order.getAmount()).multiply(fee));//买入手续费，收取对手盘手续费
+			matchInfoVO.setBuyMoney(order.getPrice().multiply(amount).multiply(fee));//买入手续费，收取对手盘手续费
 			matchInfoVO.setSellMoney(price.multiply(amount).multiply(fee));//卖出手续费，收取对手盘手续费
 			matchInfoVO.setMoney(price);//成交金额
 			matchInfoVO.setCount(amount);//成交数量
@@ -553,7 +553,7 @@ public final class Matcher implements BizAdaptor{
 			matchInfoVO2.setBuySeq(order.getOrderNo());//买单号
 			matchInfoVO2.setSellSeq(orderNo);//卖单号
 			matchInfoVO2.setBuyMoney(price.multiply(amount).multiply(fee));//买入手续费，收取对手盘手续费
-			matchInfoVO2.setSellMoney(order.getPrice().multiply(order.getAmount()).multiply(fee));//卖出手续费，收取对手盘手续费
+			matchInfoVO2.setSellMoney(order.getPrice().multiply(amount).multiply(fee));//卖出手续费，收取对手盘手续费
 			matchInfoVO2.setMoney(price);//成交金额
 			matchInfoVO2.setCount(amount);//成交数量
       matchInfoVO2.setBuyGenre(buyGenre);

@@ -213,7 +213,7 @@ public class OrderLogService {
     }
     String changeJsonString = accountClient.tradePairAssetChange(buyConsignationLog.getUserId(),
       buyConsignationLog.getUsername(), sellConsignationLog.getUserId(), sellConsignationLog.getUsername(),
-      matchInfoVO.getSeq(), moneyDigitalCoin.getId(), commodityDigitalCoin.getId(), matchInfoVO.getMoney(),
+      matchInfoVO.getSeq(), moneyDigitalCoin.getId(), commodityDigitalCoin.getId(), matchInfoVO.getMoney().multiply(matchInfoVO.getCount()),
       matchInfoVO.getCount(), matchInfoVO.getSellMoney(), matchInfoVO.getBuyMoney());
     logger.info("seq="+matchInfoVO.getSeq()+",changeJsonString="+changeJsonString);
     JSONObject jsonObject = (JSONObject) JSONObject.parse(changeJsonString);
