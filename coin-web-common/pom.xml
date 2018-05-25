@@ -31,6 +31,10 @@
       <artifactId>httpclient</artifactId>
     </dependency>
     <dependency>
+      <groupId>cz.mallat.uasparser</groupId>
+      <artifactId>uasparser</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.c2b</groupId>
       <artifactId>webmvc-config</artifactId>
       <version>1.0-SNAPSHOT</version>
@@ -49,14 +53,6 @@
       <groupId>com.c2b</groupId>
       <artifactId>redis-cache-config</artifactId>
       <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sourceforge.jregex</groupId>
-      <artifactId>jregex</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cz.mallat.uasparser</groupId>
-      <artifactId>uasparser</artifactId>
     </dependency>
   </dependencies>
 
