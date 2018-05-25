@@ -53,7 +53,7 @@ public class SignInterceptor implements HandlerInterceptor {
     long n = redisUtil.incr(key);
     if (n == 1) {
       redisUtil.expire(key, 10);
-    } else if (n > 2) {
+    } else if (n > 100) {
       writeError(httpServletResponse, ApiResponseCode.SignError.TooManyRequest);
       return false;
     }
