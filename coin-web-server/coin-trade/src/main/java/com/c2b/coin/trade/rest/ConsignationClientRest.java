@@ -41,12 +41,8 @@ public class ConsignationClientRest extends BaseRest {
   @Autowired
   RestClient restCient;
 
-  private static final long forbiddenTime = 1512698400000L;
 
   private AjaxResponse palceConsignationOrder(long userId, String bizType, String tradeType, String consignationPrice, String consignationCount, String type) {
-    if (DateUtil.compareDateWithNow(forbiddenTime) == 1) {
-      return writeObj(ErrorMsgEnum.BANNING_ORDERS);
-    }
     if (StringUtils.isEmpty(bizType) || StringUtils.isEmpty(tradeType.trim())
       || new BigDecimal(consignationCount).compareTo(BigDecimal.ZERO) <= 0) {
       logger.info("userId=" + userId + "下委托单，参数错误：{}", bizType, tradeType,
