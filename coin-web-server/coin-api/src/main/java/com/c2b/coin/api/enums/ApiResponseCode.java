@@ -12,7 +12,9 @@ public class ApiResponseCode {
 
   public enum SignError implements IResponseCode {
 
+
     BadRequest("bad-request", "请求无效"),
+    TooManyRequest("too-many-request", "请求次数太多"),
     InvalidAccessKeyIdNotFound("invalid-access-key-id-notfound", "无效的AccessKeyId,请检查是否正确"),
     InvalidTimeStampFormat("invalid-timestamp.format", "时间戳格式不正确,应为yyyy-MM-dd'T'HH:mm:ss,注意是(UTC时区)"),
     InvalidTimeStampExpired("invalid-timestamp.expired", "时间戳时间和服务器时间不在15分钟内"),

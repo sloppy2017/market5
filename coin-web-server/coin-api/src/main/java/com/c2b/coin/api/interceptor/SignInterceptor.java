@@ -49,6 +49,15 @@ public class SignInterceptor implements HandlerInterceptor {
    */
   @Override
   public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
+    String key = IPUtils.getIpAddr(httpServletRequest);
+    long n = redisUtil.incr(key);
+    if (n == 1) {
+      redisUtil.expire(key, 10);
+    } else if (n > 2) {
+      writeError(httpServletResponse, ApiResponseCode.SignError.TooManyRequest);
+      return false;
+    }
+
     HandlerMethod handlerMethod = (HandlerMethod) handler;
     Sign signAnnotation = handlerMethod.getMethod().getAnnotation(Sign.class);
     if (signAnnotation == null) { //不需要签名
