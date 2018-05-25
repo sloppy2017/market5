@@ -2,19 +2,18 @@ package com.c2b.coin.account.api;
 
 import java.math.BigDecimal;
 
+import com.c2b.coin.common.AjaxResponse;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient("coin-account")
 public interface AccountClient {
 
-  @RequestMapping(value = "/client/asset/total", method = RequestMethod.GET)
-  String getAssetTotal(@RequestParam("userId") long userId);
+  @GetMapping(value = "/client/account/asset/total")
+  AjaxResponse getAssetTotal(@RequestParam("userId") long userId);
 
-  @RequestMapping(value = "/client/asset/list", method = RequestMethod.GET)
-  String getAssetList(@RequestParam("userId") long userId);
+  @GetMapping(value = "/client/account/asset/list")
+  AjaxResponse getAssetList(@RequestParam("userId") long userId);
 
   @RequestMapping(value = "/client/account/assetChange", method = RequestMethod.POST)
   String assetChange(

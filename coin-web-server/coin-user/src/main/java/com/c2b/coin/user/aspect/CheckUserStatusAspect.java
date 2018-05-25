@@ -8,7 +8,7 @@ import com.c2b.coin.common.enumeration.UserStatusEnum;
 import com.c2b.coin.user.annotation.CheckUserStatus;
 import com.c2b.coin.user.entity.UserInfo;
 import com.c2b.coin.user.service.UserInfoService;
-import com.c2b.coin.web.common.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

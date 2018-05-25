@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.jms.Queue;
 
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -21,7 +22,6 @@ import com.c2b.coin.matching.model.Order;
 import com.c2b.coin.matching.vo.queue.ExchangeVO;
 import com.c2b.coin.matching.vo.queue.MatchInfoVO;
 import com.c2b.coin.matching.vo.queue.ResultCallbackVO;
-import com.c2b.coin.web.common.RedisUtil;
 
 
 
@@ -527,15 +527,18 @@ public final class Matcher implements BizAdaptor{
 		switch (enumTradeType) {
 		case buy:
 			redisUtil.set(SELL_PREFIX+tradePair, list);
-
+//      buyConsignationLog.getUserId(),
+//        buyConsignationLog.getUsername(), sellConsignationLog.getUserId(), sellConsignationLog.getUsername(),
+//        matchInfoVO.getSeq(), moneyDigitalCoin.getId(), commodityDigitalCoin.getId(), matchInfoVO.getMoney(),
+//        matchInfoVO.getCount(), matchInfoVO.getSellMoney(), matchInfoVO.getBuyMoney()
 			MatchInfoVO matchInfoVO = new MatchInfoVO();
 			matchInfoVO.setSeq(getSeq());//全局唯一序列号
 			matchInfoVO.setCurrency(tradePair);//交易对
 			matchInfoVO.setBuySeq(orderNo);//买单号
 			matchInfoVO.setSellSeq(order.getOrderNo());//卖单号
-			matchInfoVO.setBuyMoney(order.getPrice().multiply(order.getAmount()).multiply(fee));//买入手续费，收取对手盘手续费
+			matchInfoVO.setBuyMoney(order.getPrice().multiply(amount).multiply(fee));//买入手续费，收取对手盘手续费
 			matchInfoVO.setSellMoney(price.multiply(amount).multiply(fee));//卖出手续费，收取对手盘手续费
-			matchInfoVO.setMoney(price.multiply(amount));//成交金额
+			matchInfoVO.setMoney(price);//成交金额
 			matchInfoVO.setCount(amount);//成交数量
       matchInfoVO.setBuyGenre(buyGenre);
       matchInfoVO.setPairDate(new Date(order.getTimestamp()));
@@ -550,8 +553,8 @@ public final class Matcher implements BizAdaptor{
 			matchInfoVO2.setBuySeq(order.getOrderNo());//买单号
 			matchInfoVO2.setSellSeq(orderNo);//卖单号
 			matchInfoVO2.setBuyMoney(price.multiply(amount).multiply(fee));//买入手续费，收取对手盘手续费
-			matchInfoVO2.setSellMoney(order.getPrice().multiply(order.getAmount()).multiply(fee));//卖出手续费，收取对手盘手续费
-			matchInfoVO2.setMoney(price.multiply(amount));//成交金额
+			matchInfoVO2.setSellMoney(order.getPrice().multiply(amount).multiply(fee));//卖出手续费，收取对手盘手续费
+			matchInfoVO2.setMoney(price);//成交金额
 			matchInfoVO2.setCount(amount);//成交数量
       matchInfoVO2.setBuyGenre(buyGenre);
       matchInfoVO2.setPairDate(new Date(order.getTimestamp()));

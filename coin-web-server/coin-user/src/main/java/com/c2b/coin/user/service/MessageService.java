@@ -9,14 +9,11 @@ import com.c2b.coin.common.MessageEnum;
 import com.c2b.coin.user.entity.UserInfo;
 import com.c2b.coin.user.util.MqUtil;
 import com.c2b.coin.user.vo.MessageVo;
-import com.c2b.coin.web.common.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
