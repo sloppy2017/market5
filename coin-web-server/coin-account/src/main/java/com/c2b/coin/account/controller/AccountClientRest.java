@@ -28,16 +28,16 @@ public class AccountClientRest extends BaseRest {
   @Autowired
   private IUserAccountAssetService userAccountAssetService;
 
-  @GetMapping("/asset/total")
+  @GetMapping(value = "/asset/total")
   @ApiOperation(value = "获取资产总计接口", notes = "'totalBTC':'总资产折算BTC','totalUSD':'总资产折算usd','availableBTC':'可用资产折算BTC','availableUSD':'可用资产折算usd','freezingBTC','冻结资产折算BTC','freezingUSD','冻结资产折算usd'")
-  public String getAssetTotal(@RequestParam long userId) {
-    return writeJson(this.userAccountAssetService.getAssetTotal(userId));
+  public AjaxResponse getAssetTotal(@RequestParam long userId) {
+    return writeObj(this.userAccountAssetService.getAssetTotal(userId));
   }
 
-  @GetMapping("/asset/list")
+  @GetMapping(value = "/asset/list")
   @ApiOperation(value = "获取总资产接口", notes = "'currencyType':'货币类型标识','currencyName','货币名称','currencyFullName':'货币全称','totalAmount':'货币总量','availableAmount':'可用数量','freezingAmount':'冻结数量'")
-  public String getAssetList(@RequestParam long userId) {
-    return writeJson(this.userAccountAssetService.getAssetList(userId));
+  public AjaxResponse getAssetList(@RequestParam long userId) {
+    return writeObj(this.userAccountAssetService.getAssetList(userId));
   }
 
   @PostMapping("/assetChange")

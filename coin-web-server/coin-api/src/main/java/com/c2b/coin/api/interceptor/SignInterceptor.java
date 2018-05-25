@@ -2,15 +2,14 @@ package com.c2b.coin.api.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.c2b.coin.api.annotation.Sign;
-import com.c2b.coin.api.controller.v1.BaseController;
-import com.c2b.coin.api.enums.ApiResponseCode;
+import com.c2b.coin.api.controller.BaseController;
 import com.c2b.coin.common.Constants;
 import com.c2b.coin.common.EncryptUtil;
 import com.c2b.coin.common.URLCodeUtil;
+import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.web.common.IPUtils;
 import com.c2b.coin.web.common.RedisUtil;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
-import com.c2b.coin.web.common.enums.IResponseCode;
 import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.protocol.HTTP;
@@ -18,6 +17,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -38,6 +39,9 @@ import java.util.regex.Pattern;
 public class SignInterceptor implements HandlerInterceptor {
 
   @Autowired
+  protected MessageSource messageSource;
+
+  @Autowired
   protected RedisUtil redisUtil;
 
   /**
@@ -54,7 +58,7 @@ public class SignInterceptor implements HandlerInterceptor {
     if (n == 1) {
       redisUtil.expire(key, 10);
     } else if (n > 100) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.TooManyRequest);
+      writeError(httpServletResponse, ErrorMsgEnum.TOO_MANY_REQUEST);
       return false;
     }
 
@@ -73,41 +77,41 @@ public class SignInterceptor implements HandlerInterceptor {
 
     //accessKeyId格式校验
     if (!checkAccessKeyId(accessKeyId)) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.InvalidAccessKeyIdNotFound);
+      writeError(httpServletResponse, ErrorMsgEnum.INVALID_ACCESS_KEY_ID_NOT_FOUND);
       return false;
     }
 
     //时间戳格式校验(UTC)
     if (!checkTimestamp(timestamp)) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.InvalidTimeStampFormat);
+      writeError(httpServletResponse, ErrorMsgEnum.INVALID_TIMESTAMP_FORMAT);
       return false;
     }
 
     if (!signatureMethod.equals(HmacAlgorithms.HMAC_SHA_256.getName())) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.InvalidSignatureMethodNotFound);
+      writeError(httpServletResponse, ErrorMsgEnum.INVALID_SIGNATURE_METHOD_NOT_FOUND);
       return false;
     }
 
     if (!signatureVersion.equals("1")) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.InvalidSignatureVersionNotFound);
+      writeError(httpServletResponse, ErrorMsgEnum.INVALID_SIGNATURE_VERSION_NOT_FOUND);
       return false;
     }
 
     //签名格式校验
     if (!checkSignature(signature)) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.SignatureDoesNotMatch);
+      writeError(httpServletResponse, ErrorMsgEnum.SIGNATURE_DOES_NOT_MATCH);
       return false;
     }
 
     //判断时间是否已过期
     if (isTimeout(timestamp)) {  //客户端传的本地时间，有可能比服务器时间快或则慢，但不能超过正负15分钟，否则认为时间非法
-      writeError(httpServletResponse, ApiResponseCode.SignError.InvalidTimeStampExpired);
+      writeError(httpServletResponse, ErrorMsgEnum.INVALID_TIMESTAMP_EXPIRED);
       return false;
     }
 
     Map<String, String> userAcess = redisUtil.hgetall(Constants.REDIS_USER_ACCESS_KEY + accessKeyId);
     if (userAcess == null) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.InvalidAccessKeyIdNotFound);
+      writeError(httpServletResponse, ErrorMsgEnum.INVALID_ACCESS_KEY_ID_NOT_FOUND);
       return false;
     }
 
@@ -115,7 +119,7 @@ public class SignInterceptor implements HandlerInterceptor {
     if (StringUtils.isNotEmpty(allowIp)) {
       allowIp += ",";
       if (!allowIp.contains(IPUtils.getIpAddr(httpServletRequest) + ",")) {
-        writeError(httpServletResponse, ApiResponseCode.SignError.InvalidIpAddressNotFound);
+        writeError(httpServletResponse, ErrorMsgEnum.INVALID_IP_ADDRESS_NOT_FOUND);
         return false;
       }
     }
@@ -133,14 +137,14 @@ public class SignInterceptor implements HandlerInterceptor {
         .append("&SignatureVersion=").append(signatureVersion)
         .append("&Timestamp=").append(timestampEncode);
     } else {
-      writeError(httpServletResponse, ApiResponseCode.SignError.BadRequest);
+      writeError(httpServletResponse, ErrorMsgEnum.BAD_REQUEST);
       return false;
     }
 
     String encryptKey = userAcess.get("accessKeySecret");
     String encryptSignature = EncryptUtil.encryptHmacSHA(HmacAlgorithms.HMAC_SHA_256, encryptKey, encryptText.toString());
     if (!signature.equals(encryptSignature)) {
-      writeError(httpServletResponse, ApiResponseCode.SignError.SignatureDoesNotMatch);
+      writeError(httpServletResponse, ErrorMsgEnum.SIGNATURE_DOES_NOT_MATCH);
       return false;
     }
 
@@ -225,9 +229,9 @@ public class SignInterceptor implements HandlerInterceptor {
     return DateTime.parse(utcTime, utcFormat).plusHours(8).toDate();//utc to gmt8
   }
 
-  private void writeError(HttpServletResponse response, IResponseCode responseCode) throws IOException {
+  private void writeError(HttpServletResponse response, ErrorMsgEnum errorMsgEnum) throws IOException {
     response.setHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8");
-    response.getWriter().append(JSON.toJSONString(ResponseBean.onFailure(responseCode)));
+    response.getWriter().append(JSON.toJSONString(ResponseBean.onFailure(errorMsgEnum.getCode(), messageSource.getMessage(ErrorMsgEnum.SERVER_BUSY.name(), null, LocaleContextHolder.getLocale()))));
   }
 
 }

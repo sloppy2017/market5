@@ -1,7 +1,7 @@
 package com.c2b.coin.api.controller.v1.trade;
 
 import com.c2b.coin.api.annotation.Sign;
-import com.c2b.coin.api.controller.v1.BaseController;
+import com.c2b.coin.api.controller.BaseController;
 import com.c2b.coin.trade.api.ConsignationClient;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
 import io.swagger.annotations.Api;

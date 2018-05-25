@@ -2,7 +2,9 @@ package com.c2b.coin.api.controller.v1.account;
 
 import com.c2b.coin.account.api.AccountClient;
 import com.c2b.coin.api.annotation.Sign;
-import com.c2b.coin.api.controller.v1.BaseController;
+import com.c2b.coin.api.controller.BaseController;
+import com.c2b.coin.common.AjaxResponse;
+import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.web.common.rest.bean.ResponseBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +23,12 @@ public class UserAccountController extends BaseController {
   @GetMapping(value = "/asset/total")
   @ApiOperation(value = "获取用户总资产")
   public ResponseBean getAssetTotal() {
-    return onSuccess(accountClient.getAssetTotal(Long.parseLong(getThreadContextMap().getUserId())));
+    AjaxResponse response = accountClient.getAssetTotal(Long.parseLong(getThreadContextMap().getUserId()));
+    if (response.isSuccess()) {
+      return onSuccess(response.getData());
+    } else {
+      return onFailure(ErrorMsgEnum.SERVER_BUSY);
+    }
   }
 
   @Sign
