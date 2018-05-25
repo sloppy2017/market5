@@ -420,7 +420,7 @@ public final class Matcher implements BizAdaptor{
 		if(buyList.size()==0){return false;}
     Order order = buyList.get(0);
 		if(order.getPrice().compareTo(price)>=0) {//命中买盘
-			if(order.getAmount().compareTo(amount)<=0) {//对手盘数量大于此次需要撮合的数量
+			if(order.getAmount().compareTo(amount)>=0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
 				order.setAmount(order.getAmount().subtract(amount));
 				//撮合订单
