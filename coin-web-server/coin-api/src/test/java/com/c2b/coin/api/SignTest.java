@@ -14,13 +14,13 @@ public class SignTest {
 
   @Test
   public void generate() {
-    String accessKeyId = "f9b17c60-cb71-47f0-bc20-b40fa43eb0ac";
-    String encryptKey = "jTEKWHzJPkST652dKioqkBtEfaEPDnmf";
+    String accessKeyId = "de4aeefc-8499-4889-aa4d-c6d7c19e2d92";
+    String encryptKey = "zmuLz8iTXb0jLdjDLfm165IcO16NOvL2";
     String timestamp = URLCodeUtil.encode(new DateTime().minusHours(8).toString("yyyy-MM-dd'T'HH:mm:ss"));
 
     String requestMethod = "GET";
-    String serverName = "192.168.1.104";
-    String requestURI = "/v1/account/get";
+    String serverName = "localhost";
+    String requestURI = "/v1/account/asset/total";
     String encryptText = ParamMessageUtil.format(
       requestMethod + "\n" +
         serverName + "\n" +

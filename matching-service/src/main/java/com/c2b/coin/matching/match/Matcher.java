@@ -5,6 +5,7 @@ import java.util.*;
 
 import javax.jms.Queue;
 
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -21,7 +22,6 @@ import com.c2b.coin.matching.model.Order;
 import com.c2b.coin.matching.vo.queue.ExchangeVO;
 import com.c2b.coin.matching.vo.queue.MatchInfoVO;
 import com.c2b.coin.matching.vo.queue.ResultCallbackVO;
-import com.c2b.coin.web.common.RedisUtil;
 
 
 

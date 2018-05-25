@@ -1,7 +1,7 @@
 package com.c2b.coin.user.service;
 
 import com.c2b.coin.common.RandNumUtil;
-import com.c2b.coin.web.common.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

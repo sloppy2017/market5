@@ -3,7 +3,7 @@ package com.c2b.coin.matching.consumer;
 import java.math.BigDecimal;
 import java.util.Map;
 
-import com.c2b.coin.web.common.RedisUtil;
+import com.c2b.coin.cache.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,6 @@ import com.c2b.coin.common.Constants;
 import com.c2b.coin.matching.constant.EnumConsignedType;
 import com.c2b.coin.matching.constant.EnumTradeType;
 import com.c2b.coin.matching.match.Matcher;
-import com.c2b.coin.matching.vo.queue.ExchangeVO;
 import org.springframework.util.StringUtils;
 
 /**

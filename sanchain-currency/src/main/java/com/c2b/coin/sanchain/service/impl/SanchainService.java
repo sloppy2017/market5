@@ -28,7 +28,7 @@ import com.c2b.coin.sanchain.mapper.WithdrawLogMapper;
 import com.c2b.coin.sanchain.service.ISanchainService;
 import com.c2b.coin.sanchain.task.CollectTask;
 import com.c2b.coin.sanchain.util.AES;
-import com.c2b.coin.web.common.RedisUtil;
+import com.coin.config.cache.redis.RedisUtil;
 
 @Service
 public class SanchainService implements ISanchainService{
@@ -47,13 +47,13 @@ public class SanchainService implements ISanchainService{
 
 	@Autowired
 	private WithdrawLogMapper withdrawLogMapper;
-	
+
 	@Autowired
 	private CollectTask collectTask;
-	
+
 	@Autowired
 	private ThreadPoolTaskExecutor taskExecutor;
-	
+
 	@Override
 	public String createAddress(String account) throws IOException{
 		//1.生成钱包地址
@@ -74,12 +74,12 @@ public class SanchainService implements ISanchainService{
 
 	@Override
 	public String sendMoney(WithdrawLog withdrawLog) throws APIException {
-		
+
 		//计算矿工费用
 		BigDecimal amount = withdrawLog.getMoney().stripTrailingZeros().multiply(new BigDecimal("1000000")).setScale(0,BigDecimal.ROUND_DOWN) ;
-		
+
 		BigDecimal fee = withdrawLog.getMoney().divide(new BigDecimal(1000));
-		
+
 		BigDecimal hotWalletBalance =getBalance(hotwalletAddress);
 		if(hotWalletBalance.compareTo(withdrawLog.getMoney())<0) {
 			taskExecutor.execute(() -> {
@@ -87,13 +87,13 @@ public class SanchainService implements ISanchainService{
 			});
 			throw new SanchainException(ErrorMsgEnum.SANC_HOTWALLETBALANCE_NOT_ENOUGH, "热钱包金额不足");
 		}
-		
+
 		String amountStr = amount.stripTrailingZeros().toString();
 		SignedTransaction sign = null;
 		Integer lastLedgerIndex = Utils.ledgerClosed() + 3;
-		//XXXX  这里 第三个参数  假设题币  为7.12345678个   那么  json串中  Amount参数应为  712345678  
+		//XXXX  这里 第三个参数  假设题币  为7.12345678个   那么  json串中  Amount参数应为  712345678
 		// 但是 Amout后面多了三个0 我去掉空0了  也不管用  需要深入它jar包中看看是怎么回事，或者咨询陶毅
-		
+
 //		{
 //		    "result":{
 //		        "tx_json":{
@@ -118,7 +118,7 @@ public class SanchainService implements ISanchainService{
 //		    "type":"response",
 //		    "status":"success"
 //		}
-		
+
 		sign = Utils.payment(
 				AES.decrypt(hotwalletPrivateKey),
 				withdrawLog.getToAddress(),
@@ -147,14 +147,14 @@ public class SanchainService implements ISanchainService{
 
 
 	}
-	
-	
+
+
 	private  BigDecimal getBalance(String address) throws APIException {
 		BigDecimal san=BigDecimal.ZERO;
 		JSONObject jsonObject;
-		
+
 		String accountInfo = Utils.getAccountInfo(address);
-		
+
         if (StringUtils.isEmpty(accountInfo)) {
             return san;
         }

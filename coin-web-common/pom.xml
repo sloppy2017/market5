@@ -18,41 +18,25 @@
   </properties>
 
   <dependencies>
-    <!--调用其他微服务-->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-ribbon</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-feign</artifactId>
-    </dependency>
-    <!--远程配置-->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-config</artifactId>
-    </dependency>
-    <!--使用hystrix-->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-hystrix</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.c2b</groupId>
-      <artifactId>redis-cache-config</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpmime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cz.mallat.uasparser</groupId>
+      <artifactId>uasparser</artifactId>
     </dependency>
     <dependency>
       <groupId>com.c2b</groupId>
@@ -68,14 +52,6 @@
       <groupId>com.c2b</groupId>
       <artifactId>swagger-config</artifactId>
       <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sourceforge.jregex</groupId>
-      <artifactId>jregex</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cz.mallat.uasparser</groupId>
-      <artifactId>uasparser</artifactId>
     </dependency>
   </dependencies>
 

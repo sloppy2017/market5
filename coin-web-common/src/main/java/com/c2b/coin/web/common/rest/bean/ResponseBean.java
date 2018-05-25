@@ -1,7 +1,5 @@
 package com.c2b.coin.web.common.rest.bean;
 
-import com.c2b.coin.web.common.enums.IResponseCode;
-
 import java.util.Date;
 
 /**
@@ -79,19 +77,10 @@ public class ResponseBean<T> {
     this.data = data;
   }
 
-  private void fillResponse(IResponseCode responseCode, T data) {
-    if (responseCode != null) {
-      setErrCode(responseCode.getCode());
-      setErrMsg(responseCode.getMessage());
-    }
-    setData(data);
-  }
-
   public static <T> ResponseBean<T> onSuccess() {
     ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.OK.getCode());
     responseBean.setTs(new Date().getTime());
-    responseBean.fillResponse(null, null);
     return responseBean;
   }
 
@@ -99,7 +88,7 @@ public class ResponseBean<T> {
     ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.OK.getCode());
     responseBean.setTs(new Date().getTime());
-    responseBean.fillResponse(null, data);
+    responseBean.setData(data);
     return responseBean;
   }
 
@@ -107,14 +96,6 @@ public class ResponseBean<T> {
     ResponseBean responseBean = new ResponseBean();
     responseBean.setStatus(Status.ERROR.getCode());
     responseBean.setTs(new Date().getTime());
-    return responseBean;
-  }
-
-  public static <T> ResponseBean<T> onFailure(IResponseCode responseCode) {
-    ResponseBean responseBean = new ResponseBean();
-    responseBean.setStatus(Status.ERROR.getCode());
-    responseBean.setTs(new Date().getTime());
-    responseBean.fillResponse(responseCode, null);
     return responseBean;
   }
 
