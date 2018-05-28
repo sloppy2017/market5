@@ -61,6 +61,7 @@ public class Constants {
 
   public static final String REDIS_USER_TOKEN_LIST_KEY = "coin:user:tokenlist:";
   public static final String REDIS_USER_ACCESS_KEY = "coin:user:accesskey:";
+  public static final String REDIS_USER_ACCESS_KEY_REQUEST_COUNT = "coin:user:accesskey:request:count:";
 
 
   /*====================queue destination======================*/

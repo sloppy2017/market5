@@ -53,7 +53,8 @@ public class SignInterceptor implements HandlerInterceptor {
    */
   @Override
   public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
-    String key = IPUtils.getIpAddr(httpServletRequest);
+    //限制每10秒最多访问100次
+    String key = Constants.REDIS_USER_ACCESS_KEY_REQUEST_COUNT + IPUtils.getIpAddr(httpServletRequest);
     long n = redisUtil.incr(key);
     if (n == 1) {
       redisUtil.expire(key, 10);
@@ -64,7 +65,7 @@ public class SignInterceptor implements HandlerInterceptor {
 
     HandlerMethod handlerMethod = (HandlerMethod) handler;
     Sign signAnnotation = handlerMethod.getMethod().getAnnotation(Sign.class);
-    if (signAnnotation == null) { //不需要签名
+    if (signAnnotation == null) { //没有Sign注解不需要签名
       return true;
     }
 
@@ -148,6 +149,7 @@ public class SignInterceptor implements HandlerInterceptor {
       return false;
     }
 
+    //将userId和userName存入线程
     BaseController.getThreadContextMap().putUserId(userAcess.get("userId"));
     BaseController.getThreadContextMap().putUserName(userAcess.get("userName"));
     return true;
