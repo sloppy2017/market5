@@ -18,7 +18,7 @@ html{font-family:sans-serif;line-height:1.42857143;-ms-text-size-adjust:100%;-we
           <div class="content-box">
                     <div class="bg-content">
                               <p class="font1 text-center">欢迎使用PARK.ONE</p>
-                              <p class="font5 text-center ">尊敬的CoinTobBe用户您好，您的账号${username}于${date}解绑了谷歌二次验证。</p>
+                              <p class="font5 text-center ">尊敬的PARK.ONE用户您好，您的账号${username}于${date}解绑了谷歌二次验证。</p>
                               <p class="font6 text-center">如果您并未注册过PARK.ONE，请忽略此邮件，此账户将会被删除。</p>
                               <p class="font6 text-center">系统邮件，请勿回复</p>
                     </div>

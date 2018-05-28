@@ -18,7 +18,7 @@
           <div class="content-box">
                     <div class="bg-content">
                               <p class="font1 text-center">欢迎使用PARK.ONE</p>
-                              <p class="font5 text-center ">尊敬的CoinTobBe用户您好，您于${date}充值的数字资产已到账，充值币种：${coinType}，充值数量：${count}${coinType}。</p>
+                              <p class="font5 text-center ">尊敬的PARK.ONE用户您好，您于${date}充值的数字资产已到账，充值币种：${coinType}，充值数量：${count}${coinType}。</p>
                               <p class="font6 text-center">如果您并未注册过PARK.ONE，请忽略此邮件，此账户将会被删除。</p>
                               <p class="font6 text-center">系统邮件，请勿回复</p>
                     </div>
