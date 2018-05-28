@@ -40,8 +40,8 @@ public final class Matcher implements BizAdaptor{
 
 	@Autowired
 	private RedisUtil redisUtil;
-//	@Autowired
-//	private OrderMap orderMap;
+	//	@Autowired
+	//	private OrderMap orderMap;
 
 	@Value("${key.redis.data.realtime.buylist}")
 	private String BUY_PREFIX ;
@@ -141,7 +141,7 @@ public final class Matcher implements BizAdaptor{
 			matchSellLimit(tradePair,price,amount,orderNo,enumConsignedType.getCode());
 			break;
 		case MARKET:
-      matchSellMarket(tradePair,price,amount,orderNo,enumConsignedType.getCode());
+			matchSellMarket(tradePair,price,amount,orderNo,enumConsignedType.getCode());
 			break;
 		default:
 			break;
@@ -302,6 +302,32 @@ public final class Matcher implements BizAdaptor{
 			}
 			exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
 			jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSON(exchangeVO));
+		}else if(order.getAmount().compareTo(amount)==0){
+			//移除元素
+			sellList.removeFirst();
+			//撮合订单
+			matchOrder(tradePair,sellList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.buy, buyGenre);
+			//发送撮合完成队列  成交均价  已成单为全部money  type currency orderN
+			ExchangeVO exchangeVO = new ExchangeVO();
+			exchangeVO.setSeq(orderNo);
+			exchangeVO.setCurrency(tradePair);
+			exchangeVO.setMakeMoney(makeMoney);
+			exchangeVO.setType("buy");
+			BigDecimal sumMoney = BigDecimal.ZERO;
+			BigDecimal sumAmount = BigDecimal.ZERO;
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("price", order.getPrice());
+			map.put("amount", amount);
+			detailList.add(map);
+			for (Object object : detailList) {
+				Map detailMap = (Map) object;
+				BigDecimal detailPrice = (BigDecimal) detailMap.get("price");
+				BigDecimal detailAmount = (BigDecimal) detailMap.get("amount");
+				sumMoney= sumMoney.add(detailPrice.multiply(detailAmount));
+				sumAmount = sumAmount.add(detailAmount);
+			}
+			exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
+			jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSON(exchangeVO));
 		}else {//对手盘数量小于此次需要撮合的数量,直接撮合，移除元素，并递归调用下一次撮合
 			//移除元素
 			sellList.removeFirst();
@@ -334,11 +360,37 @@ public final class Matcher implements BizAdaptor{
 			order = sellList.get(0);
 		}
 		if(order.getPrice().compareTo(price)<=0) {//命中卖盘
-			if(order.getAmount().compareTo(amount)>=0) {//对手盘数量大于此次需要撮合的数量
+			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
 				order.setAmount(order.getAmount().subtract(amount));
 				//撮合订单
 				matchOrder(tradePair,sellList,order,orderNo,order.getPrice(),amount,EnumTradeType.buy,buyGenre);
+				//发送撮合完成队列  成交均价  已成单为全部money  type currency orderN
+				ExchangeVO exchangeVO = new ExchangeVO();
+				exchangeVO.setSeq(orderNo);
+				exchangeVO.setCurrency(tradePair);
+				exchangeVO.setMakeMoney(makeMoney.add(amount.multiply(price)));
+				exchangeVO.setType("buy");
+				BigDecimal sumMoney = BigDecimal.ZERO;
+				BigDecimal sumAmount = BigDecimal.ZERO;
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("price", order.getPrice());
+				map.put("amount", amount);
+				detailList.add(map);
+				for (Object object : detailList) {
+					Map detailMap = (Map) object;
+					BigDecimal detailPrice = (BigDecimal) detailMap.get("price");
+					BigDecimal detailAmount = (BigDecimal) detailMap.get("amount");
+					sumMoney= sumMoney.add(detailPrice.multiply(detailAmount));
+					sumAmount = sumAmount.add(detailAmount);
+				}
+				exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
+				jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSON(exchangeVO));
+			}else if(order.getAmount().compareTo(amount)==0){
+				//移除元素
+				sellList.removeFirst();
+				//撮合订单
+				matchOrder(tradePair,sellList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.buy,buyGenre);
 				//发送撮合完成队列  成交均价  已成单为全部money  type currency orderN
 				ExchangeVO exchangeVO = new ExchangeVO();
 				exchangeVO.setSeq(orderNo);
@@ -418,9 +470,9 @@ public final class Matcher implements BizAdaptor{
 	 */
 	private boolean hitSellLimitMatchList(String tradePair,LinkedList<Order> buyList, BigDecimal price, BigDecimal amount, String orderNo,BigDecimal makeMoney,List<Object> detailList,String buyGenre) {
 		if(buyList.size()==0){return false;}
-    Order order = buyList.get(0);
-		if(order.getPrice().compareTo(price)>=0) {//命中买盘
-			if(order.getAmount().compareTo(amount)>=0) {//对手盘数量大于此次需要撮合的数量
+		Order order = buyList.get(0);
+		if(order.getPrice().compareTo(price)>0) {//命中买盘
+			if(order.getAmount().compareTo(amount)>0) {//对手盘数量大于此次需要撮合的数量
 				//修改对手盘单中的剩余数量
 				order.setAmount(order.getAmount().subtract(amount));
 				//撮合订单
@@ -446,7 +498,33 @@ public final class Matcher implements BizAdaptor{
 				}
 				exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
 				jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSONString(exchangeVO));
-			}else {//对手盘数量小于此次需要撮合的数量,直接撮合，移除元素，并递归调用下一次撮合
+			}else if(order.getAmount().compareTo(amount)==0) {//对手盘数量等于此次需要撮合的数量
+				//移除元素
+				buyList.removeLast();
+				//撮合订单
+				matchOrder(tradePair,buyList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.sell,buyGenre);
+				//发送撮合完成队列  成交均价  已成单为全部money  type currency orderN
+				ExchangeVO exchangeVO = new ExchangeVO();
+				exchangeVO.setSeq(orderNo);
+				exchangeVO.setCurrency(tradePair);
+				exchangeVO.setMakeMoney(makeMoney.add(amount));
+				exchangeVO.setType("sell");
+				BigDecimal sumMoney = BigDecimal.ZERO;
+				BigDecimal sumAmount = BigDecimal.ZERO;
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("price", order.getPrice());
+				map.put("amount", amount);
+				detailList.add(map);
+				for (Object object : detailList) {
+					Map detailMap = (Map) object;
+					BigDecimal detailPrice = (BigDecimal) detailMap.get("price");
+					BigDecimal detailAmount = (BigDecimal) detailMap.get("amount");
+					sumMoney= sumMoney.add(detailPrice.multiply(detailAmount));
+					sumAmount = sumAmount.add(detailAmount);
+				}
+				exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
+				jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSONString(exchangeVO));
+			} else {//对手盘数量小于此次需要撮合的数量,直接撮合，移除元素，并递归调用下一次撮合
 				//移除元素
 				buyList.removeLast();
 				//撮合订单
@@ -508,6 +586,32 @@ public final class Matcher implements BizAdaptor{
 			}
 			exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
 			jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSONString(exchangeVO));
+		}else if(order.getAmount().compareTo(amount)==0){
+			//移除元素
+			buyList.removeLast();
+			//撮合订单
+			matchOrder(tradePair,buyList,order,orderNo,order.getPrice(),order.getAmount(),EnumTradeType.buy,buyGenre);
+			//发送撮合完成队列  成交均价  已成单为全部money  type currency orderN
+			ExchangeVO exchangeVO = new ExchangeVO();
+			exchangeVO.setSeq(orderNo);
+			exchangeVO.setCurrency(tradePair);
+			exchangeVO.setType("sell");
+			exchangeVO.setMakeMoney(makeMoney);
+			BigDecimal sumMoney = BigDecimal.ZERO;
+			BigDecimal sumAmount = BigDecimal.ZERO;
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("price", order.getPrice());
+			map.put("amount", amount);
+			detailList.add(map);
+			for (Object object : detailList) {
+				Map detailMap = (Map) object;
+				BigDecimal detailPrice = (BigDecimal) detailMap.get("price");
+				BigDecimal detailAmount = (BigDecimal) detailMap.get("amount");
+				sumMoney= sumMoney.add(detailPrice.multiply(detailAmount));
+				sumAmount = sumAmount.add(detailAmount);
+			}
+			exchangeVO.setAverageMoney(sumMoney.divide(sumAmount));
+			jmsTemplate.convertAndSend(endMatchQueue, JSONObject.toJSONString(exchangeVO));
 		}else {//对手盘数量小于此次需要撮合的数量,直接撮合，移除元素，并递归调用下一次撮合
 			//移除元素
 			buyList.removeLast();
@@ -527,10 +631,10 @@ public final class Matcher implements BizAdaptor{
 		switch (enumTradeType) {
 		case buy:
 			redisUtil.set(SELL_PREFIX+tradePair, list);
-//      buyConsignationLog.getUserId(),
-//        buyConsignationLog.getUsername(), sellConsignationLog.getUserId(), sellConsignationLog.getUsername(),
-//        matchInfoVO.getSeq(), moneyDigitalCoin.getId(), commodityDigitalCoin.getId(), matchInfoVO.getMoney(),
-//        matchInfoVO.getCount(), matchInfoVO.getSellMoney(), matchInfoVO.getBuyMoney()
+			//      buyConsignationLog.getUserId(),
+			//        buyConsignationLog.getUsername(), sellConsignationLog.getUserId(), sellConsignationLog.getUsername(),
+			//        matchInfoVO.getSeq(), moneyDigitalCoin.getId(), commodityDigitalCoin.getId(), matchInfoVO.getMoney(),
+			//        matchInfoVO.getCount(), matchInfoVO.getSellMoney(), matchInfoVO.getBuyMoney()
 			MatchInfoVO matchInfoVO = new MatchInfoVO();
 			matchInfoVO.setSeq(getSeq());//全局唯一序列号
 			matchInfoVO.setCurrency(tradePair);//交易对
@@ -540,8 +644,8 @@ public final class Matcher implements BizAdaptor{
 			matchInfoVO.setSellMoney(price.multiply(amount).multiply(fee));//卖出手续费，收取对手盘手续费
 			matchInfoVO.setMoney(price);//成交金额
 			matchInfoVO.setCount(amount);//成交数量
-      matchInfoVO.setBuyGenre(buyGenre);
-      matchInfoVO.setPairDate(new Date(order.getTimestamp()));
+			matchInfoVO.setBuyGenre(buyGenre);
+			matchInfoVO.setPairDate(new Date(order.getTimestamp()));
 			jmsTemplate.convertAndSend(tradeOnceQueue, JSONObject.toJSONString(matchInfoVO));
 			break;
 		case sell:
@@ -556,8 +660,8 @@ public final class Matcher implements BizAdaptor{
 			matchInfoVO2.setSellMoney(order.getPrice().multiply(amount).multiply(fee));//卖出手续费，收取对手盘手续费
 			matchInfoVO2.setMoney(price);//成交金额
 			matchInfoVO2.setCount(amount);//成交数量
-      matchInfoVO2.setBuyGenre(buyGenre);
-      matchInfoVO2.setPairDate(new Date(order.getTimestamp()));
+			matchInfoVO2.setBuyGenre(buyGenre);
+			matchInfoVO2.setPairDate(new Date(order.getTimestamp()));
 			jmsTemplate.convertAndSend(tradeOnceQueue, JSONObject.toJSONString(matchInfoVO2));
 			break;
 		default:
@@ -597,7 +701,7 @@ public final class Matcher implements BizAdaptor{
 
 	//生成流水号
 	private String getSeq() {
-		 return UUID.randomUUID().toString().replace("-", "");
+		return UUID.randomUUID().toString().replace("-", "");
 	}
 
 }
