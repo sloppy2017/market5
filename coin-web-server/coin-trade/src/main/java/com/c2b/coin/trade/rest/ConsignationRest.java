@@ -70,8 +70,8 @@ public class ConsignationRest extends BaseRest {
     try {
       return consignationService.palceConsignationOrder(userId, userName,
         bizType, tradeType, null == consignationPrice ? null
-          : new BigDecimal(consignationPrice), new BigDecimal(
-          consignationCount), type);
+          : new BigDecimal(consignationPrice).abs(), new BigDecimal(
+          consignationCount).abs(), type);
     } catch (TradeException e) {
       return writeObj(e.getErrorMsgEnum());
     }
