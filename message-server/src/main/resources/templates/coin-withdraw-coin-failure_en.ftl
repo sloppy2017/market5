@@ -18,7 +18,7 @@
           <div class="content-box">
                     <div class="bg-content">
                               <p class="font1 text-center">Welcome PARK.ONE</p>
-                              <p class="font5 text-center ">尊敬的CoinTobBe用户您好，您于${date}发起的数字资产提现已失败，请登录CoinTobBe平台，重新发起提币申请。</p>
+                              <p class="font5 text-center ">尊敬的PARK.ONE用户您好，您于${date}发起的数字资产提现已失败，请登录PARK.ONE平台，重新发起提币申请。</p>
                               <p class="font6 text-center">If you haven’t sign up PARK.ONE, please ignore this email,</p>
                               <p class="font6 text-center">and this account will be deleted. System mail, please do not reply.</p>
                     </div>
