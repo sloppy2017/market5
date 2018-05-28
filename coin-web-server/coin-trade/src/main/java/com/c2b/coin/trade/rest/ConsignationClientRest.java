@@ -2,12 +2,9 @@ package com.c2b.coin.trade.rest;
 
 import com.alibaba.druid.util.StringUtils;
 import com.c2b.coin.common.AjaxResponse;
-import com.c2b.coin.common.CodeConstant;
-import com.c2b.coin.common.DateUtil;
 import com.c2b.coin.common.enumeration.ConsignationTradeTypeEnum;
 import com.c2b.coin.common.enumeration.ErrorMsgEnum;
 import com.c2b.coin.trade.client.RestClient;
-import com.c2b.coin.trade.exceptions.IllegalParamException;
 import com.c2b.coin.trade.exceptions.TradeException;
 import com.c2b.coin.trade.service.ConsignationService;
 import com.c2b.coin.trade.service.TradePairInfoService;
@@ -40,7 +37,6 @@ public class ConsignationClientRest extends BaseRest {
 
   @Autowired
   RestClient restCient;
-
 
   private AjaxResponse palceConsignationOrder(long userId, String bizType, String tradeType, String consignationPrice, String consignationCount, String type) {
     if (StringUtils.isEmpty(bizType) || StringUtils.isEmpty(tradeType.trim())
@@ -89,11 +85,8 @@ public class ConsignationClientRest extends BaseRest {
   @RequestMapping(value = "/revokeOrder", method = RequestMethod.POST)
   public AjaxResponse revokeOrder(@RequestParam String userId, @RequestParam String consignationNo) {
     logger.debug("revokeOrder");
-    try {
-      return writeObj(consignationService.revokeOrder(consignationNo));
-    } catch (final IllegalParamException e) {
-      return writeObj(CodeConstant.REVOKE_ORDER_FAIL);
-    }
+    consignationService.revokeOrder(Long.parseLong(userId), consignationNo);
+    return writeObj(null);
   }
 
   @RequestMapping(value = "/getBuySellOrder", method = RequestMethod.GET)

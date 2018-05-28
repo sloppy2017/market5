@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 
+import com.c2b.coin.web.common.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,11 @@ import com.c2b.coin.trade.client.MatchClient;
 import com.c2b.coin.trade.client.RestClient;
 import com.c2b.coin.trade.entity.ConsignationLog;
 import com.c2b.coin.trade.entity.TradePairInfo;
-import com.c2b.coin.trade.exceptions.IllegalParamException;
 import com.c2b.coin.trade.exceptions.TradeException;
 import com.c2b.coin.trade.mapper.ConsignationLogMapper;
-import com.c2b.coin.trade.vo.ExchangeVO;
 import com.c2b.coin.trade.vo.ResultCallbackVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Maps;
 
 /**
  * @author Anne
@@ -389,11 +387,10 @@ public class ConsignationService {
 
   /**
    * 调用撮合交易的撤单验证接口
- * @param consignationNo
    *
-   * @param exchangeVO
-   *          参数VO
-   * @return ResultCallbackVo 撤单结果VO
+   * @param tradePairInfo
+   * @param consignationNo
+   * @return 撤单结果VO
    */
   public ResultCallbackVO invokeRevokeOrder(String tradePairInfo, String consignationNo) {
 //    String execute = null;
@@ -414,18 +411,10 @@ public class ConsignationService {
     return resultCallbackVO;
   }
 
-  public BigDecimal getUfzAmount(ResultCallbackVO resultCallbackVO,
-      ConsignationLog consignationLog) {
-    ConsignationTradeTypeEnum consignationTradeTypeEnum = ConsignationTradeTypeEnum
-        .getConsignationTradeTypeEnum(consignationLog.getTradeType());
-    switch (consignationTradeTypeEnum) {
-    case LIMIT_PRICE_BUY:
-      return consignationLog.getConsignationCount()
-          .multiply(consignationLog.getConsignationPrice())
-          .subtract(resultCallbackVO.getSumMoney());
-    default:
-      return resultCallbackVO.getResidueCount();
-    }
+  public BigDecimal getUfzAmount(ConsignationLog consignationLog) {
+    return consignationLog.getConsignationCount()
+      .multiply(consignationLog.getConsignationPrice())
+      .subtract(consignationLog.getMadeCount().multiply(consignationLog.getMadePrice()));
   }
 
   /**
@@ -436,80 +425,46 @@ public class ConsignationService {
    *          委托单号
    * @return 撤单结果：true-成功；false-失败
    */
-  @Transactional(rollbackFor = Exception.class)
-  public Object revokeOrder(final String consignationNo)
-      throws IllegalParamException {
-    if ("0".equals(consignationNo)) {
-      throw new IllegalParamException(
-          "consignationNo error in method revokeOrder of "
-              + this.getClass().getName());
+  @Transactional
+  public void revokeOrder(final long userId, final String consignationNo) {
+    ConsignationLog consignationLog = findBySeq(userId, consignationNo);
+    if (null == consignationLog || consignationLog.getConsignationStatus() == ConsignationStatusEnum.REVOKE.getStatusCode()) {
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
-    logger.info("revoke orderNo:" + consignationNo);
-    ConsignationLog consignationLog = findBySeq(consignationNo);
-    if (null == consignationLog
-        || consignationLog.getConsignationStatus() == ConsignationStatusEnum.REVOKE
-            .getStatusCode()) {
-      logger.info("revoke orderNo:" + consignationNo + "已撤单成功，不可重复撤单！");
-      return ErrorMsgEnum.REVOKE_FAIL;
+    if (!consignationLog.getTradeType().equals(ConsignationTradeTypeEnum.LIMIT_PRICE_BUY.getStatusCode()) && !consignationLog.getTradeType().equals(ConsignationTradeTypeEnum.LIMIT_PRICE_SELL.getStatusCode())) {
+      //市价没有撤单操作
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
-    TradePairInfo tradePairInfo = tradePairInfoService
-        .getTradePairInfo(consignationLog.getBizType());
+    TradePairInfo tradePairInfo = tradePairInfoService.getTradePairInfo(consignationLog.getBizType());
     if (tradePairInfo == null) {
-      logger.info("bizType:" + consignationLog.getBizType() + "不存在！");
-      return ErrorMsgEnum.TRADE_PAIR_NOT_FOUND;
+      throw new BusinessException(ErrorMsgEnum.TRADE_PAIR_NOT_FOUND);
     }
-    int commodityCoin = getCurrencyTypeValue(tradePairInfo,
-        consignationLog.getTradeType());
+    int commodityCoin = getCurrencyTypeValue(tradePairInfo, consignationLog.getTradeType());
     String tradePairStr = tradePairInfo.getCommodityCoinName()+"/"+tradePairInfo.getMoneyCoinName();
     ResultCallbackVO resultCallbackVO = invokeRevokeOrder(tradePairStr,consignationNo);
     if (resultCallbackVO == null) {
-      logger.info("revoke orderNo:" + consignationNo + "调用撮合引擎接口失败，撤单失败！");
-      return ErrorMsgEnum.REVOKE_FAIL;
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
     boolean callBack = resultCallbackVO.getCallBack();
     if (callBack == false) {// 撤单失败，返回失败结果，不做其他任何操作
-      int code = resultCallbackVO.getCode();
-      logger.info("revoke orderNo:" + consignationNo
-          + "撤单失败，resultCallbackVO code is :" + code);
-      return ErrorMsgEnum.REVOKE_FAIL;
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
     // result = true;106撮合引擎未收到交易记录，撤单成功；
     // 撤单成功，做以下操作：1、更新委托表数据，包括已成交量等信息；2、调用account接口更新用户资产信息等。
-    logger.info("revoke orderNo:" + consignationNo
-        + "update consignationLog start");
-    consignationLog = updateConsignationLogData(consignationLog,
-        resultCallbackVO);
+    consignationLog = updateConsignationLogData(consignationLog, resultCallbackVO);
     if (consignationLogMapper.updateConsignation(consignationLog) <= 0) {
-      logger.info("revoke orderNo:" + consignationNo
-          + "update consignationLog fail");
-      return ErrorMsgEnum.REVOKE_FAIL;
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
-    logger.info("revoke orderNo:" + consignationNo
-        + "update consignationLog end");
-    BigDecimal ufzAmount = getUfzAmount(resultCallbackVO, consignationLog);
-    logger.info("revoke orderNo:" + consignationNo + ",userid:"
-        + consignationLog.getUserId() + ",username:"
-        + consignationLog.getUsername() + ",orderNo:" + consignationNo
-        + ",currencyType:" + commodityCoin + ",ufzAmount:" + ufzAmount
-        + ",invoke assetChange interface start");
-    String unfzJson = accountClient.assetChange(consignationLog.getUserId(),
-        consignationLog.getUsername(), consignationNo,
-        AssetChangeConstant.UNFREEZE, commodityCoin, ufzAmount);
-    logger.info("revoke orderNo:" + consignationNo
-        + "invoke assetChange interface result is " + unfzJson);
+
+    String unfzJson = accountClient.assetChange(consignationLog.getUserId(), consignationLog.getUsername(), consignationNo, AssetChangeConstant.UNFREEZE, commodityCoin, getUfzAmount(consignationLog));
+
     JSONObject unfzJsonObject = JSONObject.parseObject(unfzJson);
     if (null == unfzJsonObject) {
-      logger.info("revoke orderNo:" + consignationNo
-          + "更新用户资产以及插入资产变更记录接口调用结果返回值为空，撤单失败！");
-      return ErrorMsgEnum.REVOKE_FAIL;
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
-    if (!unfzJsonObject.containsKey("success")
-        || !unfzJsonObject.getBooleanValue("success")) {
-      logger.info("revoke orderNo:" + consignationNo + "更新用户资产失败，撤单失败！");
-      return ErrorMsgEnum.REVOKE_FAIL;
+    if (!unfzJsonObject.containsKey("success") || !unfzJsonObject.getBooleanValue("success")) {
+      throw new BusinessException(ErrorMsgEnum.REVOKE_FAIL);
     }
-    logger.info("revoke orderNo:" + consignationNo + "撤单成功！");
-    return null;
   }
 
   public ConsignationLog updateConsignationLogData(
@@ -527,25 +482,19 @@ public class ConsignationService {
     return consignationLogMapper.selectOne(record);
   }
 
-  public Object revokeAllOrder(String userId) {
-    List<Map<String, Object>> list = consignationLogMapper.listConsignationOrderByUserIdForRevokeOrder(userId);
-    final Map<String, Object> res = Maps.newHashMap();
-    res.put("result", ErrorMsgEnum.REVOKE_FAIL);
-    list.parallelStream().forEach(map -> {
-      try {
-        Object revokeMap = revokeOrder((String) map.get("consignation_no"));
-        if(null==revokeMap){
-          res.put("result", null);
-        }
-      } catch (IllegalParamException e) {
-        e.printStackTrace();
-      }
-    });
-    return res.get("result");
+  public ConsignationLog findBySeq(long userId, String seq) {
+    ConsignationLog record = new ConsignationLog();
+    record.setConsignationNo(seq);
+    record.setUserId(userId);
+    return consignationLogMapper.selectOne(record);
   }
 
-
-
+  public void revokeAllOrder(long userId) {
+    List<Map<String, Object>> list = consignationLogMapper.listConsignationOrderByUserIdForRevokeOrder(userId);
+    list.parallelStream().forEach(map -> {
+      revokeOrder(userId, (String) map.get("consignation_no"));
+    });
+  }
 
   protected AjaxResponse writeObj(Object object) {
     if (null != object && object instanceof ErrorMsgEnum) {

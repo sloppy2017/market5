@@ -90,5 +90,5 @@ public interface ConsignationLogMapper extends BaseMapper<ConsignationLog> {
       + "concat('',made_count) as made_count,concat('',made_price) as made_price,consignation_status,data_status,create_time,made_time,update_time,remark,concat('',made_average_price) as  made_average_price"
       + " FROM consignation_log WHERE data_status=0 and consignation_status in(1,2,3) and trade_type in (1,2) <when test='userId!=null'> AND user_id=#{userId} </when>"
       + " order by create_time desc </script>")
-  List<Map<String, Object>> listConsignationOrderByUserIdForRevokeOrder(@Param(value = "userId") String userId);
+  List<Map<String, Object>> listConsignationOrderByUserIdForRevokeOrder(@Param(value = "userId") Long userId);
 }
